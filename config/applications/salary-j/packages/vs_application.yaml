@@ -1,0 +1,52 @@
+vs_application:
+    resources:
+        site:
+            classes:
+                model: App\Entity\Application\Site
+        settings:
+            classes:
+                model: App\Entity\Application\Settings
+        taxonomy:
+            classes:
+                model: App\Entity\Application\Taxonomy
+        taxon:
+            classes:
+                model: App\Entity\Application\Taxon
+            translation:
+                classes:
+                    model: App\Entity\Application\TaxonTranslation
+        translation:
+            classes:
+                model: App\Entity\Application\Translation
+        logentry:
+            classes:
+                model: App\Entity\Application\LogEntry
+        locale:
+            classes:
+                model: App\Entity\Application\Locale
+
+    menu:
+        mainMenu:
+            home:
+                name: Home
+                uri: "http://%vankosoft_host%"
+
+        profileMenu:
+            profile:
+                name: "My Profile"
+                route: vs_users_profile_show
+                attributes:
+                    iconClass: "fas fa-user mr-2"
+            logout:
+                name: "Log Out"
+                route: app_logout
+                attributes:
+                    iconClass: "fas fa-power-off mr-2"
+            documentation:
+                name: "Documentation"
+                uri: "javascript:;"
+                attributes:
+                    iconClass: "fas fa-cog mr-2"
+                    
+
+     

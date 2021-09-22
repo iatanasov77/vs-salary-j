@@ -1,6 +1,6 @@
 <?php
 
-use App\AdminPanelKernel as Kernel;
+use App\SalaryJKernel as Kernel;
 
 require_once dirname( __DIR__ ) . '/../vendor/autoload_runtime.php';
 
