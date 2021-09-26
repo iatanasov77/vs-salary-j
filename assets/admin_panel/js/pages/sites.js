@@ -1,13 +1,16 @@
-require ( '../../css/custom.css' );
-require ( 'jquery-duplicate-fields/jquery.duplicateFields.js' );
+//require ( '../../css/custom.css' );
+//require ( 'jquery-duplicate-fields/jquery.duplicateFields.js' );
 
 $( function ()
 {
+
+/*
     $( '.attributesContainer' ).duplicateFields({
         btnRemoveSelector: ".btnRemoveField",
         btnAddSelector:    ".btnAddField"
     });
-    
+*/
+
     $( '.btnEdit' ).on( 'click', function()
     {
 		$.ajax({
@@ -28,11 +31,13 @@ $( function ()
     
     $( '.btnSettings' ).on( 'click', function()
     {
+    	var applicationTitle	= $( this ).attr( 'data-application_title' );
     	$.ajax({
 			type: "GET",
 		 	url: $( this ).attr( 'data-url' ),
 			success: function( response )
 			{
+				$( '#modalApplicationSettingsTitle' ).text( applicationTitle );
 				$( '#siteSettings > div.card-body' ).html( response );
 				$( '#site-settings-modal' ).modal( 'toggle' );
 				$( '#btnEditInstallManual').show();
