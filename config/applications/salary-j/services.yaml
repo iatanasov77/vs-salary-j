@@ -5,7 +5,6 @@ parameters:
         en: English
         bg: Български
     
-    multi_site: '%env(bool:MULTI_SITE)%'
     vankosoft_host: '%env(HOST)%'
     
     siteTitle: 'Salary J'
