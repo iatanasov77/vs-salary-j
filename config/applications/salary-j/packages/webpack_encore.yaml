@@ -1,0 +1,10 @@
+framework:
+    assets:
+      json_manifest_path: '%kernel.project_dir%/public/salary-j/build/manifest.json'
+
+webpack_encore:
+    output_path: '%kernel.project_dir%/public/salary-j/build'
+    builds:
+        admin: '%kernel.project_dir%/public/admin_panel/build'
+        salary-j: '%kernel.project_dir%/public/salary-j/build'
+        

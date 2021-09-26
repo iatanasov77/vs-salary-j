@@ -1,0 +1,49 @@
+parameters:
+    lang: 'en'
+    locale: 'en_US'
+    languages:
+        en: English
+        bg: Български
+    
+    multi_site: '%env(bool:MULTI_SITE)%'
+    vankosoft_host: '%env(HOST)%'
+    
+    siteTitle: 'Salary J'
+    admin_template: 'admin'
+    website_template: 'website'
+    
+    vs_app.settings.site_id: 2
+    
+    vs_users.login_route: 'app_login'
+    vs_users.login_by: 'username'
+    vs_users.api_token.lifetime: 3600
+    vs_user.profile_pictures_dir: '%kernel.project_dir%/var/uploads/profile_pictures'
+    
+    vs_cms.page_categories.taxonomy_id: 3
+    
+    yaml.parser.class: Symfony\Component\Yaml\Parser
+    menu.config_file: "%kernel.project_dir%/../config/sites/salary-j/packages/vs_application.yaml"
+
+services:
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+    App\:
+        resource: '../../../src/*'
+        exclude: '../../../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+        autowire: true
+        
+    App\Controller\:
+        resource: '../../../src/Controller'
+        tags: ['controller.service_arguments']
+        autowire: true
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
+    gedmo.listener.softdeleteable:
+        class: Gedmo\SoftDeleteable\SoftDeleteableListener
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+        calls:
+            - [ setAnnotationReader, [ '@annotation_reader' ] ]
