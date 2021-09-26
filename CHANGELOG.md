@@ -1,3 +1,10 @@
+1.1.0	|	Release date: **26.09.2021**
+============================================
+* Bug-Fixes, Updates and Additions:
+  - Many Fixes and Additions including fixing WebpackEncore dependencies.
+  - Update to VankosoftApplication 1.0
+
+
 1.0.0	|	Release date: **20.09.2021**
 ============================================
 * First Release
