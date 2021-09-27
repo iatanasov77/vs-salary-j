@@ -7,6 +7,8 @@
 /config/secrets/prod/prod.decrypt.private.php
 /public/admin_panel/build/
 /public/admin_panel/bundles/
+/public/salary-j/build/
+/public/salary-j/bundles/
 /var/
 /vendor/
 /node_modules/
