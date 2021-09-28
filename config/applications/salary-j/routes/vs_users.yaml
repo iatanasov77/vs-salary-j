@@ -1,0 +1,16 @@
+#vs_user_authentication:
+#    resource: "@VSUsersBundle/Resources/config/routing/authentication.yml"
+#    prefix: /
+#    
+#vs_application_application:
+#    resource: "@VSApplicationBundle/Resources/config/routing/application.yaml"
+#    prefix: /
+
+app_login:
+    path: /login
+    controller: App\Controller\SalaryJ\AuthController::login
+
+app_logout:
+    path: /logout
+    controller: App\Controller\SalaryJ\AuthController::logout
+

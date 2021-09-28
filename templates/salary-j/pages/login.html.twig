@@ -1,0 +1,56 @@
+{% extends "salary-j/base-login.html.twig" %}
+
+{% block stylesheets %}
+	{{ encore_entry_link_tags( 'css/login' ) }}
+{% endblock %}
+
+{% block content %}
+	<div id="login" class="login-container">
+		<p class="login-title">
+			<em>{{ siteTitle }}</em><br />
+		</p>
+		
+		<form method="post">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token( 'authenticate' ) }}" />
+
+			<table align="center" border="0" cellspacing="3" cellpadding="0">
+				<tr>
+					<td align="right">{{ 'salary-j.form.login.username' | trans( {},'SalaryJ' ) }}:</td>
+					<td valign="top">
+						<input type="text" size="15" maxlength="30"  name="_username" value="{{ last_username }}">
+					</td>
+					<td class="login-error">
+						{% if error %}
+					        {{ error.messageKey|trans(error.messageData, 'security') }}
+					    {% endif %}
+					</td>
+				</tr>
+				<tr>
+					<td align="right">{{ 'salary-j.form.login.password' | trans( {},'SalaryJ' ) }}:</td>
+					<td valign="top">
+						<input type="password" size="15" maxlength="30" name="_password">
+					</td>
+					<td class="login-error">
+						{% if error %}
+					        {{ error.messageKey|trans(error.messageData, 'security') }}
+					    {% endif %}
+					</td>
+				</tr>
+				<tr>
+					<td colspan='3' align='right'>
+						<input type="submit" value="{{ 'salary-j.form.login.button_login' | trans( {},'SalaryJ' ) }}" id="Button" class="niceButton" />&nbsp;
+						<!-- <input type="submit" value="{$strLogin}"> -->
+					</td>
+					<td></td>
+				</tr>
+			</table>
+		</form>
+		<br /> 
+		
+		{% if error %}
+            <div class="login-error">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+		<br />
+		
+	</div>
+{% endblock %}

@@ -1,24 +1,20 @@
 parameters:
-    lang: 'en'
-    locale: 'en_US'
+    lang: 'bg'
+    locale: 'bg_BG'
     languages:
         en: English
         bg: Български
     
     vankosoft_host: '%env(HOST)%'
     
-    siteTitle: 'Salary J'
-    admin_template: 'admin'
-    website_template: 'website'
-    
-    vs_app.settings.site_id: 2
+    siteTitle: 'SalaryJ'
+    vs_application.menu.config_file: "%kernel.project_dir%/config/applications/salary-j/packages/vs_application.yaml"
     
     vs_users.login_route: 'app_login'
     vs_users.login_by: 'username'
+    vs_users.default_redirect: 'app_operators'
     vs_users.api_token.lifetime: 3600
     vs_user.profile_pictures_dir: '%kernel.project_dir%/var/uploads/profile_pictures'
-    
-    vs_cms.page_categories.taxonomy_id: 3
     
     yaml.parser.class: Symfony\Component\Yaml\Parser
     menu.config_file: "%kernel.project_dir%/../config/sites/salary-j/packages/vs_application.yaml"

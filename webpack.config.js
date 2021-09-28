@@ -82,6 +82,7 @@ Encore
      })
     
     // Add Entries
+    .addStyleEntry( 'css/login', './assets/salary-j/css/login.css' )
     .addStyleEntry( 'css/app', './assets/salary-j/css/main.scss' )
     .addEntry( 'js/app', './assets/salary-j/js/app.js' )
 ;
