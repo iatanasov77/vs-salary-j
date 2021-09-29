@@ -6,7 +6,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Operators
  *
- * @ORM\Table(name="operators", indexes={@ORM\Index(name="groups_id", columns={"groups_id"})})
+ * @ORM\Table(name="JUN_Operators", indexes={@ORM\Index(name="groups_id", columns={"groups_id"})})
  * @ORM\Entity(repositoryClass="App\Repository\OperatorsRepository")
  */
 class Operators

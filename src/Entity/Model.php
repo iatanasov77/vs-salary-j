@@ -7,7 +7,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 /**
  * Models
  *
- * @ORM\Table(name="JUN_Model")
+ * @ORM\Table(name="JUN_Models")
  * @ORM\Entity
  */
 class Model
