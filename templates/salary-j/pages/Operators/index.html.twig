@@ -1,5 +1,116 @@
 {% extends "salary-j/base.html.twig" %}
 
 {% block content %}
-    <h1>Wellcome to Vankosoft Application !</h1>
+    <h1 align="center">Оператори</h1>
+    
+    <form name="formModel" action="{$smarty.server.PHP_SELF}" method="post">
+    	<table cellspacing="0" cellpadding="2">
+    		<tr>
+    			<td colspan="3"><h3><b>Добавяне на нов Оператор</h3></b></td>
+    		</tr>
+    		<tr>
+    			<td>Група</td>
+    			<td>Име</td>
+    			<td>&nbsp;</td>
+    		</tr>
+    		<tr>
+    			<td>
+    				<select name="groups">
+    					<option value="0">Обща</option>
+    				{foreach from=$listGroups item=gr}
+    					<option value="{$gr->id}">{'cp1251'|iconv:'utf-8':$gr->name}</option>
+    				{/foreach}
+    				</select>
+    			</td>
+    			<td><input type="text" size="60" name="name" /></td>
+    			<td><input type="submit" name="sub_operator" value="Запази" /></td>
+    		</tr>
+    	</table>
+    </form>
+    
+    <br /><br /><br />
+    
+    <table cellspacing="0" width="100%">
+    	<tr>
+    		<td class="DialogTitle">Оператори</td>
+    	</tr>
+    	<tr>
+    		<td class="DialogBorder">
+    
+    			<table cellspacing="1" class="DialogBox">
+    				<tr>
+    					<td class="DialogBox" valign="top">
+    						Филтър по Група:&nbsp;&nbsp;&nbsp;
+    						<select name="filter_groups" id="filter_groups" onchange="document.location='{$smarty.server.PHP_SELF}?group='+this.value;">
+    							<option value="0"  {if $filterGroup==0}selected="selected"{/if}>Обща</option>
+    						{foreach from=$listGroups item=gr}
+    							<option value="{$gr->id}" {if $filterGroup==$gr->id}selected="selected"{/if}>{'cp1251'|iconv:'utf-8':$gr->name}</option>
+    						{/foreach}
+    						</select>&nbsp;&nbsp;&nbsp;
+    						<input type="button" value="Заработка Общо" onclick="document.location = 'operators_work.php?group='+document.getElementById('filter_groups').value;" />
+    						<br /><br />
+    
+    						<script src="{$wwwDir}js/change_all_checkboxes.js" language="JavaScript" type="text/javascript"></script>
+    						<div style="line-height: 170%;">
+    							<a href="javascript: checkAll(true, document.operatorsform, 'op_ids');">Всички</a> / 
+    							<a href="javascript: checkAll(false, document.operatorsform, 'op_ids');">Нищо</a>
+    						</div>
+    
+    						<form action="{$smarty.server.PHP_SELF}" method="post" name="operatorsform">
+    
+    							<table cellpadding="2" cellspacing="1" width="100%">
+    								<tr class="TableHead">
+    									<td width="3%">&nbsp;</td>
+    									<td width="7%">Група</td>
+    									<td >Име</td>
+    									<td width="40%">&nbsp;</td>
+    								</tr>
+    
+    							{foreach from=$listOperators item=op}
+    								<tr {cycle values=",class='TableSubHead'"}>
+    									<td>
+    										<input type="checkbox" name="op_ids[{$op->id()}]" id="chk_{$op->id()}" />
+    									</td>
+    									<td>
+    										<select name="posted_data[{$op->id()}][group]">
+    											<option value="0" {if $op->groupId()==0}selected="selected"{/if}>Обща</option>
+    										{foreach from=$listGroups item=gr}
+    											<option value="{$gr->id}" {if $gr->id==$op->groupId()}selected="selected"{/if}>{'cp1251'|iconv:'utf-8':$gr->name}</option>
+    										{/foreach}
+    										</select>
+    									</td>
+    									<td>
+    										<font class="ItemsList">
+    											<input type="text" size="60" name="posted_data[{$op->id()}][name]" value="{'cp1251'|iconv:'utf-8':$op->name()}" />
+    										</font>
+    									</td>
+    									<td>
+    										<input type="button" value="Преглед Операции" onclick="document.location='operators_work.php?opid={$op->id()}&act=preview'" />
+    										<input type="button" value="Добавяне Операции" onclick="document.location='models.php?opid={$op->id()}&act=add'" />
+    									</td>
+    								</tr>
+    							{/foreach}
+    
+    								<tr>
+    									<td colspan="6" class="SubmitBox">
+    										<input type="submit" name="sub_operators" value="Промяна на Групи"  />
+    										<input type="submit" name="change_names" value="Смяна на Имена" />
+    										<input type="submit" name="del_operators" value="Изтриване" onClick="return confirm('Наистина ли искате да изтриете маркираните Оператори');" />
+    										<br /><br />
+    									</td>
+    								</tr>
+    
+    							</table>
+    							<input type="hidden" name="mode" value="apply" />
+    						</form>
+    						<br />&nbsp;
+    					</td>
+    				</tr>
+    				<tr>
+    					<td>{$pager}</td>
+    				</tr>
+    			</table>
+    		</td>
+    	</tr>
+    </table>
 {% endblock %}
