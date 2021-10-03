@@ -1,3 +1,16 @@
+1.2.0	|	Release date: **03.10.2021**
+============================================
+* New Features:
+  - Update to VankosoftApplication 1.2.0
+  - Add Template for Operators.
+  - Create First SalaryJ Migration.
+  - Application Layout is Done!
+  - Create WebpackEncore EntryPoint for the Application.
+* Bug-Fixes:
+  - Fix AdminPanel UserForm: // BECAUSE: An invalid form control with name='' is not focusable.
+  - Remove MULTI_SITE env variable.
+
+
 1.1.0	|	Release date: **26.09.2021**
 ============================================
 * Bug-Fixes, Updates and Additions:
