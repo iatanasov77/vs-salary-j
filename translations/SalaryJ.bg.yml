@@ -1,0 +1,18 @@
+salary-j:
+    app:
+        logedin_as: Вие влезнахте като
+        programming_and_design: Програмиране и Дизайн
+        contact_info: Иван Атанасов тел. 0876 764 428
+    menu:
+        main_menu_title: Основно Меню
+        operators_groups: Групи Оператори
+        operators: Оператори
+        models: Модели
+        users: Потребители
+        settings: Настройки
+        logout: Изход
+    form:
+        login:
+            username: Потребител
+            password: Парола
+            button_login: Вход

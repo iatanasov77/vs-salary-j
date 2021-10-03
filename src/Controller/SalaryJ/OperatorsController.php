@@ -4,10 +4,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class DefaultController extends AbstractController
+class OperatorsController extends AbstractController
 {
     public function index( Request $request ) : Response
     {
-        return $this->render( 'salary-j/pages/home.html.twig' );
+        return $this->render( 'salary-j/pages/Operators/index.html.twig' );
     }
 }

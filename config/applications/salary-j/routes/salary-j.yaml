@@ -1,0 +1,3 @@
+app_operators:
+    path: /operators
+    controller: App\Controller\SalaryJ\OperatorsController::index

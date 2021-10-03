@@ -58,4 +58,38 @@ adminPanelConfig.name = 'adminPanel';
 
 //=================================================================================================
 
-module.exports = [adminPanelConfig];
+Encore.reset();
+Encore
+    .setOutputPath( 'public/salary-j/build/' )
+    .setPublicPath( '/build' )
+   	
+    .autoProvidejQuery()
+    .enableSassLoader(function(sassOptions) {}, {
+        resolveUrlLoader: true
+    })
+    .configureFilenames({
+        js: '[name].js?[contenthash]',
+        css: '[name].css?[contenthash]',
+        assets: '[name].[ext]?[hash:8]'
+    })
+    .enableSingleRuntimeChunk()
+    .enableVersioning(Encore.isProduction())
+    .enableSourceMaps( !Encore.isProduction() )
+    
+    .copyFiles({
+         from: './assets/salary-j/images',
+         to: 'images/[path][name].[ext]',
+     })
+    
+    // Add Entries
+    .addStyleEntry( 'css/login', './assets/salary-j/css/login.css' )
+    .addStyleEntry( 'css/app', './assets/salary-j/css/main.scss' )
+    .addEntry( 'js/app', './assets/salary-j/js/app.js' )
+;
+
+const applicationConfig = Encore.getWebpackConfig();
+applicationConfig.name = 'salary-j';
+
+//=================================================================================================
+
+module.exports = [adminPanelConfig, applicationConfig];

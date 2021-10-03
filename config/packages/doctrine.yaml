@@ -7,7 +7,7 @@ doctrine:
         #server_version: '13'
         
         # Ignore Webonaute\DoctrineFixturesGeneratorBundle tables to be added to migrations
-        schema_filter: '/^(?!wbnt_dfgb_|taxon_translation|sylius_taxon|sylius_taxon_translation|sylius_locale|ext_log_entries|package|plan|package_plan|payment_plan_subscription).*$/'
+        schema_filter: '/^(?!wbnt_dfgb_|taxon_translation|sylius_taxon|sylius_taxon_translation|sylius_locale|ext_log_entries|package|plan|package_plan|payment_plan_subscription|multi_page_toc|toc_page).*$/'
         
         logging: true
         driver: 'pdo_mysql'

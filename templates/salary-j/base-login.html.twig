@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    	<meta charset="UTF-8">
+        <title>{% block title %}{{ siteTitle }}{% endblock %}</title>
+    	
+    	{% block stylesheets %}{% endblock %}
+    </head>
+    <body>
+        <br /><br /><br />
+        <div align="center">
+        	{% block content %}{% endblock %}
+       	</div>
+	</body>
+</html>

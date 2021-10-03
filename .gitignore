@@ -5,8 +5,6 @@
 /.env.local.php
 /.env.*.local
 /config/secrets/prod/prod.decrypt.private.php
-/public/admin_panel/build/
-/public/admin_panel/bundles/
 /var/
 /vendor/
 /node_modules/
@@ -40,6 +38,11 @@
 ###< lexik/jwt-authentication-bundle ###
 
 ###> symfony/webpack-encore-bundle ###
+/assets/controllers/
+/assets/styles/
+/assets/app.js
+/assets/bootstrap.js
+/assests/controllers.json
 /node_modules/
 /public/build/
 npm-debug.log
@@ -50,6 +53,13 @@ yarn-error.log
 /public/media/cache/
 ###< liip/imagine-bundle ###
 
+###> VankosoftApplication Files ###
+/public/admin_panel/build/
+/public/admin_panel/bundles/
+###< VankosoftApplication Files ###
+
 ###> SalaryJ Files ###
 /public/bundles/
+/public/salary-j/build/
+/public/salary-j/bundles/
 ###< SalaryJ Files ###

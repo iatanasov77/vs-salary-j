@@ -5,7 +5,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Operations
  *
- * @ORM\Table(name="operations", indexes={@ORM\Index(name="model_id", columns={"model_id"})})
+ * @ORM\Table(name="JUN_Operations", indexes={@ORM\Index(name="model_id", columns={"model_id"})})
  * @ORM\Entity
  */
 class Operations
@@ -20,7 +20,7 @@ class Operations
     private $id;
     
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Models", inversedBy="operations")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Model", inversedBy="operations")
      * @ORM\JoinColumn(name="model_id", referencedColumnName="id", onDelete="CASCADE", nullable=false)
      */
     private $model;

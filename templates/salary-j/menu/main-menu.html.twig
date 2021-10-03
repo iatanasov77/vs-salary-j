@@ -1,0 +1,13 @@
+{% extends 'knp_menu.html.twig' %}
+
+{% block root %}
+	{% for parentItem in item.children %}
+		{% if parentItem.extra( 'divider' ) %}
+			<hr />
+		{% else %}
+			<a href="{{ parentItem.uri }}" class="VertMenuItems">{{ parentItem.name | trans( {},'SalaryJ' ) }}</a>
+			<br />
+		{% endif %}
+	{% endfor %}
+	<br />
+{% endblock %}

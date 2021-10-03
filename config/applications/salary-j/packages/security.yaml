@@ -1,7 +1,7 @@
 security:
-    access_denied_url: /admin/login
+    enable_authenticator_manager: true
     
-    encoders:
+    password_hashers:
         App\Entity\UserManagement\User:
             algorithm: auto
             
@@ -11,49 +11,36 @@ security:
             entity:
                 class: App\Entity\UserManagement\User
                 property: username
-        admin_provider:
-            entity:
-                class: App\Entity\UserManagement\User
-                property: username
+
     firewalls:
         main:
-            pattern:      ^/(?!admin)
-            provider:       default_provider
-            anonymous: true
+            lazy: true
+            #pattern: ^/(?!admin)
+            provider: default_provider
             form_login:
-                login_path: /login
-                check_path: /security/login_check
+                login_path: app_login
+                check_path: app_login
                 username_parameter: _username
                 password_parameter: _password
                 always_use_default_target_path: false
                 default_target_path:  /
             logout:
-                path:   app_logout
-                target: /
+                path: app_logout
+                target: app_login
                 invalidate_session: true
                 #success_handler: authentication_handler
                 success_handler: vs_users.security.logout_success_handler
-    
-        admin:
-            pattern:      ^/admin
-            provider:     admin_provider
-            anonymous:    ~
-            form_login:
-                login_path: /admin/login
-                check_path: /admin/security/login_check
-                username_parameter: _username
-                password_parameter: _password
-                always_use_default_target_path: false
-                default_target_path:  /admin/pages
-       
+                
+            guard:
+                authenticators:
+                    - vs_users.security.login_form_authenticator
+            entry_point: vs_users.security.login_form_authenticator
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: ^/admin/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin, roles: [IS_AUTHENTICATED_FULLY, ROLE_ADMIN] }
-        
-        - { path: ^/resetting/send-email, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/resetting/request, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: /_wdt/.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: /_profiler/.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/, roles: [IS_AUTHENTICATED_FULLY, ROLE_ADMIN] }
       

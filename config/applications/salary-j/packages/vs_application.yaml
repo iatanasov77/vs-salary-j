@@ -27,9 +27,28 @@ vs_application:
 
     menu:
         mainMenu:
-            home:
-                name: Home
-                uri: "http://%vankosoft_host%"
+            operators_groups:
+                name: salary-j.menu.operators_groups
+                route: app_home
+            operators:
+                name: salary-j.menu.operators
+                route: app_operators
+            models:
+                name: salary-j.menu.models
+                route: app_home
+            salaryjDivider:
+                isDivider: true
+            users:
+                name: salary-j.menu.users
+                route: app_home
+            settings:
+                name: salary-j.menu.settings
+                route: app_home
+            appDivider:
+                isDivider: true
+            logout:
+                name: salary-j.menu.logout
+                route: app_logout
 
         profileMenu:
             profile:

@@ -5,7 +5,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * OperatorsGroups
  *
- * @ORM\Table(name="operators_groups")
+ * @ORM\Table(name="JUN_OperatorsGroups")
  * @ORM\Entity
  */
 class OperatorsGroups
