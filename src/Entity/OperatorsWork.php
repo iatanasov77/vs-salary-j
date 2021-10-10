@@ -2,14 +2,19 @@
 
 use Doctrine\ORM\Mapping as ORM;
 
+use VS\ApplicationBundle\Model\Interfaces\ApplicationRelationInterface;
+use VS\ApplicationBundle\Model\Traits\ApplicationRelationTrait;
+
 /**
  * OperatorsWork
  *
  * @ORM\Table(name="JUN_OperatorsWork")
  * @ORM\Entity
  */
-class OperatorsWork
+class OperatorsWork implements ApplicationRelationInterface
 {
+    use ApplicationRelationTrait;
+    
     /**
      * @var int
      *
@@ -18,6 +23,13 @@ class OperatorsWork
      * @ORM\Column(type="integer")
      */
     private $id;
+    
+    /**
+     * @var \VS\ApplicationBundle\Model\Interfaces\ApplicationInterface
+     *
+     * @ORM\ManyToOne(targetEntity="App\Entity\Application\Application")
+     */
+    protected $application;
 
     /**
      * @var int

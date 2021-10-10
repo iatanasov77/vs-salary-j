@@ -2,14 +2,19 @@
 
 use Doctrine\ORM\Mapping as ORM;
 
+use VS\ApplicationBundle\Model\Interfaces\ApplicationRelationInterface;
+use VS\ApplicationBundle\Model\Traits\ApplicationRelationTrait;
+
 /**
  * Operations
  *
  * @ORM\Table(name="JUN_Operations", indexes={@ORM\Index(name="model_id", columns={"model_id"})})
  * @ORM\Entity
  */
-class Operations
+class Operations implements ApplicationRelationInterface
 {
+    use ApplicationRelationTrait;
+    
     /**
      * @var int
      *
@@ -18,6 +23,13 @@ class Operations
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
+    
+    /**
+     * @var \VS\ApplicationBundle\Model\Interfaces\ApplicationInterface
+     *
+     * @ORM\ManyToOne(targetEntity="App\Entity\Application\Application")
+     */
+    protected $application;
     
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Model", inversedBy="operations")

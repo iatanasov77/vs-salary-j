@@ -3,14 +3,19 @@
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
+use VS\ApplicationBundle\Model\Interfaces\ApplicationRelationInterface;
+use VS\ApplicationBundle\Model\Traits\ApplicationRelationTrait;
+
 /**
  * Operators
  *
  * @ORM\Table(name="JUN_Operators", indexes={@ORM\Index(name="groups_id", columns={"groups_id"})})
  * @ORM\Entity(repositoryClass="App\Repository\OperatorsRepository")
  */
-class Operators
+class Operators implements ApplicationRelationInterface
 {
+    use ApplicationRelationTrait;
+    
     /**
      * @var int
      *
@@ -20,6 +25,13 @@ class Operators
      */
     private $id;
 
+    /**
+     * @var \VS\ApplicationBundle\Model\Interfaces\ApplicationInterface
+     *
+     * @ORM\ManyToOne(targetEntity="App\Entity\Application\Application")
+     */
+    protected $application;
+    
     /**
      * @var int
      *

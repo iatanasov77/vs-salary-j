@@ -4,15 +4,19 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 
+use VS\ApplicationBundle\Model\Interfaces\ApplicationRelationInterface;
+use VS\ApplicationBundle\Model\Traits\ApplicationRelationTrait;
+
 /**
  * Models
  *
  * @ORM\Table(name="JUN_Models")
  * @ORM\Entity
  */
-class Model
+class Model implements ApplicationRelationInterface
 {
     use TimestampableEntity;
+    use ApplicationRelationTrait;
     
     /**
      * @var int
@@ -22,6 +26,13 @@ class Model
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
+    
+    /**
+     * @var \VS\ApplicationBundle\Model\Interfaces\ApplicationInterface
+     * 
+     * @ORM\ManyToOne(targetEntity="App\Entity\Application\Application")
+     */
+    protected $application;
 
     /**
      * @var string
