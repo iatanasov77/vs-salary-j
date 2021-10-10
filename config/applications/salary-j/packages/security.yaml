@@ -28,19 +28,24 @@ security:
                 path: app_logout
                 target: app_login
                 invalidate_session: true
-                #success_handler: authentication_handler
-                success_handler: vs_users.security.logout_success_handler
                 
-            guard:
-                authenticators:
-                    - vs_users.security.login_form_authenticator
+            custom_authenticators:
+                - vs_users.security.login_form_authenticator
+                - vs_users.security.api_key_authenticator
             entry_point: vs_users.security.login_form_authenticator
 
+    role_hierarchy:
+        ROLE_ADMIN:       [ROLE_AUTHOR, ROLE_USER, ROLE_SPECIFIC]
+        ROLE_SUPER_ADMIN: ROLE_ADMIN
+        ROLE_SPECIFIC: [ROLE_SPECIFIC_1, ROLE_SPECIFIC_2]
+        
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: /_wdt/.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: /_profiler/.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/, roles: [IS_AUTHENTICATED_FULLY, ROLE_ADMIN] }
+        - { path: /_wdt/.*, roles: PUBLIC_ACCESS }
+        - { path: /_profiler/.*, roles: PUBLIC_ACCESS }
+
+        - { path: ^/login, roles: PUBLIC_ACCESS }
+        
+        - { path: ^/, roles: ROLE_ADMIN }
       

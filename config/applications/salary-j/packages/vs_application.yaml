@@ -5,9 +5,9 @@ vs_application_instalator:
                 model: App\Entity\Application\InstalationInfo
 vs_application:
     resources:
-        site:
+        application:
             classes:
-                model: App\Entity\Application\Site
+                model: App\Entity\Application\Application
         settings:
             classes:
                 model: App\Entity\Application\Settings
