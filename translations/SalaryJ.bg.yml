@@ -12,7 +12,21 @@ salary-j:
         settings: Настройки
         logout: Изход
     form:
+        locale: 'Език'
+        name: 'Име'
+        description: 'Описание'
+        parent: 'Родител'
+        apply: 'Въведи'
+        save: 'Запази'
+        cancel: 'Отказ'
+        
         login:
             username: Потребител
             password: Парола
             button_login: Вход
+
+        operators_group:
+            parent_operators_group: 'Родителска Група'
+            parent_operators_group_placeholder: '-- Родителска Група --'
+            
+            

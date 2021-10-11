@@ -1,3 +1,8 @@
+imports:
+    - { resource: services/salary_j.yaml }
+    - { resource: services/doctrine_extensions.yaml }
+    - { resource: services/forms.yaml }
+
 parameters:
     lang: 'bg'
     locale: 'bg_BG'
@@ -7,7 +12,7 @@ parameters:
     
     vankosoft_host: '%env(HOST)%'
     
-    siteTitle: 'SalaryJ'
+    applicationTitle: 'SalaryJ'
     vs_application.menu.config_file: "%kernel.project_dir%/config/applications/salary-j/packages/vs_application.yaml"
     
     vs_users.login_route: 'app_login'
@@ -17,7 +22,6 @@ parameters:
     vs_user.profile_pictures_dir: '%kernel.project_dir%/var/uploads/profile_pictures'
     
     yaml.parser.class: Symfony\Component\Yaml\Parser
-    menu.config_file: "%kernel.project_dir%/../config/sites/salary-j/packages/vs_application.yaml"
 
 services:
     _defaults:
@@ -27,7 +31,7 @@ services:
     App\:
         resource: '../../../src/*'
         exclude: '../../../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
-        autowire: true
+        autowire: false
         
     App\Controller\:
         resource: '../../../src/Controller'
@@ -36,9 +40,4 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
-    gedmo.listener.softdeleteable:
-        class: Gedmo\SoftDeleteable\SoftDeleteableListener
-        tags:
-            - { name: doctrine.event_subscriber, connection: default }
-        calls:
-            - [ setAnnotationReader, [ '@annotation_reader' ] ]
+    

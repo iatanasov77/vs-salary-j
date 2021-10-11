@@ -1,9 +1,9 @@
 <?php namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\Collection;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 use Sylius\Component\Resource\Model\ResourceInterface;
 
 use VS\ApplicationBundle\Model\Interfaces\ApplicationRelationInterface;
@@ -12,12 +12,12 @@ use VS\ApplicationBundle\Model\Interfaces\UserAwareInterface;
 use VS\ApplicationBundle\Model\Traits\UserAwareEntity;
 
 /**
- * Models
+ * Operators
  *
- * @ORM\Table(name="JUN_Models")
+ * @ORM\Table(name="JUN_Operators", indexes={@ORM\Index(name="groups_id", columns={"groups_id"})})
  * @ORM\Entity
  */
-class Model implements ResourceInterface, ApplicationRelationInterface, UserAwareInterface
+class Operator implements ResourceInterface, ApplicationRelationInterface, UserAwareInterface
 {
     use ApplicationRelationEntity;
     use UserAwareEntity;
@@ -32,39 +32,44 @@ class Model implements ResourceInterface, ApplicationRelationInterface, UserAwar
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
-
+    
     /**
-     * @var string
+     * @var int
      *
-     * @ORM\Column(name="number", type="string", length=8, nullable=false)
+     * @ORM\Column(name="groups_id", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="OperatorsGroup")
+     *
+     * @Assert\NotBlank
      */
-    private $number;
+    private $groupsId;
 
     /**
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=64, nullable=false)
+     * @Assert\NotBlank
      */
     private $name;
     
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Operation", mappedBy="model")
-     */
-    private $operations;
-    
+    public function __construct()
+    {
+        //$this->setCreatedAt(new \DateTime());
+        $this->setUpdatedAt(new \DateTime());
+    }
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getNumber(): ?string
+    public function getGroupsId(): ?int
     {
-        return $this->number;
+        return $this->groupsId;
     }
 
-    public function setNumber(string $number): self
+    public function setGroupsId(int $groupsId): self
     {
-        $this->number = $number;
+        $this->groupsId = $groupsId;
 
         return $this;
     }
@@ -79,13 +84,5 @@ class Model implements ResourceInterface, ApplicationRelationInterface, UserAwar
         $this->name = $name;
 
         return $this;
-    }
-    
-    /**
-     * @return Collection|Operations[]
-     */
-    public function getOperations(): Collection
-    {
-        return $this->operations;
     }
 }

@@ -1,9 +1,14 @@
 <?php namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
+use Sylius\Component\Resource\Model\ResourceInterface;
 
 use VS\ApplicationBundle\Model\Interfaces\ApplicationRelationInterface;
-use VS\ApplicationBundle\Model\Traits\ApplicationRelationTrait;
+use VS\ApplicationBundle\Model\Traits\ApplicationRelationEntity;
+use VS\ApplicationBundle\Model\Interfaces\UserAwareInterface;
+use VS\ApplicationBundle\Model\Traits\UserAwareEntity;
 
 /**
  * Operations
@@ -11,9 +16,12 @@ use VS\ApplicationBundle\Model\Traits\ApplicationRelationTrait;
  * @ORM\Table(name="JUN_Operations", indexes={@ORM\Index(name="model_id", columns={"model_id"})})
  * @ORM\Entity
  */
-class Operations implements ApplicationRelationInterface
+class Operation implements ResourceInterface, ApplicationRelationInterface, UserAwareInterface
 {
-    use ApplicationRelationTrait;
+    use ApplicationRelationEntity;
+    use UserAwareEntity;
+    use TimestampableEntity;
+    use SoftDeleteableEntity;
     
     /**
      * @var int
@@ -23,13 +31,6 @@ class Operations implements ApplicationRelationInterface
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
-    
-    /**
-     * @var \VS\ApplicationBundle\Model\Interfaces\ApplicationInterface
-     *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Application\Application")
-     */
-    protected $application;
     
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Model", inversedBy="operations")
@@ -57,41 +58,13 @@ class Operations implements ApplicationRelationInterface
      * @ORM\Column(name="minutes", type="float", precision=10, scale=0, nullable=false)
      */
     private $minutes;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="added_by", type="integer", nullable=false)
-     */
-    private $addedBy;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="updated_by", type="integer", nullable=false)
-     */
-    private $updatedBy;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="updated_at", type="datetime", nullable=false)
-     */
-    private $updatedAt;
-
-    /**
-     * @var bool
-     *
-     * @ORM\Column(name="removed", type="boolean", nullable=false)
-     */
-    private $removed = '0';
     
     public function getModel()
     {
         return $this->model;
     }
     
-    public function setModel( Models $model )
+    public function setModel( Model $model )
     {
         $this->model    = $model;
         
@@ -150,54 +123,4 @@ class Operations implements ApplicationRelationInterface
 
         return $this;
     }
-
-    public function getAddedBy(): ?int
-    {
-        return $this->addedBy;
-    }
-
-    public function setAddedBy(int $addedBy): self
-    {
-        $this->addedBy = $addedBy;
-
-        return $this;
-    }
-
-    public function getUpdatedBy(): ?int
-    {
-        return $this->updatedBy;
-    }
-
-    public function setUpdatedBy(int $updatedBy): self
-    {
-        $this->updatedBy = $updatedBy;
-
-        return $this;
-    }
-
-    public function getUpdatedAt(): ?\DateTimeInterface
-    {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
-    public function getRemoved(): ?bool
-    {
-        return $this->removed;
-    }
-
-    public function setRemoved(bool $removed): self
-    {
-        $this->removed = $removed;
-
-        return $this;
-    }
-
-
 }

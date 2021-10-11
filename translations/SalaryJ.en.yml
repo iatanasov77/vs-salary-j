@@ -12,9 +12,23 @@ salary-j:
         settings: Settings
         logout: Logout
     form:
+        locale: 'Locale'
+        name: 'Name'
+        description: 'Description'
+        parent: 'Parent'
+        apply: 'Apply'
+        save: 'Save'
+        cancel: 'Cancel'
+        
         login:
             username: User
             password: Password
             button_login: Login
+            
+        operators_group:
+            parent_operators_group: 'Parent Group'
+            parent_operators_group_placeholder: '-- Parent Group --'
+        
+            
             
         

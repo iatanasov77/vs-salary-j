@@ -1,0 +1,14 @@
+services:
+    _defaults:
+        autowire: false
+        autoconfigure: true
+        public: true
+
+    salary-j.resources.operators-groups.form:
+        class: App\Form\OperatorsGroupForm
+        arguments:
+            - '%salaryj.model.operatorsgroups.class%'
+            - '@salaryj.repository.operatorsgroups'
+        tags:
+            - { name: form.type }
+
