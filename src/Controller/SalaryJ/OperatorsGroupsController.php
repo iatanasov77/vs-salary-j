@@ -14,8 +14,12 @@ class OperatorsGroupsController extends AbstractCrudController
             $this->getParameter( 'vs_application.page_categories.taxonomy_code' )
         );
         
+        $configuration  = $this->requestConfigurationFactory->create( $this->metadata, $this->currentRequest );
+        $form           = $this->resourceFormFactory->create( $configuration, $this->getFactory()->createNew() );
+        
         return [
             'taxonomyId'    => $taxonomy ? $taxonomy->getId() : 0,
+            'form'          => $form->createView(),
         ];
     }
     

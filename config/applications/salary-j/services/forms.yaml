@@ -4,7 +4,7 @@ services:
         autoconfigure: true
         public: true
 
-    salary-j.resources.operators-groups.form:
+    salaryj.resources.operatorsgroups.form:
         class: App\Form\OperatorsGroupForm
         arguments:
             - '%salaryj.model.operatorsgroups.class%'
