@@ -20,6 +20,8 @@ return [
     Sylius\Bundle\ResourceBundle\SyliusResourceBundle::class => ['all' => true],
     Sylius\Bundle\ThemeBundle\SyliusThemeBundle::class => ['all' => true],
     Liip\ImagineBundle\LiipImagineBundle::class => ['all' => true],
+    SymfonyCasts\Bundle\VerifyEmail\SymfonyCastsVerifyEmailBundle::class => ['all' => true],
+    SymfonyCasts\Bundle\ResetPassword\SymfonyCastsResetPasswordBundle::class => ['all' => true],
     VS\ApplicationInstalatorBundle\VSApplicationInstalatorBundle::class => ['all' => true],
     VS\ApplicationBundle\VSApplicationBundle::class => ['all' => true],
     VS\CmsBundle\VSCmsBundle::class => ['all' => true],

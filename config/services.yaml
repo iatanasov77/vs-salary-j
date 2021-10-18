@@ -12,16 +12,17 @@ parameters:
     languages:
         en: English
         bg: Български
-    applicationTitle: 'VankoSoft Application'
-    menu.config_file: "%kernel.project_dir%/../config/packages/vs_application.yaml"
+    applicationTitle: 'SuperAdmin Panel'
     
-    vs_cms.page_categories.taxonomy_code: 'page-categories'
-#    vs_cms.page_categories.taxonomy_id: 1
-#    vs_application.page_categories.taxonomy_id: 1
+    vs_application.version: !php/const App\AdminPanelKernel::VERSION
+    vs_application.public_dir: "%kernel.project_dir%/public/admin_panel"
+    vs_application.page_categories.taxonomy_code: 'page-categories'
     
     vs_users.login_route: 'vs_application_login'
     vs_users.login_by: 'username'
+    vs_users.cookie_lifetime: 3600
     vs_users.api_token.lifetime: 3600
+    
     vs_user.profile_pictures_dir: '%kernel.project_dir%/var/uploads/profile_pictures'
 
 services:
