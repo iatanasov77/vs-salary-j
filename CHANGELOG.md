@@ -1,3 +1,16 @@
+1.2.1	|	Release date: **18.10.2021**
+============================================
+* New Features:
+  - Make SalaryJ Entities Application Awared.
+  - Create Sylius Resources.
+  - Add Usefull Bundle Links into the Docs.
+* Updates:
+  - Update to VankosoftApplication 1.2.0
+  - Update Vankosoft Bundles Versions.
+  - Update to VankosoftApplicationProject 1.3.0
+  - Upgrade to VankoSoft Application 1.3.5
+
+
 1.2.0	|	Release date: **03.10.2021**
 ============================================
 * New Features:
