@@ -4,4 +4,47 @@ sylius_resource:
         #locale_provider: sylius.translation.locale_provider.contextual
         #available_locales_provider: sylius.translation.locales_provider
     resources:
+        salaryj.operatorsgroups:
+            driver: doctrine/orm
+            classes:
+                model:      App\Entity\OperatorsGroup
+                interface:  Sylius\Component\Resource\Model\ResourceInterface
+                controller: App\Controller\SalaryJ\OperatorsGroupsController
+                repository: Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository
+                form:       App\Form\OperatorsGroupForm
+        salaryj.operators:
+            driver: doctrine/orm
+            classes:
+                model:      App\Entity\Operator
+                interface:  Sylius\Component\Resource\Model\ResourceInterface
+                controller: App\Controller\SalaryJ\OperatorsController
+                repository: Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository
+                form:       App\Form\OperatorForm
+ 
+        salaryj.models:
+            driver: doctrine/orm
+            classes:
+                model:      App\Entity\Model
+                interface:  Sylius\Component\Resource\Model\ResourceInterface
+                controller: App\Controller\SalaryJ\ModelsController
+                repository: Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository
+                #form:       App\Form\OperatorForm
+  
+        salaryj.operations:
+            driver: doctrine/orm
+            classes:
+                model:      App\Entity\Operation
+                interface:  Sylius\Component\Resource\Model\ResourceInterface
+                controller: App\Controller\SalaryJ\OperationsController
+                repository: Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository
+                #form:       App\Form\OperatorForm
+                
+        salaryj.operatorswork:
+            driver: doctrine/orm
+            classes:
+                model:      App\Entity\OperatorsWork
+                interface:  Sylius\Component\Resource\Model\ResourceInterface
+                controller: App\Controller\SalaryJ\OperatorsWorkController
+                repository: Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository
+                #form:       App\Form\OperatorForm
 

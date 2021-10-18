@@ -1,8 +1,13 @@
+vs_application_instalator:
+    resources:
+        instalation_info:
+            classes:
+                model: App\Entity\Application\InstalationInfo
 vs_application:
     resources:
-        site:
+        application:
             classes:
-                model: App\Entity\Application\Site
+                model: App\Entity\Application\Application
         settings:
             classes:
                 model: App\Entity\Application\Settings
@@ -29,13 +34,13 @@ vs_application:
         mainMenu:
             operators_groups:
                 name: salary-j.menu.operators_groups
-                route: app_home
+                route: salaryj_operatorsgroups_index
             operators:
                 name: salary-j.menu.operators
-                route: app_operators
+                route: salaryj_operators_index
             models:
                 name: salary-j.menu.models
-                route: app_home
+                route: salaryj_models_index
             salaryjDivider:
                 isDivider: true
             users:

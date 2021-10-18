@@ -8,7 +8,7 @@ class DefaultController extends AbstractController
 {
     public function index( Request $request ) : Response
     {
-        return $this->redirect( $this->generateUrl( 'app_operators' ) );
+        return $this->redirect( $this->generateUrl( 'salaryj_operators_index' ) );
     }
     
     public function openAdminPanel( Request $request ) : Response

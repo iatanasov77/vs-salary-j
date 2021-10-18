@@ -1,6 +1,13 @@
 <?php namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Sylius\Component\Resource\Model\ResourceInterface;
+
+use VS\ApplicationBundle\Model\Interfaces\ApplicationRelationInterface;
+use VS\ApplicationBundle\Model\Traits\ApplicationRelationEntity;
+use VS\ApplicationBundle\Model\Interfaces\UserAwareInterface;
+use VS\ApplicationBundle\Model\Traits\UserAwareEntity;
 
 /**
  * OperatorsWork
@@ -8,8 +15,12 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="JUN_OperatorsWork")
  * @ORM\Entity
  */
-class OperatorsWork
+class OperatorsWork implements ResourceInterface, ApplicationRelationInterface, UserAwareInterface
 {
+    use ApplicationRelationEntity;
+    use UserAwareEntity;
+    use TimestampableEntity;
+    
     /**
      * @var int
      *
@@ -18,7 +29,7 @@ class OperatorsWork
      * @ORM\Column(type="integer")
      */
     private $id;
-
+    
     /**
      * @var int
      *
@@ -53,34 +64,6 @@ class OperatorsWork
      * @ORM\Column(name="price", type="float", precision=10, scale=0, nullable=false)
      */
     private $unitPrice;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="added_by", type="integer", nullable=false)
-     */
-    private $addedBy = '0';
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="updated_by", type="integer", nullable=false)
-     */
-    private $updatedBy = '0';
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="added_at", type="datetime", nullable=false)
-     */
-    private $addedAt;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="updated_at", type="datetime", nullable=false)
-     */
-    private $updatedAt;
 
     public function getId(): ?int
     {
@@ -122,54 +105,6 @@ class OperatorsWork
     public function setUnitPrice(float $unitPrice): self
     {
         $this->unitPrice = $unitPrice;
-
-        return $this;
-    }
-
-    public function getAddedBy(): ?int
-    {
-        return $this->addedBy;
-    }
-
-    public function setAddedBy(int $addedBy): self
-    {
-        $this->addedBy = $addedBy;
-
-        return $this;
-    }
-
-    public function getUpdatedBy(): ?int
-    {
-        return $this->updatedBy;
-    }
-
-    public function setUpdatedBy(int $updatedBy): self
-    {
-        $this->updatedBy = $updatedBy;
-
-        return $this;
-    }
-
-    public function getAddedAt(): ?\DateTimeInterface
-    {
-        return $this->addedAt;
-    }
-
-    public function setAddedAt(\DateTimeInterface $addedAt): self
-    {
-        $this->addedAt = $addedAt;
-
-        return $this;
-    }
-
-    public function getUpdatedAt(): ?\DateTimeInterface
-    {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
 
         return $this;
     }

@@ -3,6 +3,13 @@
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
+use Sylius\Component\Resource\Model\ResourceInterface;
+
+use VS\ApplicationBundle\Model\Interfaces\ApplicationRelationInterface;
+use VS\ApplicationBundle\Model\Traits\ApplicationRelationEntity;
+use VS\ApplicationBundle\Model\Interfaces\UserAwareInterface;
+use VS\ApplicationBundle\Model\Traits\UserAwareEntity;
 
 /**
  * Models
@@ -10,9 +17,12 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
  * @ORM\Table(name="JUN_Models")
  * @ORM\Entity
  */
-class Model
+class Model implements ResourceInterface, ApplicationRelationInterface, UserAwareInterface
 {
+    use ApplicationRelationEntity;
+    use UserAwareEntity;
     use TimestampableEntity;
+    use SoftDeleteableEntity;
     
     /**
      * @var int
@@ -36,43 +46,12 @@ class Model
      * @ORM\Column(name="name", type="string", length=64, nullable=false)
      */
     private $name;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="added_by", type="integer", nullable=false)
-     */
-    private $addedBy;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="updated_by", type="integer", nullable=false)
-     */
-    private $updatedBy;
-
-    /**
-     * @var bool
-     *
-     * @ORM\Column(name="removed", type="boolean", nullable=false)
-     */
-    private $removed = '0';
     
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Operations", mappedBy="model")
+     * @ORM\OneToMany(targetEntity="App\Entity\Operation", mappedBy="model")
      */
     private $operations;
     
-    /**
-     * @return Collection|Operations[]
-     */
-    public function getOperations(): Collection
-    {
-        return $this->operations;
-    }
-    
-    
-
     public function getId(): ?int
     {
         return $this->id;
@@ -101,54 +80,12 @@ class Model
 
         return $this;
     }
-
-    public function getAddedBy(): ?int
+    
+    /**
+     * @return Collection|Operations[]
+     */
+    public function getOperations(): Collection
     {
-        return $this->addedBy;
+        return $this->operations;
     }
-
-    public function setAddedBy(int $addedBy): self
-    {
-        $this->addedBy = $addedBy;
-
-        return $this;
-    }
-
-    public function getUpdatedBy(): ?int
-    {
-        return $this->updatedBy;
-    }
-
-    public function setUpdatedBy(int $updatedBy): self
-    {
-        $this->updatedBy = $updatedBy;
-
-        return $this;
-    }
-
-    public function getUpdatedAt(): ?\DateTimeInterface
-    {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
-    public function getRemoved(): ?bool
-    {
-        return $this->removed;
-    }
-
-    public function setRemoved(bool $removed): self
-    {
-        $this->removed = $removed;
-
-        return $this;
-    }
-
-
 }

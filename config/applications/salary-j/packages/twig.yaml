@@ -4,7 +4,7 @@ twig:
     strict_variables: '%kernel.debug%'
     
     globals:
-        siteTitle: '%siteTitle%'
+        applicationTitle: '%applicationTitle%'
         lang: '%lang%'
         locale: '%locale%'
         alerts: '@vs_app.twig.alerts'

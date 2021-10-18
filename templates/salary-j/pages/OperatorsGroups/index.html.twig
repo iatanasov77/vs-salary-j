@@ -1,0 +1,71 @@
+{% extends "salary-j/base.html.twig" %}
+
+{% block content %}
+    <h1 align="center">Групи Оператори</h1>
+
+	<!--
+	The category tree can be used to divide the store into several sections so the products of the same brand, type, etc could be put together. Each category can be split into smaller subcategories. Click on a category to get a list of its subcategories. <br />
+	-->
+
+	<form name="formModel" action="{$smarty.server.PHP_SELF}" method="post">
+		<table cellspacing="0" cellpadding="2">
+		<tr>
+			<td colspan="3"><h3><b>Добавяне на нова Група</h3></b></td>
+		</tr>
+		<tr>
+			<td>Име</td>
+			<td>&nbsp;</td>
+		</tr>
+			<tr>
+				<td><input type="text" size="40" name="name" /></td>
+				<td><input type="submit" name="sub_group" value="Запази" /></td>
+			</tr>
+		</table>
+	</form>
+
+	<br /><br /><br />
+
+	<table cellspacing="0" width="100%">
+		<tr>
+			<td class="DialogTitle">Групи Оператори</td>
+		</tr>
+		<tr>
+			<td class="DialogBorder">
+
+				
+
+				<table cellspacing="1" class="DialogBox">
+					<tr>
+						<td class="DialogBox" valign="top"><br />
+							<form action="{$smarty.server.PHP_SELF}" method="post" name="processcategoryform">
+
+								<table cellpadding="2" cellspacing="1" width="100%">
+									<tr class="TableHead">
+										<td >Име</td>
+										<td width="40%">&nbsp;</td>
+									</tr>
+
+								{foreach from=$listGroups item=group}
+									<tr {cycle values=",class='TableSubHead'"}>
+										<td><font class="ItemsList">{$group->name}</font></td>
+										<td>
+											&nbsp;
+										</td>
+									</tr>
+								{/foreach}
+
+
+								</table>
+								<input type="hidden" name="mode" value="apply" />
+							</form>
+							<br />&nbsp;
+						</td>
+					</tr>
+					<tr>
+						<td>{$pager}</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+{% endblock %}
