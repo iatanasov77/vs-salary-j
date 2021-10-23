@@ -1,5 +1,5 @@
 salary-j:
-    app:
+    layout:
         logedin_as: You are logged in as
         programming_and_design: Programming and Design
         contact_info: Ivan Atanasov phone. 0876 764 428
@@ -11,6 +11,9 @@ salary-j:
         users: Users
         settings: Settings
         logout: Logout
+    pages:
+        operators_groups: Operators Groups
+        add_new_group: Create new Group
     form:
         locale: 'Locale'
         name: 'Name'

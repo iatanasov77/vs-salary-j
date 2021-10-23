@@ -7,6 +7,8 @@ use Sylius\Component\Resource\Model\ResourceInterface;
 
 use VS\ApplicationBundle\Model\Interfaces\TaxonInterface;
 use VS\ApplicationBundle\Model\Taxon;
+use VS\ApplicationBundle\Model\Interfaces\ApplicationRelationInterface;
+use VS\ApplicationBundle\Model\Traits\ApplicationRelationEntity;
 
 /**
  * OperatorsGroups
@@ -14,8 +16,10 @@ use VS\ApplicationBundle\Model\Taxon;
  * @ORM\Table(name="JUN_OperatorsGroups")
  * @ORM\Entity
  */
-class OperatorsGroup implements ResourceInterface
+class OperatorsGroup implements ResourceInterface, ApplicationRelationInterface
 {
+    use ApplicationRelationEntity;
+    
     /**
      * @var int
      *
@@ -42,16 +46,16 @@ class OperatorsGroup implements ResourceInterface
     /**
      * @var TaxonInterface
      * 
-     * @ORM\ManyToOne(targetEntity="VS\ApplicationBundle\Model\Interfaces\TaxonInterface", inversedBy="children")
-     * @ORM\JoinColumn(name="taxon_id", referencedColumnName="id", onDelete="CASCADE", nullable=false)
+     * @ORM\ManyToOne(targetEntity="VS\ApplicationBundle\Model\Interfaces\TaxonInterface", inversedBy="children", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="taxon_id", referencedColumnName="id", nullable=false)
      */
     protected $taxon;
     
     /**
      * @var OperatorsGroup
      * 
-     * @ORM\ManyToOne(targetEntity="VS\ApplicationBundle\Model\Interfaces\TaxonInterface", inversedBy="children")
-     * @ORM\JoinColumn(name="taxon_id", referencedColumnName="id", onDelete="CASCADE", nullable=false)
+     * @ORM\ManyToOne(targetEntity="App\Entity\OperatorsGroup", inversedBy="children", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="taxon_id", referencedColumnName="id", nullable=true)
      */
     protected $parent;
     

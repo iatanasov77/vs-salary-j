@@ -1,9 +1,12 @@
-app_operators-groups:
+app_operatorsgroups:
     resource: |
         alias: salaryj.operatorsgroups
         except: ['show']
         path: /operators-groups
         templates: "salary-j/pages/OperatorsGroups"
+#    defaults:
+#      _sylius:
+#          form: salary_j.form.operatorsgroups
     type: sylius.resource
     
 app_operators:

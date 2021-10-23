@@ -4,6 +4,7 @@ use VS\ApplicationBundle\Form\AbstractForm;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\FormBuilderInterface;
 
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -33,6 +34,8 @@ class OperatorsGroupForm extends AbstractForm
         $builder
             ->setMethod( $operatorsGroup && $operatorsGroup->getId() ? 'PUT' : 'POST' )
         
+            ->add( 'application_code', HiddenType::class, ['mapped' => false] )
+            
             ->add( 'currentLocale', ChoiceType::class, [
                 'label'                 => 'salary-j.form.locale',
                 'translation_domain'    => 'SalaryJ',

@@ -33,7 +33,13 @@ services:
 
     App\:
         resource: '../../../src/*'
-        exclude: '../../../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+        exclude:
+            - '../../../src/DataFixtures/'
+            - '../../../src/DependencyInjection/'
+            - '../../../src/Entity/'
+            - '../../../src/Form/'
+            - '../../../src/SalaryJKernel.php'
+            - '../../../src/Tests/'
         autowire: false
         
     App\Controller\:
@@ -43,4 +49,4 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
-    
+
