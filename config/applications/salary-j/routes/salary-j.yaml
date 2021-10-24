@@ -4,9 +4,6 @@ app_operatorsgroups:
         except: ['show']
         path: /operators-groups
         templates: "salary-j/pages/OperatorsGroups"
-#    defaults:
-#      _sylius:
-#          form: salary_j.form.operatorsgroups
     type: sylius.resource
     
 app_operators:
@@ -40,7 +37,3 @@ app_operators_work:
         path: /operators-work
         templates: "salary-j/pages/OperatorsWork"
     type: sylius.resource
-
-#app_operators:
-#    path: /operators
-#    controller: App\Controller\SalaryJ\OperatorsController::index

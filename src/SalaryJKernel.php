@@ -9,7 +9,7 @@ use VS\ApplicationBundle\Component\Application\Kernel as BaseKernel;
 
 class SalaryJKernel extends BaseKernel
 {
-    const VERSION       = '1.3.5';
+    const VERSION       = '1.4.0';
     
     const APP_ID = 'salary-j';
     

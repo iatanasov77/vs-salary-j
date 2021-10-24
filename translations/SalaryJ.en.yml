@@ -14,14 +14,19 @@ salary-j:
     pages:
         operators_groups: Operators Groups
         add_new_group: Create new Group
+        operators: Operators
+        add_new_operator: Create new Operator
+        filter_by_gtoup: Филтър по Група
     form:
-        locale: 'Locale'
-        name: 'Name'
-        description: 'Description'
-        parent: 'Parent'
-        apply: 'Apply'
-        save: 'Save'
-        cancel: 'Cancel'
+        locale: Locale
+        common_group: Common
+        group: Group
+        name: Name
+        description: Description
+        parent: Parent
+        apply: Apply
+        save: Save
+        cancel: Cancel
         
         login:
             username: User
@@ -29,7 +34,7 @@ salary-j:
             button_login: Login
             
         operators_group:
-            parent_operators_group: 'Parent Group'
+            parent_operators_group: Parent Group
             parent_operators_group_placeholder: '-- Parent Group --'
         
             

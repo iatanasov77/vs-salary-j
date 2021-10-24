@@ -3,8 +3,11 @@
 use VS\ApplicationBundle\Form\AbstractForm;
 use Symfony\Component\Form\FormBuilderInterface;
 
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+
+use App\Entity\OperatorsGroup;
 
 class OperatorForm extends AbstractForm
 {
@@ -13,18 +16,20 @@ class OperatorForm extends AbstractForm
         parent::buildForm( $builder, $options );
         
         $builder
-            ->add( 'category_taxon', ChoiceType::class, [
-                'label'                 => 'vs_cms.form.page.categories',
-                'translation_domain'    => 'VSCmsBundle',
-                'multiple'              => true,
+            ->add( 'application_code', HiddenType::class, ['mapped' => false] )
+        
+            ->add( 'group', EntityType::class, [
+                'label'                 => 'salary-j.form.group',
+                'translation_domain'    => 'SalaryJ',
                 'required'              => false,
-                'mapped'                => false,
-                'placeholder'           => 'vs_cms.form.page.categories_placeholder',
+                'class'                 => OperatorsGroup::class,
+                'choice_label'          => 'name',
+                'placeholder'           => 'salary-j.form.common_group',
             ])
             
-            ->add( 'title', TextType::class, [
-                'label'                 => 'vs_cms.form.title',
-                'translation_domain'    => 'VSCmsBundle',
+            ->add( 'name', TextType::class, [
+                'label'                 => 'salary-j.form.name',
+                'translation_domain'    => 'SalaryJ',
             ])
         ;
     }

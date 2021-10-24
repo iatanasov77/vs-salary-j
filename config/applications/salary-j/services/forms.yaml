@@ -11,3 +11,10 @@ services:
         tags:
             - { name: form.type }
 
+    salaryj.resources.operators.form:
+        class: App\Form\OperatorForm
+        arguments:
+            - "%salaryj.model.operators.class%"
+        tags:
+            - { name: form.type }
+

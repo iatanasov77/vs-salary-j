@@ -39,7 +39,7 @@ class OperatorsGroup implements ResourceInterface, ApplicationRelationInterface
     /**
      * @var Collection|Operator[]
      * 
-     * @ORM\OneToMany(targetEntity="App\Entity\Operator", mappedBy="groupsId")
+     * @ORM\OneToMany(targetEntity="App\Entity\Operator", mappedBy="group")
      */
     protected $operators;
     

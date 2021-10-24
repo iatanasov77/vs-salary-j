@@ -36,17 +36,15 @@ class Operator implements ResourceInterface, ApplicationRelationInterface, UserA
     /**
      * @var int
      *
-     * @ORM\Column(name="groups_id", type="integer", nullable=false)
+     * @ORM\Column(name="groups_id", type="integer")
      * @ORM\ManyToOne(targetEntity="OperatorsGroup")
-     *
-     * @Assert\NotBlank
      */
-    private $groupsId;
+    private $group;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=64, nullable=false)
+     * @ORM\Column(name="name", type="string", length=255, nullable=false)
      * @Assert\NotBlank
      */
     private $name;
@@ -62,14 +60,14 @@ class Operator implements ResourceInterface, ApplicationRelationInterface, UserA
         return $this->id;
     }
 
-    public function getGroupsId(): ?int
+    public function getGroup(): ?int
     {
-        return $this->groupsId;
+        return $this->group;
     }
 
-    public function setGroupsId(int $groupsId): self
+    public function setGroup(OperatorsGroup $group): self
     {
-        $this->groupsId = $groupsId;
+        $this->group = $group;
 
         return $this;
     }

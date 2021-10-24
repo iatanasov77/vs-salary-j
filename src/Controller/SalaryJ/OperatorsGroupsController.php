@@ -19,8 +19,8 @@ class OperatorsGroupsController extends AbstractCrudController
         
         return [
             'application'   => $this->get( 'vs_application.context.application' )->getApplication(),
-            'taxonomy'      => $taxonomy,
             'form'          => $form->createView(),
+            'taxonomy'      => $taxonomy,
         ];
     }
     

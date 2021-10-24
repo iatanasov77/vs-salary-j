@@ -1,38 +1,33 @@
 {% extends "salary-j/base.html.twig" %}
 
 {% block content %}
-    <h1 align="center">Оператори</h1>
+    <h1 align="center">{{ 'salary-j.pages.operators' | trans( {},'SalaryJ' ) }}</h1>
     
-    <form name="formModel" action="{$smarty.server.PHP_SELF}" method="post">
+    {{ form_start(form, { 'attr': {'class': 'form-horizontal', 'id': 'form-post'}, 'action': path('salaryj_operators_create'), 'method': 'POST' }) }}
+        {{ form_widget( form._token ) }}
+        {{ form_widget( form.application_code, {'value' : application.code} ) }}
+    
     	<table cellspacing="0" cellpadding="2">
     		<tr>
-    			<td colspan="3"><h3><b>Добавяне на нов Оператор</h3></b></td>
+    			<td colspan="3"><h3><b>{{ 'salary-j.pages.add_new_operator' | trans( {},'SalaryJ' ) }}</h3></b></td>
     		</tr>
     		<tr>
-    			<td>Група</td>
-    			<td>Име</td>
+    			<td>{{ form_label( form.group ) }}</td>
+    			<td>{{ form_label( form.name ) }}</td>
     			<td>&nbsp;</td>
     		</tr>
     		<tr>
-    			<td>
-    				<select name="groups">
-    					<option value="0">Обща</option>
-    				{foreach from=$listGroups item=gr}
-    					<option value="{$gr->id}">{'cp1251'|iconv:'utf-8':$gr->name}</option>
-    				{/foreach}
-    				</select>
-    			</td>
-    			<td><input type="text" size="60" name="name" /></td>
-    			<td><input type="submit" name="sub_operator" value="Запази" /></td>
-    		</tr>
-    	</table>
-    </form>
-    
+    			<td>{{ form_widget( form.group ) }}</td>
+				<td>{{ form_widget( form.name, {'attr': {'size': '60'}} ) }}</td>
+				<td>{{ form_widget( form.btnSave ) }}</td>
+			</tr>
+		</table>
+    {{ form_end(form, {'render_rest': false}) }}
     <br /><br /><br />
     
     <table cellspacing="0" width="100%">
     	<tr>
-    		<td class="DialogTitle">Оператори</td>
+    		<td class="DialogTitle">{{ 'salary-j.pages.operators' | trans( {},'SalaryJ' ) }}</td>
     	</tr>
     	<tr>
     		<td class="DialogBorder">
@@ -40,17 +35,16 @@
     			<table cellspacing="1" class="DialogBox">
     				<tr>
     					<td class="DialogBox" valign="top">
-    						Филтър по Група:&nbsp;&nbsp;&nbsp;
-    						<select name="filter_groups" id="filter_groups" onchange="document.location='{$smarty.server.PHP_SELF}?group='+this.value;">
-    							<option value="0"  {if $filterGroup==0}selected="selected"{/if}>Обща</option>
-    						{foreach from=$listGroups item=gr}
-    							<option value="{$gr->id}" {if $filterGroup==$gr->id}selected="selected"{/if}>{'cp1251'|iconv:'utf-8':$gr->name}</option>
-    						{/foreach}
-    						</select>&nbsp;&nbsp;&nbsp;
+    					
+    						{{ 'salary-j.pages.filter_by_gtoup' | trans( {},'SalaryJ' ) }}:&nbsp;&nbsp;&nbsp;
+    						{{ form_widget( filter_form.filter_groups ) }}
+    						&nbsp;&nbsp;&nbsp;
     						<input type="button" value="Заработка Общо" onclick="document.location = 'operators_work.php?group='+document.getElementById('filter_groups').value;" />
     						<br /><br />
-    
+    						
+    						{#
     						<script src="{$wwwDir}js/change_all_checkboxes.js" language="JavaScript" type="text/javascript"></script>
+    						#}
     						<div style="line-height: 170%;">
     							<a href="javascript: checkAll(true, document.operatorsform, 'op_ids');">Всички</a> / 
     							<a href="javascript: checkAll(false, document.operatorsform, 'op_ids');">Нищо</a>
@@ -113,4 +107,8 @@
     		</td>
     	</tr>
     </table>
+{% endblock %}
+
+{% block body_javascripts %}
+    {{ encore_entry_script_tags( 'js/pages/operators' ) }}
 {% endblock %}
