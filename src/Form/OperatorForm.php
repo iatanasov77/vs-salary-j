@@ -2,11 +2,12 @@
 
 use VS\ApplicationBundle\Form\AbstractForm;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
 
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
+use App\Form\Type\OperatorType;
+use App\Entity\Operator;
 use App\Entity\OperatorsGroup;
 
 class OperatorForm extends AbstractForm
@@ -18,18 +19,9 @@ class OperatorForm extends AbstractForm
         $builder
             ->add( 'application_code', HiddenType::class, ['mapped' => false] )
         
-            ->add( 'group', EntityType::class, [
-                'label'                 => 'salary-j.form.group',
-                'translation_domain'    => 'SalaryJ',
-                'required'              => false,
-                'class'                 => OperatorsGroup::class,
-                'choice_label'          => 'name',
-                'placeholder'           => 'salary-j.form.common_group',
-            ])
-            
-            ->add( 'name', TextType::class, [
-                'label'                 => 'salary-j.form.name',
-                'translation_domain'    => 'SalaryJ',
+            ->add( 'operator', OperatorType::class, [
+                'mapped'        => false,
+                'data_class'    => Operator::class,
             ])
         ;
     }

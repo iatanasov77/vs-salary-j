@@ -17,6 +17,10 @@ salary-j:
         operators: Оператори
         add_new_operator: Добавяне на нов Оператор
         filter_by_gtoup: Филтър по Група
+        all: Всички
+        nothing: Нищо
+        browse_operations: Преглед Операции
+        add_operations: Добавяне Операции
     form:
         locale: Език
         common_group: Обща
@@ -36,5 +40,10 @@ salary-j:
         operators_group:
             parent_operators_group: Родителска Група
             parent_operators_group_placeholder: '-- Родителска Група --'
+            
+        operators:
+            edit_groups: Промяна на Групи
+            edit_names: Смяна на Имена
+            remove: Изтриване
             
             

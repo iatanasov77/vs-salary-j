@@ -14,7 +14,7 @@ use VS\ApplicationBundle\Model\Traits\UserAwareEntity;
 /**
  * Operators
  *
- * @ORM\Table(name="JUN_Operators", indexes={@ORM\Index(name="groups_id", columns={"groups_id"})})
+ * @ORM\Table(name="JUN_Operators", indexes={@ORM\Index(name="group_id", columns={"group_id"})})
  * @ORM\Entity
  */
 class Operator implements ResourceInterface, ApplicationRelationInterface, UserAwareInterface
@@ -36,7 +36,6 @@ class Operator implements ResourceInterface, ApplicationRelationInterface, UserA
     /**
      * @var int
      *
-     * @ORM\Column(name="groups_id", type="integer")
      * @ORM\ManyToOne(targetEntity="OperatorsGroup")
      */
     private $group;
@@ -60,12 +59,12 @@ class Operator implements ResourceInterface, ApplicationRelationInterface, UserA
         return $this->id;
     }
 
-    public function getGroup(): ?int
+    public function getGroup(): ?OperatorsGroup
     {
         return $this->group;
     }
 
-    public function setGroup(OperatorsGroup $group): self
+    public function setGroup(?OperatorsGroup $group): self
     {
         $this->group = $group;
 

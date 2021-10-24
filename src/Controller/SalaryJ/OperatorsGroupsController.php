@@ -8,7 +8,7 @@ class OperatorsGroupsController extends AbstractCrudController
 {
     use TaxonomyHelperTrait;
     
-    protected function customData(): array
+    protected function customData( Request $request ): array
     {
         $taxonomy   = $this->get( 'vs_application.repository.taxonomy' )->findByCode(
             $this->getParameter( 'salary_j.operators_groups.taxonomy_code' )

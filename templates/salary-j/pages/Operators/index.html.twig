@@ -12,13 +12,13 @@
     			<td colspan="3"><h3><b>{{ 'salary-j.pages.add_new_operator' | trans( {},'SalaryJ' ) }}</h3></b></td>
     		</tr>
     		<tr>
-    			<td>{{ form_label( form.group ) }}</td>
-    			<td>{{ form_label( form.name ) }}</td>
+    			<td>{{ form_label( form.operator.group ) }}</td>
+    			<td>{{ form_label( form.operator.name ) }}</td>
     			<td>&nbsp;</td>
     		</tr>
     		<tr>
-    			<td>{{ form_widget( form.group ) }}</td>
-				<td>{{ form_widget( form.name, {'attr': {'size': '60'}} ) }}</td>
+    			<td>{{ form_widget( form.operator.group ) }}</td>
+				<td>{{ form_widget( form.operator.name, {'attr': {'size': '60'}} ) }}</td>
 				<td>{{ form_widget( form.btnSave ) }}</td>
 			</tr>
 		</table>
@@ -37,59 +37,57 @@
     					<td class="DialogBox" valign="top">
     					
     						{{ 'salary-j.pages.filter_by_gtoup' | trans( {},'SalaryJ' ) }}:&nbsp;&nbsp;&nbsp;
-    						{{ form_widget( filter_form.filter_groups ) }}
+    						{{ form_widget( filter_form.filter_groups, {'value' : filter_value} ) }}
     						&nbsp;&nbsp;&nbsp;
     						<input type="button" value="Заработка Общо" onclick="document.location = 'operators_work.php?group='+document.getElementById('filter_groups').value;" />
     						<br /><br />
     						
-    						{#
-    						<script src="{$wwwDir}js/change_all_checkboxes.js" language="JavaScript" type="text/javascript"></script>
-    						#}
     						<div style="line-height: 170%;">
-    							<a href="javascript: checkAll(true, document.operatorsform, 'op_ids');">Всички</a> / 
-    							<a href="javascript: checkAll(false, document.operatorsform, 'op_ids');">Нищо</a>
+    							<a href="javascript:void(0);" id="checkAll">{{ 'salary-j.pages.all' | trans( {},'SalaryJ' ) }}</a> / 
+    							<a href="javascript:void(0);" id="uncheckAll">{{ 'salary-j.pages.nothing' | trans( {},'SalaryJ' ) }}</a>
     						</div>
     
-    						<form action="{$smarty.server.PHP_SELF}" method="post" name="operatorsform">
+    						<form action="{$smarty.server.PHP_SELF}" method="post" name="operatorsform" id="operatorsform">
     
     							<table cellpadding="2" cellspacing="1" width="100%">
     								<tr class="TableHead">
     									<td width="3%">&nbsp;</td>
-    									<td width="7%">Група</td>
-    									<td >Име</td>
+    									<td width="7%">{{ 'salary-j.form.group' | trans( {},'SalaryJ' ) }}</td>
+    									<td >{{ 'salary-j.form.name' | trans( {},'SalaryJ' ) }}</td>
     									<td width="40%">&nbsp;</td>
     								</tr>
     
-    							{foreach from=$listOperators item=op}
+    							{% for op in operators %}
     								<tr {cycle values=",class='TableSubHead'"}>
     									<td>
-    										<input type="checkbox" name="op_ids[{$op->id()}]" id="chk_{$op->id()}" />
+    										<input type="checkbox" name="op_ids[{{ op.id }}]" id="chk_{{ op.id }}" />
     									</td>
     									<td>
-    										<select name="posted_data[{$op->id()}][group]">
-    											<option value="0" {if $op->groupId()==0}selected="selected"{/if}>Обща</option>
-    										{foreach from=$listGroups item=gr}
-    											<option value="{$gr->id}" {if $gr->id==$op->groupId()}selected="selected"{/if}>{'cp1251'|iconv:'utf-8':$gr->name}</option>
-    										{/foreach}
-    										</select>
+    										{{ form_widget( index_forms[loop.index0].group ) }}
     									</td>
     									<td>
     										<font class="ItemsList">
-    											<input type="text" size="60" name="posted_data[{$op->id()}][name]" value="{'cp1251'|iconv:'utf-8':$op->name()}" />
+    											{{ form_widget( index_forms[loop.index0].name ) }}
     										</font>
     									</td>
     									<td>
-    										<input type="button" value="Преглед Операции" onclick="document.location='operators_work.php?opid={$op->id()}&act=preview'" />
-    										<input type="button" value="Добавяне Операции" onclick="document.location='models.php?opid={$op->id()}&act=add'" />
+    										<input type="button" value="{{ 'salary-j.pages.browse_operations' | trans( {},'SalaryJ' ) }}" class="browseOperations"
+    											data-url="{{ path( 'app_operators_work_browse', {'operatorId': op.id} ) }}"
+    										 />
+    										<input type="button" value="{{ 'salary-j.pages.add_operations' | trans( {},'SalaryJ' ) }}" class="addOperations"
+    											data-url="{{ path( 'app_operators_work_browse', {'operatorId': op.id} ) }}"
+    										/>
     									</td>
     								</tr>
-    							{/foreach}
+    							{% endfor %}
     
     								<tr>
     									<td colspan="6" class="SubmitBox">
-    										<input type="submit" name="sub_operators" value="Промяна на Групи"  />
-    										<input type="submit" name="change_names" value="Смяна на Имена" />
-    										<input type="submit" name="del_operators" value="Изтриване" onClick="return confirm('Наистина ли искате да изтриете маркираните Оператори');" />
+    										<input type="submit" name="sub_operators" value="{{ 'salary-j.form.operators.edit_groups' | trans( {},'SalaryJ' ) }}"  />
+    										<input type="submit" name="change_names" value="{{ 'salary-j.form.operators.edit_names' | trans( {},'SalaryJ' ) }}" />
+    										<input type="submit" name="del_operators" value="{{ 'salary-j.form.operators.remove' | trans( {},'SalaryJ' ) }}" 
+    											onClick="return confirm('Наистина ли искате да изтриете маркираните Оператори');" 
+    										/>
     										<br /><br />
     									</td>
     								</tr>
@@ -101,7 +99,7 @@
     					</td>
     				</tr>
     				<tr>
-    					<td>{$pager}</td>
+    					<td>{# $pager #}</td>
     				</tr>
     			</table>
     		</td>

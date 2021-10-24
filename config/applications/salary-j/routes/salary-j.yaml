@@ -30,10 +30,6 @@ app_operations:
         templates: "salary-j/pages/Operations"
     type: sylius.resource
     
-app_operators_work:
-    resource: |
-        alias: salaryj.operatorswork
-        except: ['show']
-        path: /operators-work
-        templates: "salary-j/pages/OperatorsWork"
-    type: sylius.resource
+app_operators_work_browse:
+    path: /operators-work/{operatorId}
+    controller: App\Controller\SalaryJ\OperatorsWorkController::browseOperations
