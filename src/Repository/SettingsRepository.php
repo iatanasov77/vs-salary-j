@@ -21,7 +21,7 @@ class SettingsRepository extends EntityRepository
         
         $seetingsArray  = $this->getDefaultSettings();
         foreach ( $query->getResult() as $settings ) {
-            $seetingsArray[$settings->getVarName()]['value']    = $settings->getVarValue();
+            $seetingsArray[$settings->getVarName()]['value']    = (float)$settings->getVarValue();
             $seetingsArray[$settings->getVarName()]['status']   = self::STATUS_SAVED;
         }
 

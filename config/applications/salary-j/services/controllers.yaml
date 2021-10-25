@@ -7,10 +7,12 @@ services:
         resource: '../../../../src/Controller'
         tags: ['controller.service_arguments']
         
-    salaryj.resources.models.ext_controller:
-        class: App\Controller\SalaryJ\ModelsExtController
+    App\Controller\SalaryJ\ModelsExtController:
         arguments:
+            - "@vs_application.context.application"
             - "@salaryj.repository.models"
+            - "@salaryj.repository.operations"
+            - "@salaryj.repository.settings"
         tags: ['controller.service_arguments']
         
     App\Controller\SalaryJ\SettingsController:
@@ -18,4 +20,12 @@ services:
             - '@vs_application.context.application'
             - '@salaryj.repository.settings'
             - '@salaryj.factory.settings'
+        tags: ['controller.service_arguments']
+        
+    App\Controller\SalaryJ\OperationsExtController:
+        arguments:
+            - '@vs_application.context.application'
+            - '@salaryj.repository.models'
+            - '@salaryj.repository.operations'
+            - '@salaryj.factory.operations'
         tags: ['controller.service_arguments']

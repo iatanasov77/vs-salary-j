@@ -22,10 +22,12 @@ salary-j:
         browse_operations: Преглед Операции
         add_operations: Добавяне Операции
         models: Модели
+        model: Модел
         filter_model: Търсене
         operations: Операции
         worked_operations: Изработени
         worked_operations_new: Заработка (НОВО)
+        total: Общо
         
     form:
         locale: Език
@@ -56,6 +58,10 @@ salary-j:
         models:
             edit_names: Смяна на Имена
             remove: Изтриване
+            
+        operations:
+            add_new_operation: Добавяне на нова Операция
+            minutes: Минути
             
     settings:
         minute_bonus: Минутен Бонус (%)

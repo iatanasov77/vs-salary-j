@@ -1,48 +1,45 @@
 {% extends "salary-j/base.html.twig" %}
 
 {% block content %}
-	<h1 align="center">Операции</h1>
-	<h2 align="center">Модел: {'cp1251'|iconv:'utf-8':$model->number()}. {'cp1251'|iconv:'utf-8':$model->name()}</h2>
+	<h1 align="center">{{ 'salary-j.pages.operations' | trans( {},'SalaryJ' ) }}</h1>
+	<h2 align="center">{{ 'salary-j.pages.model' | trans( {},'SalaryJ' ) }}: {{ model.number }} - {{ model.name }}</h2>
 
-{if isset($operator)}
-	<p align="center">Добавяне операции за оператор: <b>{'cp1251'|iconv:'utf-8':$operator->name()}</b></p>
-	<p align="center">Дата: {$dateEdit}</p>
-{else}
-	<form name="formModel" action="{$smarty.server.PHP_SELF}" method="post">
+	{{ form_start( operationForm, { 'action': path('app_model_operations_save_operation', {'modelId': model.id}), 'method': 'POST' } ) }}
+		{{ form_widget( operationForm._token ) }}
+        
 		<table cellspacing="0" cellpadding="2">
 			<tr>
-				<td colspan="3"><h3><b>Добавяне на нова Операция</h3></b></td>
+				<td colspan="4"><h3><b>{{ 'salary-j.form.operations.add_new_operation' | trans( {},'SalaryJ' ) }}</h3></b></td>
 			</tr>
 			<tr>
-				<td>Номер</td>
-				<td>Име</td>
-				<td>Минути</td>
+				<td>{{ form_label( operationForm.operationId ) }}</td>
+				<td>{{ form_label( operationForm.operationName ) }}</td>
+				<td>{{ form_label( operationForm.minutes ) }}</td>
 				<td>&nbsp;</td>
 			</tr>
-				<tr>
-					<td><input type="text" size="6" name="number" /></td>
-					<td><input type="text" size="60" name="name" /></td>
-					<td><input type="text" size="6" name="minutes" /></td>
-					<!-- <td><input type="text" size="6" name="price" /></td> -->
-					
-					
-					<td>
-						<input type="submit" name="sub_operation" value="Запази" />
-						<input type="hidden" name="modid" value="{$smarty.get.modid}" />
-					</td>
-				</tr>
-			</table>
-		</form>
-	{/if}
+			<tr>
+				<td>{{ form_widget( operationForm.operationId, {'attr': {'size': '6'}} ) }}</td>
+				<td>{{ form_widget( operationForm.operationName, {'attr': {'size': '60'}} ) }}</td>
+				<td>{{ form_widget( operationForm.minutes, {'attr': {'size': '6'}} ) }}</td>
+				<!-- <td><input type="text" size="6" name="price" /></td> -->
 
+				<td>{{ form_widget( operationForm.btnSave ) }}</td>
+			</tr>
+		</table>
+	{{ form_end(operationForm, {'render_rest': false}) }}
 	<br /><br />
-	<input type="button" value="Изработени" onclick="document.location='{$smarty.server.PHP_SELF}?modid={$smarty.get.modid}&mode=work_count'" />
-	<input type="button" value="Заработка (НОВО)" onclick="document.location='model_work.php?modid={$smarty.get.modid}&mode=work_count'" />
+	
+	<input type="button" value="{{ 'salary-j.pages.worked_operations' | trans( {},'SalaryJ' ) }}"
+		onclick="document.location='{$smarty.server.PHP_SELF}?modid={$smarty.get.modid}&mode=work_count'"
+	/>
+	<input type="button" value="{{ 'salary-j.pages.worked_operations_new' | trans( {},'SalaryJ' ) }}"
+		onclick="document.location='model_work.php?modid={$smarty.get.modid}&mode=work_count'"
+	/>
 	<br /><br />
 
 	<table cellspacing="0" width="100%">
 		<tr>
-			<td class="DialogTitle">Операции</td>
+			<td class="DialogTitle">{{ 'salary-j.pages.operations' | trans( {},'SalaryJ' ) }}</td>
 		</tr>
 		<tr>
 			<td class="DialogBorder">
@@ -66,55 +63,50 @@
 
 								<table cellpadding="2" cellspacing="1" width="70%">
 									<tr class="TableHead">
-										<td width="15%">Брой</td>
-										<td width="5%">Номер</td>
-										<td >Име</td>
-										<td width="5%">Минути</td>
-										<td width="5%">Минути + {$settings.minuteBonus}%</td>
-										<td width="5%">Минути * {$settings.minutePrice} лв.</td>
+										<td></td>
+										<td width="5%">{{ 'salary-j.form.number' | trans( {},'SalaryJ' ) }}</td>
+										<td >{{ 'salary-j.form.name' | trans( {},'SalaryJ' ) }}</td>
+										<td width="5%">{{ 'salary-j.form.operations.minutes' | trans( {},'SalaryJ' ) }}</td>
+										<td width="5%">{{ 'salary-j.form.operations.minutes' | trans( {},'SalaryJ' ) }} + {{ settings.minuteBonus.value }}%</td>
+										<td width="5%">{{ 'salary-j.form.operations.minutes' | trans( {},'SalaryJ' ) }} * {{ settings.minuteRate.value }} лв.</td>
 										<!-- 
 										<td width="5%">Цена (старо)</td>
 										 -->
 									</tr>
 
-								{foreach from=$listOperations item=op}
+								{% for op in model.operations %}
 									<tr {cycle values=",class='TableSubHead'"}>
 										<td>
-											<input type="checkbox" name="opids[{$op->id()}]" />
-										{if isset($operator)}
-											<input type="text" name="posted_data[{$op->id()}][count]" size="4"/>
-											<input type="hidden" name="posted_data[{$op->id()}][price]" size="4"/>
-										{/if}
+											<input type="checkbox" name="opids[{{ op.id }}]" />
 										</td>
 										<td >
-											<input type="text" size="4" name="posted_data[{$op->id()}][number]" value="{'cp1251'|iconv:'utf-8':$op->number()}" />
+											<input type="text" size="4" name="posted_data[{{ op.id }}][number]" value="{{ op.operationId }}" />
 										</td>
 										<td>
 											<font class="ItemsList">
-												<input type="text" size="60" name="posted_data[{$op->id()}][name]" value="{'cp1251'|iconv:'utf-8':$op->name()}" />
+												<input type="text" size="60" name="posted_data[{{ op.id }}][name]" value="{{ op.operationName }}" />
 											</font>
 										</td>
 										
-										<td><input class="textMinutes" type="text" name="posted_data[{$op->id()}][minutes]" value="{$op->minutes()}" data-currentValue="{$op->minutes()}" data-operationId="{$op->id()}" size="6"/></td>
+										<td><input class="textMinutes" type="text" name="posted_data[{{ op.id }}][minutes]" value="{{ op.minutes }}" data-currentValue="{{ op.minutes }}" data-operationId="{{ op.id }}" size="6"/></td>
 										
-										<td id="bonus{$op->id()}">{math equation="x * (1 + ( y / 100 ) )" x=$op->minutes() y=$settings.minuteBonus format="%.2f"}</td>
-										<td id="price{$op->id()}">{math equation="(x * (1 + ( y / 100 )) * z )" x=$op->minutes() y=$settings.minuteBonus z=$settings.minutePrice format="%.4f"}</td>
+										<td id="bonus{{ op.id }}">{{ ( op.minutes * ( 1 + ( settings.minuteBonus.value / 100 ) ) ) | number_format( 2 ) }}</td>
+										<td id="price{{ op.id }}">{{ ( op.minutes * ( 1 + ( settings.minuteBonus.value / 100 ) ) * settings.minuteRate.value ) | number_format( 4 ) }}</td>
+										
 										<!-- 
 										<td><input type="text" name="posted_data[{$op->id()}][price]" value="{$op->price()}" size="6"/></td>
 										 -->
-										
-										
 									</tr>
-								{/foreach}
+								{% endfor %}
 									<tr>
 										<td colspan="6"><hr /></td>
 									</tr>
 
 									<tr>
-										<td colspan="3" align="right">Общо:</td>
-										<td id="totalMinutes">{$modelMinutes}</td>
-										<td id="totalBonus">{math equation="x * (1 + ( y / 100 ) )" x=$modelMinutes y=$settings.minuteBonus format="%.2f"}</td>
-										<td id="totalPrice">{math equation="(x * (1 + ( y / 100 )) * z )" x=$modelMinutes y=$settings.minuteBonus z=$settings.minutePrice format="%.4f"}</td>
+										<td colspan="3" align="right">{{ 'salary-j.pages.total' | trans( {},'SalaryJ' ) }}:</td>
+										<td id="totalMinutes">{{ totals.totalMinutes }}</td>
+										<td id="totalBonus">{{ ( totals.totalMinutes * ( 1 + ( settings.minuteBonus.value / 100 ) ) ) | number_format( 2 ) }}</td>
+										<td id="totalPrice">{{ ( totals.totalMinutes * ( 1 + ( settings.minuteBonus.value / 100 ) ) * settings.minuteRate.value ) | number_format( 4 ) }}</td>
 										<!-- 
 										<td id="totalPrice">{$modelPrice}</td>
 										 -->
@@ -125,18 +117,16 @@
 									</tr>
 									<tr>
 										<td colspan="7">
-											<input type="submit" name="submitAddWork" value="Запази"  />
+											<input type="submit" name="submitAddWork" value="{{ 'salary-j.form.save' | trans( {},'SalaryJ' ) }}"  />
 										</td>
 									</tr>
-
-
 								</table>
 							</form>
 							<br />&nbsp;
 						</td>
 					</tr>
 					<tr>
-						<td>{$pager}</td>
+						<td>{# $pager #}</td>
 					</tr>
 				</table>
 			</td>

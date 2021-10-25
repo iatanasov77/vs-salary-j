@@ -24,4 +24,11 @@ services:
             - "%salaryj.model.models.class%"
         tags:
             - { name: form.type }
+            
+    salaryj.resources.operations.form:
+        class: App\Form\OperationForm
+        arguments:
+            - "%salaryj.model.operations.class%"
+        tags:
+            - { name: form.type }
 

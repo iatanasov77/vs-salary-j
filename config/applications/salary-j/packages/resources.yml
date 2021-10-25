@@ -32,8 +32,8 @@ sylius_resource:
                 model:      App\Entity\Operation
                 interface:  Sylius\Component\Resource\Model\ResourceInterface
                 controller: App\Controller\SalaryJ\OperationsController
-                repository: Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository
-                #form:       App\Form\OperatorForm
+                repository: App\Repository\OperationsRepository
+                form:       App\Form\OperationForm
                 
         salaryj.settings:
             driver: doctrine/orm

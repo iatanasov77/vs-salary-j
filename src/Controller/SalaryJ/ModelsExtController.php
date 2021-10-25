@@ -4,16 +4,37 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
-
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
+use VS\ApplicationBundle\Component\Context\ApplicationContext;
+
+use App\Form\OperationForm;
+use App\Repository\OperationsRepository;
+use App\Repository\SettingsRepository;
 
 class ModelsExtController extends AbstractController
 {
+    /** @var ApplicationContext */
+    private $applicationContext;
+    
+    /** @var EntityRepository */
     private $modelsRepository;
     
-    public function __construct( EntityRepository $modelsRepository )
-    {
-        $this->modelsRepository  = $modelsRepository;
+    /** @var OperationsRepository */
+    private $operationsRepository;
+    
+    /** @var SettingsRepository */
+    private $settingsRepository;
+    
+    public function __construct(
+        ApplicationContext $applicationContext,
+        EntityRepository $modelsRepository,
+        OperationsRepository $operationsRepository,
+        SettingsRepository $settingsRepository
+    ) {
+        $this->applicationContext   = $applicationContext;
+        $this->modelsRepository     = $modelsRepository;
+        $this->operationsRepository = $operationsRepository;
+        $this->settingsRepository   = $settingsRepository;
     }
     
     public function jsonListModels( Request $request ) : Response
@@ -37,8 +58,17 @@ class ModelsExtController extends AbstractController
     
     public function browseOperations( int $modelId, Request $request ) : Response
     {
+        $model          = $this->modelsRepository->find( $modelId );
+        $operationForm  = $this->createForm( OperationForm::class );
+        $settings       = $this->settingsRepository->getSettings( $this->applicationContext->getApplication()->getId() );
+        $totals         = $this->operationsRepository->getTotals( $model );
+        //var_dump($settings); die;
+        
         $tplVars = [
-            
+            'model'         => $model,
+            'operationForm' => $operationForm->createView(),
+            'settings'      => $settings,
+            'totals'        => $totals,
         ];
         
         return $this->render( 'salary-j/pages/Operations/model_browse_operations.html.twig', $tplVars );

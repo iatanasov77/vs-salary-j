@@ -59,6 +59,13 @@ class Operation implements ResourceInterface, ApplicationRelationInterface, User
      */
     private $minutes;
     
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="price", type="float", precision=10, scale=0, nullable=false)
+     */
+    private $price;
+    
     public function getModel()
     {
         return $this->model;
@@ -121,6 +128,18 @@ class Operation implements ResourceInterface, ApplicationRelationInterface, User
     {
         $this->minutes = $minutes;
 
+        return $this;
+    }
+    
+    public function getPrice(): ?float
+    {
+        return $this->price;
+    }
+    
+    public function setPrice(float $price): self
+    {
+        $this->price = $price;
+        
         return $this;
     }
 }

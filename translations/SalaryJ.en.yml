@@ -22,10 +22,12 @@ salary-j:
         browse_operations: Browse Operations
         add_operations: Add Operations
         models: Models
+        model: Model
         filter_model: Search
         operations: Operations
         worked_operations: Worked
         worked_operations_new: Worked (NEW)
+        total: Total
 
     form:
         locale: Locale
@@ -56,6 +58,10 @@ salary-j:
         models:
             edit_names: Change Names
             remove: Delete
+            
+        operations:
+            add_new_operation: Add New Operation
+            minutes: Minutes
 
     settings:
         minute_bonus: Minute Bonus (%)
