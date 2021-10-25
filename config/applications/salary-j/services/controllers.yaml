@@ -12,4 +12,10 @@ services:
         arguments:
             - "@salaryj.repository.models"
         tags: ['controller.service_arguments']
-
+        
+    App\Controller\SalaryJ\SettingsController:
+        arguments:
+            - '@vs_application.context.application'
+            - '@salaryj.repository.settings'
+            - '@salaryj.factory.settings'
+        tags: ['controller.service_arguments']

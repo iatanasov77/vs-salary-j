@@ -48,7 +48,7 @@ vs_application:
                 route: app_home
             settings:
                 name: salary-j.menu.settings
-                route: app_home
+                route: salaryj_settings_index
             appDivider:
                 isDivider: true
             logout:

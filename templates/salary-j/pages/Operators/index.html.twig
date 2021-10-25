@@ -3,7 +3,7 @@
 {% block content %}
     <h1 align="center">{{ 'salary-j.pages.operators' | trans( {},'SalaryJ' ) }}</h1>
     
-    {{ form_start(form, { 'attr': {'class': 'form-horizontal', 'id': 'form-post'}, 'action': path('salaryj_operators_create'), 'method': 'POST' }) }}
+    {{ form_start(form, { 'action': path('salaryj_operators_create'), 'method': 'POST' }) }}
         {{ form_widget( form._token ) }}
         {{ form_widget( form.application_code, {'value' : application.code} ) }}
     

@@ -50,3 +50,11 @@ app_operators_work_browse_operations:
 app_operators_work_add_operations:
     path: /operators-work/{operatorId}/add
     controller: App\Controller\SalaryJ\OperatorsWorkController::addOperations
+
+salaryj_settings_index:
+    path: /settings
+    controller: App\Controller\SalaryJ\SettingsController::index
+
+salaryj_settings_update:
+    path: /settings/update
+    controller: App\Controller\SalaryJ\SettingsController::update

@@ -56,5 +56,9 @@ salary-j:
         models:
             edit_names: Смяна на Имена
             remove: Изтриване
+            
+    settings:
+        minute_bonus: Минутен Бонус (%)
+        minute_rate: Минутна Ставка (лв.)
 
             

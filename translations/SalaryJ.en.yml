@@ -57,3 +57,7 @@ salary-j:
             edit_names: Change Names
             remove: Delete
 
+    settings:
+        minute_bonus: Minute Bonus (%)
+        minute_rate: Minute Rate (lv.)
+
