@@ -87,6 +87,8 @@ Encore
     .addEntry( 'js/app', './assets/salary-j/js/app.js' )
     
     .addEntry( 'js/pages/operators', './assets/salary-j/js/pages/operators.js' )
+    .addEntry( 'js/pages/models', './assets/salary-j/js/pages/models.js' )
+    .addEntry( 'js/pages/operations', './assets/salary-j/js/pages/operations.js' )
 ;
 
 const applicationConfig = Encore.getWebpackConfig();

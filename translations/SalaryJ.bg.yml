@@ -21,6 +21,12 @@ salary-j:
         nothing: Нищо
         browse_operations: Преглед Операции
         add_operations: Добавяне Операции
+        models: Модели
+        filter_model: Търсене
+        operations: Операции
+        worked_operations: Изработени
+        worked_operations_new: Заработка (НОВО)
+        
     form:
         locale: Език
         common_group: Обща
@@ -28,6 +34,7 @@ salary-j:
         name: Име
         description: Описание
         parent: Родител
+        number: Номер
         apply: Въведи
         save: Запази
         cancel: Отказ
@@ -46,4 +53,8 @@ salary-j:
             edit_names: Смяна на Имена
             remove: Изтриване
             
+        models:
+            edit_names: Смяна на Имена
+            remove: Изтриване
+
             

@@ -17,4 +17,11 @@ services:
             - "%salaryj.model.operators.class%"
         tags:
             - { name: form.type }
+    
+    salaryj.resources.models.form:
+        class: App\Form\ModelForm
+        arguments:
+            - "%salaryj.model.models.class%"
+        tags:
+            - { name: form.type }
 

@@ -1,0 +1,15 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\Controller\:
+        resource: '../../../../src/Controller'
+        tags: ['controller.service_arguments']
+        
+    salaryj.resources.models.ext_controller:
+        class: App\Controller\SalaryJ\ModelsExtController
+        arguments:
+            - "@salaryj.repository.models"
+        tags: ['controller.service_arguments']
+

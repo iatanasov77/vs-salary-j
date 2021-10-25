@@ -12,6 +12,15 @@ class OperatorsWorkController extends AbstractController
             
         ];
         
-        return $this->render( 'salary-j/pages/OperatorsWork/index.html.twig', $tplVars );
+        return $this->render( 'salary-j/pages/Operations/operators_work_browse_operations.html.twig', $tplVars );
+    }
+    
+    public function addOperations( int $operatorId, Request $request ) : Response
+    {
+        $tplVars = [
+            
+        ];
+        
+        return $this->render( 'salary-j/pages/Operations/operators_work_add_operations.html.twig', $tplVars );
     }
 }

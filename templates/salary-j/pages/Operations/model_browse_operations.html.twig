@@ -1,0 +1,154 @@
+{% extends "salary-j/base.html.twig" %}
+
+{% block content %}
+	<h1 align="center">Операции</h1>
+	<h2 align="center">Модел: {'cp1251'|iconv:'utf-8':$model->number()}. {'cp1251'|iconv:'utf-8':$model->name()}</h2>
+
+{if isset($operator)}
+	<p align="center">Добавяне операции за оператор: <b>{'cp1251'|iconv:'utf-8':$operator->name()}</b></p>
+	<p align="center">Дата: {$dateEdit}</p>
+{else}
+	<form name="formModel" action="{$smarty.server.PHP_SELF}" method="post">
+		<table cellspacing="0" cellpadding="2">
+			<tr>
+				<td colspan="3"><h3><b>Добавяне на нова Операция</h3></b></td>
+			</tr>
+			<tr>
+				<td>Номер</td>
+				<td>Име</td>
+				<td>Минути</td>
+				<td>&nbsp;</td>
+			</tr>
+				<tr>
+					<td><input type="text" size="6" name="number" /></td>
+					<td><input type="text" size="60" name="name" /></td>
+					<td><input type="text" size="6" name="minutes" /></td>
+					<!-- <td><input type="text" size="6" name="price" /></td> -->
+					
+					
+					<td>
+						<input type="submit" name="sub_operation" value="Запази" />
+						<input type="hidden" name="modid" value="{$smarty.get.modid}" />
+					</td>
+				</tr>
+			</table>
+		</form>
+	{/if}
+
+	<br /><br />
+	<input type="button" value="Изработени" onclick="document.location='{$smarty.server.PHP_SELF}?modid={$smarty.get.modid}&mode=work_count'" />
+	<input type="button" value="Заработка (НОВО)" onclick="document.location='model_work.php?modid={$smarty.get.modid}&mode=work_count'" />
+	<br /><br />
+
+	<table cellspacing="0" width="100%">
+		<tr>
+			<td class="DialogTitle">Операции</td>
+		</tr>
+		<tr>
+			<td class="DialogBorder">
+	
+				<table cellspacing="1" class="DialogBox">
+					<tr>
+						<td class="DialogBox" valign="top"><br />
+							<form action="{$smarty.server.PHP_SELF}?modid={$smarty.get.modid}" method="post" name="procoperform">
+
+								<input type="hidden" name="vsdeDate" id="vsdeDate" value="{$vsdeDate}" />
+								<input type="hidden" name="modid" value="{$smarty.get.modid}" />
+								<input type="hidden" name="opid" value="{$operator->id()}" />
+
+								<input type="hidden" name="mode" value="" />
+
+								<script src="{$wwwDir}js/change_all_checkboxes.js" language="JavaScript" type="text/javascript"></script>
+								<div style="line-height: 170%;">
+									<a href="javascript: checkAll(true, document.procoperform, 'opids');">Всички</a> / 
+									<a href="javascript: checkAll(false, document.procoperform, 'opids');">Нищо</a>
+								</div>
+
+								<table cellpadding="2" cellspacing="1" width="70%">
+									<tr class="TableHead">
+										<td width="15%">Брой</td>
+										<td width="5%">Номер</td>
+										<td >Име</td>
+										<td width="5%">Минути</td>
+										<td width="5%">Минути + {$settings.minuteBonus}%</td>
+										<td width="5%">Минути * {$settings.minutePrice} лв.</td>
+										<!-- 
+										<td width="5%">Цена (старо)</td>
+										 -->
+									</tr>
+
+								{foreach from=$listOperations item=op}
+									<tr {cycle values=",class='TableSubHead'"}>
+										<td>
+											<input type="checkbox" name="opids[{$op->id()}]" />
+										{if isset($operator)}
+											<input type="text" name="posted_data[{$op->id()}][count]" size="4"/>
+											<input type="hidden" name="posted_data[{$op->id()}][price]" size="4"/>
+										{/if}
+										</td>
+										<td >
+											<input type="text" size="4" name="posted_data[{$op->id()}][number]" value="{'cp1251'|iconv:'utf-8':$op->number()}" />
+										</td>
+										<td>
+											<font class="ItemsList">
+												<input type="text" size="60" name="posted_data[{$op->id()}][name]" value="{'cp1251'|iconv:'utf-8':$op->name()}" />
+											</font>
+										</td>
+										
+										<td><input class="textMinutes" type="text" name="posted_data[{$op->id()}][minutes]" value="{$op->minutes()}" data-currentValue="{$op->minutes()}" data-operationId="{$op->id()}" size="6"/></td>
+										
+										<td id="bonus{$op->id()}">{math equation="x * (1 + ( y / 100 ) )" x=$op->minutes() y=$settings.minuteBonus format="%.2f"}</td>
+										<td id="price{$op->id()}">{math equation="(x * (1 + ( y / 100 )) * z )" x=$op->minutes() y=$settings.minuteBonus z=$settings.minutePrice format="%.4f"}</td>
+										<!-- 
+										<td><input type="text" name="posted_data[{$op->id()}][price]" value="{$op->price()}" size="6"/></td>
+										 -->
+										
+										
+									</tr>
+								{/foreach}
+									<tr>
+										<td colspan="6"><hr /></td>
+									</tr>
+
+									<tr>
+										<td colspan="3" align="right">Общо:</td>
+										<td id="totalMinutes">{$modelMinutes}</td>
+										<td id="totalBonus">{math equation="x * (1 + ( y / 100 ) )" x=$modelMinutes y=$settings.minuteBonus format="%.2f"}</td>
+										<td id="totalPrice">{math equation="(x * (1 + ( y / 100 )) * z )" x=$modelMinutes y=$settings.minuteBonus z=$settings.minutePrice format="%.4f"}</td>
+										<!-- 
+										<td id="totalPrice">{$modelPrice}</td>
+										 -->
+									</tr>
+
+									<tr>
+										<td colspan="7"><hr /></td>
+									</tr>
+									<tr>
+										<td colspan="7">
+											<input type="submit" name="submitAddWork" value="Запази"  />
+										</td>
+									</tr>
+
+
+								</table>
+							</form>
+							<br />&nbsp;
+						</td>
+					</tr>
+					<tr>
+						<td>{$pager}</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+    {{ encore_entry_link_tags( 'js/pages/operations' ) }}
+{% endblock %}
+        
+{% block body_javascripts %}
+    {{ encore_entry_script_tags( 'js/pages/operations' ) }}
+{% endblock %}

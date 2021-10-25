@@ -2,6 +2,7 @@ imports:
     - { resource: services/salary_j.yaml }
     - { resource: services/doctrine_extensions.yaml }
     - { resource: services/forms.yaml }
+    - { resource: services/controllers.yaml }
 
 parameters:
     lang: 'bg'
@@ -38,14 +39,11 @@ services:
             - '../../../src/DependencyInjection/'
             - '../../../src/Entity/'
             - '../../../src/Form/'
+            - '../../../src/Controller/'
             - '../../../src/SalaryJKernel.php'
             - '../../../src/Tests/'
         autowire: false
-        
-    App\Controller\:
-        resource: '../../../src/Controller'
-        tags: ['controller.service_arguments']
-        autowire: true
+
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
