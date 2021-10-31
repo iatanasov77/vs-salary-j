@@ -31,20 +31,24 @@ class OperatorsWork implements ResourceInterface, ApplicationRelationInterface, 
     private $id;
     
     /**
-     * @var int
-     *
-     * @ORM\Column(name="operators_id", type="integer", nullable=false)
+     * @var Operator
+     * 
+     * @ORM\ManyToOne(targetEntity="App\Entity\Operator", inversedBy="work")
+     * @ORM\JoinColumn(name="operator_id", referencedColumnName="id", nullable=false)
      */
-    private $operatorsId;
+    private $operator;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="operations_id", type="integer", nullable=false)
+     * @var Operation
+     * 
+     * @ORM\ManyToOne(targetEntity="App\Entity\Operation", inversedBy="work")
+     * @ORM\JoinColumn(name="operation_id", referencedColumnName="id", nullable=false)
      */
-    private $operationsId;
+    private $operation;
 
     /**
+     * The Date when Work is Worked ( ! not the date when is created or updated :) )
+     * 
      * @var \DateTime
      *
      * @ORM\Column(name="date", type="date", nullable=false)
@@ -70,14 +74,14 @@ class OperatorsWork implements ResourceInterface, ApplicationRelationInterface, 
         return $this->id;
     }
 
-    public function getOperatorsId(): ?int
+    public function getOperator(): ?Operator
     {
-        return $this->operatorsId;
+        return $this->operator;
     }
 
-    public function getOperationsId(): ?int
+    public function getOperation(): ?Operation
     {
-        return $this->operationsId;
+        return $this->operation;
     }
 
     public function getDate(): ?\DateTimeInterface
@@ -109,32 +113,24 @@ class OperatorsWork implements ResourceInterface, ApplicationRelationInterface, 
         return $this;
     }
 
-    public function setOperation(?Operations $operation): self
+    public function setOperator( $operator ): self
+    {
+        $this->operator = $operator;
+        
+        return $this;
+    }
+    
+    public function setOperation(?Operation $operation): self
     {
         $this->operation = $operation;
 
         return $this;
     }
     
-    public function setOperationsId(  $operationsId ): self
-    {
-        $this->operationsId = $operationsId;
-        
-        return $this;
-    }
-    
-    public function setOperatorsId( $operatorsId ): self
-    {
-        $this->operatorsId = $operatorsId;
-        
-        return $this;
-    }
-
     public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
         
         return $this;
     }
-
 }

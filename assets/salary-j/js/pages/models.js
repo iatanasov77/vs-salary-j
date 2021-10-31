@@ -1,10 +1,5 @@
-
-/**
- * JQuery UI is needed by Autocomplete
- */
-require( 'jquery-ui-dist/jquery-ui.js' );
 require( 'jquery-ui-dist/jquery-ui.css' );
-//require( 'jquery-ui-dist/jquery-ui.theme.css' );
+require( 'jquery-ui-dist/jquery-ui.js' );
 
 function checkAll( flag, form, prefix )
 {

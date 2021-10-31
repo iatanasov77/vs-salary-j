@@ -1,4 +1,8 @@
 parameters:
     salary_j.operators_groups.taxonomy_code: operators-groups
 
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
 

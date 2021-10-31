@@ -41,3 +41,10 @@ sylius_resource:
                 model:      App\Entity\Settings
                 repository: App\Repository\SettingsRepository
                 factory: Sylius\Component\Resource\Factory\Factory
+
+        salaryj.operators_work:
+            driver: doctrine/orm
+            classes:
+                model:      App\Entity\OperatorsWork
+                repository: App\Repository\OperatorsWorkRepository
+                factory: Sylius\Component\Resource\Factory\Factory

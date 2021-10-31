@@ -46,6 +46,8 @@ class OperationForm extends AbstractForm
                 'translation_domain'    => 'SalaryJ',
                 'scale'                 => 2,
             ])
+            
+            ->add( 'price', HiddenType::class )
         ;
     }
 }

@@ -23,11 +23,13 @@ salary-j:
         add_operations: Add Operations
         models: Models
         model: Model
+        add_new_model: Create new Model
         filter_model: Search
         operations: Operations
         worked_operations: Worked
         worked_operations_new: Worked (NEW)
         total: Total
+        message_no_operations_for_model: No entered operations for the model.
 
     form:
         locale: Locale

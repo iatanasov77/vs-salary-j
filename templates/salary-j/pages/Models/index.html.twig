@@ -9,7 +9,7 @@
     
     	<table cellspacing="0" cellpadding="2">
     		<tr>
-    			<td colspan="3"><h3><b>{{ 'salary-j.pages.add_new_operator' | trans( {},'SalaryJ' ) }}</h3></b></td>
+    			<td colspan="3"><h3><b>{{ 'salary-j.pages.add_new_model' | trans( {},'SalaryJ' ) }}</h3></b></td>
     		</tr>
     		<tr>
     			<td>{{ form_label( form.number ) }}</td>
@@ -91,7 +91,7 @@
 												data-url="{{ path( 'app_model_add_operations', {'modelId': mod.id} ) }}"
 											/>
 											<input type="button" value="{{ 'salary-j.pages.worked_operations_new' | trans( {},'SalaryJ' ) }}" class="workedOperationsNew"
-												data-url="{{ path( 'app_model_add_operations_new', {'modelId': mod.id} ) }}"
+												data-url="{{ path( 'app_model_add_operations_new', {'modelId': mod.id, operatorsGroupId: 0} ) }}"
 											/>
 										</td>
 									</tr>

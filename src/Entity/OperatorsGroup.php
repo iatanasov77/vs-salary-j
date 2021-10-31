@@ -109,7 +109,7 @@ class OperatorsGroup implements ResourceInterface, ApplicationRelationInterface
     
     public function removeOperator( Operator $operator ) : OperatorsGroup
     {
-        if ( ! $this->operators->contains( $operator ) ) {
+        if ( $this->operators->contains( $operator ) ) {
             $this->operators->removeElement( $operator );
             $operator->removeGroup( $this );
         }

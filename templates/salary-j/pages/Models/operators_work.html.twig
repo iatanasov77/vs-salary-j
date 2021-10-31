@@ -1,0 +1,134 @@
+{% extends "salary-j/base.html.twig" %}
+
+{% block content %}
+	<h1 align="center">Заработка за Модел</h1>
+	<h2 align="center">{{ model.number }} - {{ model.name }}</h2>
+	<div class="date-range-picker-container">
+		<div class="date-range-picker-subcontainer singleDatePickerSubcontainer">
+    		<span class="date-range-picker-label">Дата: </span>
+    		{#<input id="operators_work_period" name="operators_work_period">#}
+    		<div id="work_date"
+    			class="date-range-picker-widget singleDatePicker lang_{{ app.request.locale|slice(0, 2) }}"
+    		>
+                <i class="fa fa-calendar"></i>&nbsp;
+                <span></span> <i class="fa fa-caret-down"></i>
+            </div>
+        </div>
+	</div>
+
+	<form name="formModel" action="{$smarty.server.PHP_SELF}" method="post">
+		<table cellspacing="0" cellpadding="2">
+			<tr>
+				<td colspan="3"><h3><b>Добавяне на Оператор</h3></b></td>
+			</tr>
+			<tr>
+				<td>Оператори</td>
+				
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td>
+					<select id="selOperator" name="selOperator" >
+						<option value="0">Избери</option>
+					{% for op in operators %}
+						<option id="selOp{{ op.id }}" value="{{ op.id }}">{{ op.name }}</option>
+					{% endfor %}
+					</select>
+				</td>
+				<td><input id="btnAddOperator" type="button" name="sub_model" value="Добави" /></td>
+			</tr>
+		</table>
+	</form>
+	<br /><br /><br />
+
+	<table cellspacing="0" width="100%">
+		<tr>
+			<td class="DialogBorder">
+				<div style="margin: 10px 0 10px 20px;">Заработка</div>
+
+				<table cellspacing="1" class="DialogBox">
+					<tr>
+						<td class="DialogBox" valign="top"><br />
+						{% if ( model.operations is empty ) %}
+							{{ 'message_no_operations_for_model' | trans( {},'SalaryJ' ) }}
+						{% else %}
+							<form id="formModel" action="{$smarty.server.PHP_SELF}?{$smarty.server.QUERY_STRING}" method="post" name="processcategoryform">
+								<input type="hidden" name="modelId" value="{$model->id()}" />
+								<input type="hidden" name="date" value="{$vsdeDate}" />
+								
+								<div id="boxTblWorkCount">
+								<table style="clear: both; margin: 0 auto; width: 100%;" id="tblWorkCount" cellpadding="2" cellspacing="0" width="100%" border="1">
+									<thead>
+										<tr>
+											<th class="headcol">&nbsp;</th>
+										
+									{% for operation in model.operations %}
+											<th><a href="javascript:void(0);" title="{{ operation.operationName }}">{{ loop.index }}</a></th>
+									{% endfor %}
+										</tr>
+									</thead>
+
+									<tbody>
+									{% for operator in operators %}
+										{assign var=showRow value=0}
+										<tr id="rowOp{$operatorId}">
+											<td class="headcol">{{ operator.name }}</td>
+										{% for operation in model.operations %}
+											
+											{assign var=operationId value=$op->id()}
+											{assign var="work" value=$workCount.$operatorId.$operationId}
+											{assign var="price" value=$op->priceByMinutes()}
+											{if $work}
+												{assign var=showRow value=1}
+											{/if}
+											<td>
+												<input {if !$price}disabled="disabled"{/if} type="text" size="5" name="workCount[{$operatorId}][{$operationId}][workCount]" value="{$work.workCount}" class="textWorkCount" data-currentValue="{$work.workCount}" data-operationId="{$operationId}" />
+												<input type="hidden" name="workCount[{$operatorId}][{$operationId}][workId]" value="{$work.workId}" />
+												<input type="hidden" name="workCount[{$operatorId}][{$operationId}][workCountOld]" value="{$work.workCount}" />
+												<input type="hidden" name="workCount[{$operatorId}][{$operationId}][price]" value="{$price}" />
+											</td>
+										{% endfor %}
+											
+										</tr>
+										{#
+										{if !$showRow}
+										<script type="text/javascript">$("#rowOp{$operatorId}").hide()</script>
+										{else}
+										<script type="text/javascript">$("#selOp{$operatorId}").hide()</script>
+										{/if}
+										#}
+									{% endfor %}
+									</tbody>
+
+									<tfoot>
+										<tr>
+											<td class="headcol">Общо</td>
+										{foreach from=$listOperations item=op}
+											{assign var=operationId value=$op->id()}
+											<td id="total{$operationId}">&nbsp;{$operationsTotalCount.$operationId}</td>
+										{/foreach}
+										</tr>
+									</tfoot>
+								
+								</table>
+								</div>
+								<input type="submit" name="saveForm" value="Запази" />
+							</form>
+						{% endif %}
+							<br />&nbsp;
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+    {{ encore_entry_link_tags( 'js/pages/operators_work_new' ) }}
+{% endblock %}
+        
+{% block body_javascripts %}
+    {{ encore_entry_script_tags( 'js/pages/operators_work_new' ) }}
+{% endblock %}

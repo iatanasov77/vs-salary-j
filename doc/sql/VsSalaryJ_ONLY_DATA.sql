@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Oct 26, 2021 at 12:06 AM
+-- Generation Time: Oct 31, 2021 at 03:25 PM
 -- Server version: 8.0.26
 -- PHP Version: 7.4.24
 
@@ -33,7 +33,13 @@ INSERT INTO `JUN_Models` (`id`, `number`, `name`, `created_at`, `updated_at`, `a
 --
 
 INSERT INTO `JUN_Operations` (`id`, `model_id`, `operation_id`, `operation_name`, `minutes`, `updated_at`, `application_id`, `created_by_id`, `updated_by_id`, `deleted_by_id`, `created_at`, `deleted_at`, `price`) VALUES
-(1, 1, '1', 'съединява страничен на четириконечен', 1.3, '2021-10-25 22:01:14', 2, NULL, NULL, NULL, '2021-10-25 22:01:14', NULL, 0);
+(1, 1, '1', 'съединява страничен на четириконечен', 1.3, '2021-10-25 22:01:14', 2, NULL, NULL, NULL, '2021-10-25 22:01:14', NULL, 0),
+(2, 1, '2', 'съединява вътрешен ръкав', 0.6, '2021-10-31 15:20:56', 2, NULL, NULL, NULL, '2021-10-31 15:20:56', NULL, 1),
+(3, 1, '3', 'прикачва ръкав', 3, '2021-10-31 15:21:29', 2, NULL, NULL, NULL, '2021-10-31 15:21:29', NULL, 1),
+(4, 1, '4', 'изработва хастар', 4, '2021-10-31 15:21:47', 2, NULL, NULL, NULL, '2021-10-31 15:21:47', NULL, 1),
+(5, 1, '5', 'шие подгъв хастар', 2, '2021-10-31 15:22:11', 2, NULL, NULL, NULL, '2021-10-31 15:22:11', NULL, 1),
+(6, 1, '6', 'шие марка фирмена', 1, '2021-10-31 15:22:27', 2, NULL, NULL, NULL, '2021-10-31 15:22:27', NULL, 1),
+(7, 1, '7', 'израбтова деколте с ластик', 6, '2021-10-31 15:23:44', 2, NULL, NULL, NULL, '2021-10-31 15:23:44', NULL, 1);
 
 --
 -- Dumping data for table `JUN_Operators`
@@ -66,30 +72,6 @@ INSERT INTO `JUN_Settings` (`var_name`, `application_id`, `created_by_id`, `upda
 INSERT INTO `VSAPP_Applications` (`id`, `title`, `hostname`, `code`, `enabled`, `created_at`, `updated_at`) VALUES
 (1, 'Admin Panel', 'admin.salary-j.lh', 'admin-panel', 1, '2021-10-13 00:50:24', NULL),
 (2, 'SalaryJ Main', 'salary-j.lh', 'salaryj-main', 1, '2021-10-13 22:37:01', NULL);
-
---
--- Dumping data for table `VSAPP_Migrations`
---
-
-INSERT INTO `VSAPP_Migrations` (`version`, `executed_at`, `execution_time`) VALUES
-('App\\DoctrineMigrations\\Version20210928155130', '2021-10-13 21:40:54', 257),
-('App\\DoctrineMigrations\\Version20211010193432', '2021-10-13 21:40:54', 695),
-('App\\DoctrineMigrations\\Version20211011145348', '2021-10-13 21:40:55', 2248),
-('App\\DoctrineMigrations\\Version20211023162540', '2021-10-23 19:26:15', 4161),
-('App\\DoctrineMigrations\\Version20211023183531', '2021-10-23 21:36:07', 2214),
-('App\\DoctrineMigrations\\Version20211024091112', '2021-10-24 12:11:38', 3403),
-('App\\DoctrineMigrations\\Version20211025110003', '2021-10-25 14:00:35', 6303),
-('App\\DoctrineMigrations\\Version20211025191550', '2021-10-25 22:16:21', 2297),
-('VS\\ApplicationBundle\\DoctrineMigrations\\Version20210615143142', '2021-10-13 21:40:46', 2108),
-('VS\\ApplicationBundle\\DoctrineMigrations\\Version20210617123114', '2021-10-13 21:40:48', 599),
-('VS\\ApplicationBundle\\DoctrineMigrations\\Version20210702092552', '2021-10-13 21:40:48', 479),
-('VS\\ApplicationBundle\\DoctrineMigrations\\Version20210702150353', '2021-10-13 21:40:49', 1053),
-('VS\\ApplicationBundle\\DoctrineMigrations\\Version20210703173305', '2021-10-13 21:40:50', 1151),
-('VS\\ApplicationBundle\\DoctrineMigrations\\Version20210705031111', '2021-10-13 21:40:51', 921),
-('VS\\ApplicationBundle\\DoctrineMigrations\\Version20210707064607', '2021-10-13 21:40:52', 451),
-('VS\\ApplicationBundle\\DoctrineMigrations\\Version20211003124448', '2021-10-13 21:40:53', 384),
-('VS\\ApplicationBundle\\DoctrineMigrations\\Version20211005095015', '2021-10-13 21:40:53', 384),
-('VS\\ApplicationBundle\\DoctrineMigrations\\Version20211009103709', '2021-10-13 21:40:53', 261);
 
 --
 -- Dumping data for table `VSAPP_Settings`

@@ -3,7 +3,7 @@
 {% block content %}
     <h1 align="center">Модели</h1>
 
-	<p align="center">Добавяне операции за оператор: <b>{$operator->name()}</b></p>
+	<p align="center">Добавяне операции за оператор: <b>{{ operator.name }}</b></p>
 	
 	<table cellspacing="0" cellpadding="2">
 		<tr>
@@ -59,24 +59,26 @@
 										<td width="30%">&nbsp;</td>
 									</tr>
 
-								{foreach from=$listModels item=mod}
-									<tr {cycle values=",class='TableSubHead'"}>
-										<td ><input type="checkbox" name="modids[{$mod->id()}]" /></td>
+								{% for mod in listModels %}
+									<tr {{ cycle(['', 'class="TableSubHead"'], loop.index0) }}>
+										<td ><input type="checkbox" name="modids[{{ mod.id }}]" /></td>
 										<td >
-											<input type="text" name="posted_data[{$mod->id()}][number]" value="{$mod->number()}" />
+											<input type="text" name="posted_data[{{ mod.id }}][number]" value="{{ mod.number }}" />
 										</td>
 										<td>
 											<font class="ItemsList">
-												<input type="text" size="60" name="posted_data[{$mod->id()}][name]" value="{$mod->name()}" />
+												<input type="text" size="60" name="posted_data[{{ mod.id }}][name]" value="{{ mod.name }}" />
 											</font>
 										</td>
 										<td>
-											<input type="button" value="Операции" onclick="document.location='{$smarty.server.PHP_SELF}?modid={$mod->id()}&opid={$operator->id()}'" />
-											<input type="button" value="Изработени" onclick="document.location='{$smarty.server.PHP_SELF}?modid={$mod->id()}&mode=work_count'" />
-											<input type="button" value="Заработка (НОВО)" onclick="document.location='model_work.php?modid={$mod->id()}'" />
+											<input type="button" value="Операции" onclick="document.location='{$smarty.server.PHP_SELF}?modid={{ mod.id }}&opid={$operator->id()}'" />
+											<input type="button" value="Изработени" onclick="document.location='{$smarty.server.PHP_SELF}?modid={{ mod.id }}&mode=work_count'" />
+											<input type="button" value="Заработка (НОВО)" class="workedOperationsNew"
+												data-url="{{ path( 'app_model_add_operations_new', {'modelId': mod.id, operatorsGroupId: operator.group.id} ) }}"
+											/>
 										</td>
 									</tr>
-								{/foreach}
+								{% endfor %}
 
 									<tr>
 										<td colspan="6" class="SubmitBox">

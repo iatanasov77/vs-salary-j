@@ -1,0 +1,81 @@
+
+<table cellspacing="1" class="DialogBox">
+	<tr>
+		<td class="DialogBox" valign="top"><br />
+			<form name="formOperatorWorks" action="{$smarty.server.PHP_SELF}?opid={$operator->id()}&act=preview" method="post">
+				<input type="hidden" name="fromVsdeDate" id="fromVsdeDate" value="{$fromVsdeDate}" />
+				<input type="hidden" name="toVsdeDate" id="toVsdeDate" value="{$toVsdeDate}" />
+
+				<table cellpadding="2" cellspacing="1" width="100%">
+					<tr class="TableHead">
+						<td width="3%">&nbsp;</td>
+						<td><a href="{$smarty.server.PHP_SELF}?{$getQuery}&order_by=date">Дата</a></td>
+						<td width="3%" align="center"><a href="{$smarty.server.PHP_SELF}?{$getQuery}&order_by=id">&sect;</a></td>
+						<td width="15%"><a href="{$smarty.server.PHP_SELF}?{$getQuery}&order_by=model_id">Модел</a></td>
+						<td><a href="{$smarty.server.PHP_SELF}?{$getQuery}&order_by=operation_id">Операция</a></td>
+						<td width="5%"><a href="{$smarty.server.PHP_SELF}?{$getQuery}&order_by=price">Ед. Цена</a></td>
+						<td width="5%"><a href="{$smarty.server.PHP_SELF}?{$getQuery}&order_by=count">Бройки</a></td>
+						<td width="5%"><a href="{$smarty.server.PHP_SELF}?{$getQuery}&order_by=total">Общо</a></td>
+					</tr>
+
+				{% for w in work %}
+					<tr class="bottomborder {cycle values=",TableSubHead"}">
+						<td>
+							<input type="checkbox" name="work_ids[{{ w.id }}]" id="chk_{{ w.id }}" onclick="chkClicked('{{ w.id }}');" />
+						</td>
+						<td width="15%">
+							{{ w.date }}
+						</td>
+						<td>{{ w.operation.id }}</td>
+						<td width="15%">
+							<div style="display:none;" id="dfl_model_{{ w.id }}">{{ w.operation.model.id }}</div>
+
+							<input type="hidden" name="posted_data[{{ w.id }}][model]" value="{$op.models_id}" />
+							{{ w.operation.model.number }}.&nbsp;&nbsp;{{ w.operation.model.name }}
+						</td>
+						<td>
+							<div style="display:none;" id="dfl_operation_{{ w.id }}">{{ w.operation.id }}</div>
+
+							<input type="hidden" name="posted_data[{{ w.id }}][operation]" value="{{ w.operation.id }}" />
+							{{ w.operation.operationId }}.&nbsp;&nbsp;{{ w.operation.operationName }}
+						</td>
+						<td width="5%">
+							<div style="display:none;" id="dfl_price_{{ w.id }}">{{ w.operation.price }}</div>
+							<input type="hidden" name="posted_data[{{ w.id }}][price]" id="price_{{ w.id }}" value="{{ w.operation.price }}" />
+							<div id="price_view_{{ w.id }}">{{ w.operation.price }}</div>
+						</td>
+						<td width="5%">
+							<div style="display:none;" id="dfl_count_{{ w.id }}">{$op.count}</div>
+							<input type="text" size="3" id="count_{{ w.id }}" name="posted_data[{{ w.id }}][count]" value="{$op.count}" onchange="countChanged('{{ w.id }}', this.value);" />
+						</td>
+						<td width="5%">
+							<div id="total_view_{{ w.id }}">{$op.sub_total}</div>
+						</td>
+					</tr>
+				{% endfor %}
+					<tr>
+						<td colspan="7">&nbsp;</td>
+					</tr>
+					<tr>
+						<td colspan="5">&nbsp;</td>
+						<td align="left"><b>TOTAL:</b></td>
+						<td align="right">{$opWorkTotal}</td>
+					</tr>
+					<tr>
+						<td colspan="7">
+							<input type="submit" name="sub_works" value="Запази" />
+							<input type="button" name="open_print" value="Принтиране" 
+								{# onclick="vsOpenPrintPreview('operator_work');" #}
+								id="btnPrintOperatorWork"
+							/>
+						</td>
+					</tr>
+				</table>
+			</form>
+			<br />&nbsp;
+		</td>
+	</tr>
+	<tr>
+		<td>{# $pager #}</td>
+	</tr>
+</table>

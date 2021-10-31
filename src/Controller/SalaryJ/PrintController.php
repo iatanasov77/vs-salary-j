@@ -8,7 +8,7 @@ use VS\ApplicationBundle\Component\Context\ApplicationContext;
 
 use App\Repository\OperatorsWorkRepository;
 
-class OperatorsWorkController extends AbstractController
+class PrintController extends AbstractController
 {
     /** @var ApplicationContext */
     private $applicationContext;
@@ -22,16 +22,14 @@ class OperatorsWorkController extends AbstractController
     public function __construct(
         ApplicationContext $applicationContext,
         EntityRepository $operatorsRepository,
-        OperatorsWorkRepository $operatorsWorkRepository,
-        EntityRepository $modelsRepository
+        OperatorsWorkRepository $operatorsWorkRepository
     ) {
             $this->applicationContext       = $applicationContext;
             $this->operatorsRepository      = $operatorsRepository;
             $this->operatorsWorkRepository  = $operatorsWorkRepository;
-            $this->modelsRepository         = $modelsRepository;
     }
     
-    public function browseOperations( int $operatorId, Request $request ) : Response
+    public function printOperations( int $operatorId, Request $request ) : Response
     {
         $operator           = $this->operatorsRepository->find( $operatorId );
         
@@ -59,7 +57,7 @@ class OperatorsWorkController extends AbstractController
         return $this->render( 'salary-j/pages/Operations/operators_work_browse_operations.html.twig', $tplVars );
     }
     
-    public function browseOperationsGrouped( int $operatorId, Request $request ) : Response
+    public function printOperationsGrouped( int $operatorId, Request $request ) : Response
     {
         $operator           = $this->operatorsRepository->find( $operatorId );
         $endDate            = new \DateTime();
@@ -84,18 +82,5 @@ class OperatorsWorkController extends AbstractController
             return $this->render( 'salary-j/pages/Operations/Partial/operations_grouped.html.twig', $tplVars );
         }
         return $this->render( 'salary-j/pages/Operations/operators_work_browse_operations_grouped.html.twig', $tplVars );
-    }
-    
-    public function addOperations( int $operatorId, Request $request ) : Response
-    {
-        $operator   = $this->operatorsRepository->find( $operatorId );
-        $listModels = $this->modelsRepository->findAll();
-        
-        $tplVars = [
-            'operator'      => $operator,
-            'listModels'    => $listModels,
-        ];
-        
-        return $this->render( 'salary-j/pages/Operations/operators_work_add_operations.html.twig', $tplVars );
     }
 }

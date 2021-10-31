@@ -22,6 +22,9 @@ class ModelsExtController extends AbstractController
     /** @var OperationsRepository */
     private $operationsRepository;
     
+    /** @var EntityRepository */
+    private $operatorsRepository;
+    
     /** @var SettingsRepository */
     private $settingsRepository;
     
@@ -29,11 +32,13 @@ class ModelsExtController extends AbstractController
         ApplicationContext $applicationContext,
         EntityRepository $modelsRepository,
         OperationsRepository $operationsRepository,
+        EntityRepository $operatorsRepository,
         SettingsRepository $settingsRepository
     ) {
         $this->applicationContext   = $applicationContext;
         $this->modelsRepository     = $modelsRepository;
         $this->operationsRepository = $operationsRepository;
+        $this->operatorsRepository  = $operatorsRepository;
         $this->settingsRepository   = $settingsRepository;
     }
     
@@ -88,12 +93,16 @@ class ModelsExtController extends AbstractController
         return $this->render( 'salary-j/pages/Operations/model_add_operations.html.twig', $tplVars );
     }
     
-    public function addOperationsNew( int $modelId, Request $request ) : Response
+    public function addOperationsNew( int $modelId, $operatorsGroupId, Request $request ) : Response
     {
+        $model          = $this->modelsRepository->find( $modelId );
+        $operators      = $this->operatorsRepository->findBy( ['group' => $operatorsGroupId ?: null] );
+        
         $tplVars = [
-            
+            'model'     => $model,
+            'operators' => $operators,
         ];
         
-        return $this->render( 'salary-j/pages/Operations/model_add_operations.html.twig', $tplVars );
+        return $this->render( 'salary-j/pages/Models/operators_work.html.twig', $tplVars );
     }
 }

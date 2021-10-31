@@ -12,6 +12,7 @@ services:
             - "@vs_application.context.application"
             - "@salaryj.repository.models"
             - "@salaryj.repository.operations"
+            - '@salaryj.repository.operators'
             - "@salaryj.repository.settings"
         tags: ['controller.service_arguments']
         
@@ -28,4 +29,18 @@ services:
             - '@salaryj.repository.models'
             - '@salaryj.repository.operations'
             - '@salaryj.factory.operations'
+        tags: ['controller.service_arguments']
+        
+    App\Controller\SalaryJ\OperatorsWorkController:
+        arguments:
+            - '@vs_application.context.application'
+            - '@salaryj.repository.operators'
+            - '@salaryj.repository.operators_work'
+        tags: ['controller.service_arguments']
+
+    App\Controller\SalaryJ\PrintController:
+        arguments:
+            - '@vs_application.context.application'
+            - '@salaryj.repository.operators'
+            - '@salaryj.repository.operators_work'
         tags: ['controller.service_arguments']

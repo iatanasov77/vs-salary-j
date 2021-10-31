@@ -40,13 +40,18 @@ app_model_add_operations:
     controller: App\Controller\SalaryJ\ModelsExtController::addOperations
     
 app_model_add_operations_new:
-    path: /model-operations/{modelId}/add_new
+    path: /model-operations/{modelId}/{operatorsGroupId}/add_new
     controller: App\Controller\SalaryJ\ModelsExtController::addOperationsNew
+    defaults:   { operatorsGroupId: 0 }
     
 app_operators_work_browse_operations:
     path: /operators-work/{operatorId}/browse
     controller: App\Controller\SalaryJ\OperatorsWorkController::browseOperations
-    
+
+app_operators_work_browse_operations_grouped:
+    path: /operators-work/{operatorId}/browse-grouped
+    controller: App\Controller\SalaryJ\OperatorsWorkController::browseOperationsGrouped
+
 app_operators_work_add_operations:
     path: /operators-work/{operatorId}/add
     controller: App\Controller\SalaryJ\OperatorsWorkController::addOperations
@@ -62,3 +67,14 @@ salaryj_settings_index:
 salaryj_settings_update:
     path: /settings/update
     controller: App\Controller\SalaryJ\SettingsController::update
+
+
+# Print Routes
+app_operators_work_print_operations:
+    path: /operators-work/{operatorId}/print
+    controller: App\Controller\SalaryJ\PrintController::printOperations
+
+app_operators_work_print_operations_grouped:
+    path: /operators-work/{operatorId}/print-grouped
+    controller: App\Controller\SalaryJ\PrintController::printOperationsGrouped
+

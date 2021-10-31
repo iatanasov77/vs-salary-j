@@ -6,6 +6,7 @@
 
 	{{ form_start( operationForm, { 'action': path('app_model_operations_save_operation', {'modelId': model.id}), 'method': 'POST' } ) }}
 		{{ form_widget( operationForm._token ) }}
+		{{ form_widget( operationForm.price, {'value' : 1} ) }} {# Fake Value #}
         
 		<table cellspacing="0" cellpadding="2">
 			<tr>

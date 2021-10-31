@@ -1,10 +1,10 @@
 {% extends "salary-j/base.html.twig" %}
 
 {% block content %}
-	<div id="operator_id" style="visibility:hidden; display:none;">{{ operator.id }}</div>
-
-	<h1 align="center">Изработени Операции от: {{ operator.name }}</h1>
-	<div class="date-range-picker-container">
+    <div id="operator_id" style="visibility:hidden; display:none;">{$operator->id()}</div>
+    
+    <h1 align="center">Изработени Операции от: {{ operator.name }}</h1>
+    <div class="date-range-picker-container">
 		<div class="date-range-picker-subcontainer">
     		<span class="date-range-picker-label">За периода</span>
     		{#<input id="operators_work_period" name="operators_work_period">#}
@@ -18,24 +18,26 @@
         </div>
 	</div>
 	<div style="clear: both;"></div>
-	<form action="{{ path( 'app_operators_work_browse_operations_grouped', {'operatorId': operator.id} ) }}" method="post">
+    <p align="center">Групирано по Операции</p>
+    
+    <form action="{{ path( 'app_operators_work_browse_operations', {'operatorId': operator.id} ) }}" method="post">
 		<input type="hidden" name="startDate" id="fromVsdeDate" value="{{ startDate }}" />
 		<input type="hidden" name="endDate" id="toVsdeDate" value="{{ endDate }}" />
 
-		<input type="submit" name="submit" value="Групирано" />
+		<input type="submit" name="submit" value="Разделно" />
 	</form>
 	<br /><br /><br />
-
-	<table cellspacing="0" width="100%">
-		<tr>
-			<td class="DialogTitle">Операции</td>
-		</tr>
-		<tr>
-			<td class="DialogBorder" id="OperationsContainer">
-				{% include 'salary-j/pages/Operations/Partial/operations.html.twig' %}
-			</td>
-		</tr>
-	</table>
+    
+    <table cellspacing="0" width="100%">
+    	<tr>
+    		<td class="DialogTitle">Операции</td>
+    	</tr>
+    	<tr>
+    		<td class="DialogBorder" id="OperationsContainer">
+    			{% include 'salary-j/pages/Operations/Partial/operations_grouped.html.twig' %}
+    		</td>
+    	</tr>
+    </table>
 {% endblock %}
 
 {% block stylesheets %}

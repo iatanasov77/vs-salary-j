@@ -1,6 +1,8 @@
 <?php namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Sylius\Component\Resource\Model\ResourceInterface;
@@ -65,6 +67,18 @@ class Operation implements ResourceInterface, ApplicationRelationInterface, User
      * @ORM\Column(name="price", type="float", precision=10, scale=0, nullable=false)
      */
     private $price;
+    
+    /**
+     * @var Collection|OperatorsWork[]
+     *
+     * @ORM\OneToMany(targetEntity="App\Entity\OperatorsWork", mappedBy="operator")
+     */
+    private $work;
+    
+    public function __construct()
+    {
+        $this->work = new ArrayCollection();
+    }
     
     public function getModel()
     {
@@ -139,6 +153,33 @@ class Operation implements ResourceInterface, ApplicationRelationInterface, User
     public function setPrice(float $price): self
     {
         $this->price = $price;
+        
+        return $this;
+    }
+    
+    /**
+     * @return Collection|OperatorsWork[]
+     */
+    public function getWork(): Collection
+    {
+        return $this->work;
+    }
+    
+    public function addWork( OperatorsWork $work ) : self
+    {
+        if ( ! $this->work->contains( $work ) ) {
+            $this->work[] = $work;
+            $work->setOperation( $this );
+        }
+        
+        return $this;
+    }
+    
+    public function removeWork( OperatorsWork $work ) : self
+    {
+        if ( $this->work->contains( $work ) ) {
+            $this->work->removeElement( $work );
+        }
         
         return $this;
     }

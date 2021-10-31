@@ -71,7 +71,9 @@
 										<td>
 											<input type="button" value="Операции" onclick="document.location='{$smarty.server.PHP_SELF}?modid={$mod->id()}&opid={$operator->id()}'" />
 											<input type="button" value="Изработени" onclick="document.location='{$smarty.server.PHP_SELF}?modid={$mod->id()}&mode=work_count'" />
-											<input type="button" value="Заработка (НОВО)" onclick="document.location='model_work.php?modid={$mod->id()}'" />
+											<input type="button" value="Заработка (НОВО)" class="workedOperationsNew"
+												data-url="{{ path( 'app_model_add_operations_new', {'modelId': mod.id, operatorsGroupId: 0} ) }}"
+											/>
 										</td>
 									</tr>
 								{/foreach}

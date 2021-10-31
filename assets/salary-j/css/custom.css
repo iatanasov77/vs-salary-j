@@ -2,3 +2,37 @@
 	display: none;
 	visibility: hidden;
 }
+
+.date-range-picker-container {
+	float: left;
+	width: 100%;
+	margin-bottom: 10px;
+}
+
+.date-range-picker-subcontainer {
+	width: 35%;
+	margin: 0 auto;
+}
+
+.date-range-picker-label {
+	float: left;
+	margin: 5px 5px auto;
+}
+
+.date-range-picker-widget {
+	background: #fff;
+	cursor: pointer;
+	margin: 0 auto;
+	padding: 5px 10px;
+	border: 1px solid #ccc;
+	width: 300px;
+	float: left;
+}
+
+.singleDatePickerSubcontainer {
+	width: 20% !important;
+}
+
+.singleDatePicker {
+	width: 150px !important;
+}
