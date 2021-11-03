@@ -10,6 +10,7 @@ use VS\ApplicationBundle\Component\Context\ApplicationContext;
 use App\Form\OperationForm;
 use App\Repository\OperationsRepository;
 use App\Repository\SettingsRepository;
+use App\Repository\OperatorsWorkRepository;
 
 class ModelsExtController extends AbstractController
 {
@@ -28,18 +29,23 @@ class ModelsExtController extends AbstractController
     /** @var SettingsRepository */
     private $settingsRepository;
     
+    /** @var OperatorsWorkRepository */
+    private $operatorsWorkRepository;
+    
     public function __construct(
         ApplicationContext $applicationContext,
         EntityRepository $modelsRepository,
         OperationsRepository $operationsRepository,
         EntityRepository $operatorsRepository,
-        SettingsRepository $settingsRepository
+        SettingsRepository $settingsRepository,
+        OperatorsWorkRepository $operatorsWorkRepository
     ) {
-        $this->applicationContext   = $applicationContext;
-        $this->modelsRepository     = $modelsRepository;
-        $this->operationsRepository = $operationsRepository;
-        $this->operatorsRepository  = $operatorsRepository;
-        $this->settingsRepository   = $settingsRepository;
+        $this->applicationContext       = $applicationContext;
+        $this->modelsRepository         = $modelsRepository;
+        $this->operationsRepository     = $operationsRepository;
+        $this->operatorsRepository      = $operatorsRepository;
+        $this->settingsRepository       = $settingsRepository;
+        $this->operatorsWorkRepository  = $operatorsWorkRepository;
     }
     
     public function jsonListModels( Request $request ) : Response
@@ -97,12 +103,51 @@ class ModelsExtController extends AbstractController
     {
         $model          = $this->modelsRepository->find( $modelId );
         $operators      = $this->operatorsRepository->findBy( ['group' => $operatorsGroupId ?: null] );
+        $settings       = $this->settingsRepository->getSettings( $this->applicationContext->getApplication()->getId() );
+        
+        $queryDate      = $request->query->get( 'date' );
+        $date           = $queryDate ? \DateTime::createFromFormat( 'Y-m-d', $queryDate ) : new \DateTime();
+        
+        $operatorsWork  = $this->operatorsWorkRepository->getOperationsWorkCount(
+            $modelId,
+            $date->format( 'Y-m-d' ),
+            $date->format( 'Y-m-d' ),
+            false
+        );
         
         $tplVars = [
-            'model'     => $model,
-            'operators' => $operators,
+            'model'             => $model,
+            'operatorsGroupId'  => $operatorsGroupId,
+            'operators'         => $operators,
+            'settings'          => $settings,
+            'date'              => $date,
+            'operatorsWork'     => $operatorsWork,
+            'workCount'         => $this->getWorkCount( $operatorsWork['listOperations'], $date )
         ];
         
         return $this->render( 'salary-j/pages/Models/operators_work.html.twig', $tplVars );
+    }
+    
+    private function getWorkCount( $workedOperations, $date )
+    {
+        $workCount  = [];
+        foreach( $workedOperations as $op )  {
+            if( ! isset($workCount[$op['operatorId']] ) ) {
+                $workCount[$op['operatorId']]   = [];
+            }
+            
+            $workId = $op['operatorId'] . '_' . $date->format( 'Y-m-d' ) . '_' . $op['id'] . '_' . $op['operationId'];
+            
+            if( ! isset( $workCount[$op['operatorId']][$op['operationId']] ) ) {
+                $workCount[$op['operatorId']][$op['operationId']]   = [
+                    'workCount' => 0,
+                    'workId'    => $workId,
+                ];
+            }
+            
+            $workCount[$op['operatorId']][$op['operationId']]['workCount']  += $op['count'];
+        }
+        //echo"<pre>"; var_dump( $workCount ); die;
+        return $workCount;
     }
 }

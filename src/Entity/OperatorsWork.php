@@ -12,7 +12,12 @@ use VS\ApplicationBundle\Model\Traits\UserAwareEntity;
 /**
  * OperatorsWork
  *
- * @ORM\Table(name="JUN_OperatorsWork")
+ * @ORM\Table(name="JUN_OperatorsWork", 
+ *    uniqueConstraints={
+ *        @ORM\UniqueConstraint(name="opertors_work_unique", 
+ *            columns={"operator_id", "operation_id", "date"})
+ *    }
+ * )
  * @ORM\Entity
  */
 class OperatorsWork implements ResourceInterface, ApplicationRelationInterface, UserAwareInterface

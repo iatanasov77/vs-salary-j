@@ -50,7 +50,7 @@ class Operation implements ResourceInterface, ApplicationRelationInterface, User
     /**
      * @var string
      *
-     * @ORM\Column(name="operation_name", type="string", length=64, nullable=false)
+     * @ORM\Column(name="operation_name", type="string", length=255, nullable=false)
      */
     private $operationName;
 

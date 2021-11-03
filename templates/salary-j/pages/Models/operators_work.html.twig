@@ -9,6 +9,7 @@
     		{#<input id="operators_work_period" name="operators_work_period">#}
     		<div id="work_date"
     			class="date-range-picker-widget singleDatePicker lang_{{ app.request.locale|slice(0, 2) }}"
+    			data-page-url="{{ path( 'app_model_add_operations_new', {'modelId': model.id, 'operatorsGroupId': operatorsGroupId} ) }}"
     		>
                 <i class="fa fa-calendar"></i>&nbsp;
                 <span></span> <i class="fa fa-caret-down"></i>
@@ -52,9 +53,9 @@
 						{% if ( model.operations is empty ) %}
 							{{ 'message_no_operations_for_model' | trans( {},'SalaryJ' ) }}
 						{% else %}
-							<form id="formModel" action="{$smarty.server.PHP_SELF}?{$smarty.server.QUERY_STRING}" method="post" name="processcategoryform">
-								<input type="hidden" name="modelId" value="{$model->id()}" />
-								<input type="hidden" name="date" value="{$vsdeDate}" />
+							<form id="formWorkCount" name="formWorkCount" action="{{ path( 'app_operators_work_submit' ) }}" method="post">
+								<input type="hidden" name="modelId" value="{{ model.id }}" />
+								<input type="hidden" name="workDate" value="{{ date | date( 'Y-m-d' ) }}" />
 								
 								<div id="boxTblWorkCount">
 								<table style="clear: both; margin: 0 auto; width: 100%;" id="tblWorkCount" cellpadding="2" cellspacing="0" width="100%" border="1">
@@ -70,43 +71,66 @@
 
 									<tbody>
 									{% for operator in operators %}
-										{assign var=showRow value=0}
-										<tr id="rowOp{$operatorId}">
+										{% set showRow = 0 %}
+										<tr id="rowOp{{ operator.id }}">
 											<td class="headcol">{{ operator.name }}</td>
 										{% for operation in model.operations %}
+											{% set operationId = operation.id %}
+											{% if workCount is not empty and workCount[operator.id] is defined and workCount[operator.id][operation.id] is defined %}
+											    {% set work = workCount[operator.id][operation.id] %}
+											{% else %}
+												{% set work = null %}
+											{% endif %}
+											{% set price = operation.minutes * ( 1 + ( settings['minuteBonus']['value'] / 100 ) ) * settings['minuteRate']['value'] %}
 											
-											{assign var=operationId value=$op->id()}
-											{assign var="work" value=$workCount.$operatorId.$operationId}
-											{assign var="price" value=$op->priceByMinutes()}
-											{if $work}
-												{assign var=showRow value=1}
-											{/if}
+											{% if work %}
+												{% set showRow = 1 %}
+											{% endif %}
 											<td>
-												<input {if !$price}disabled="disabled"{/if} type="text" size="5" name="workCount[{$operatorId}][{$operationId}][workCount]" value="{$work.workCount}" class="textWorkCount" data-currentValue="{$work.workCount}" data-operationId="{$operationId}" />
-												<input type="hidden" name="workCount[{$operatorId}][{$operationId}][workId]" value="{$work.workId}" />
-												<input type="hidden" name="workCount[{$operatorId}][{$operationId}][workCountOld]" value="{$work.workCount}" />
-												<input type="hidden" name="workCount[{$operatorId}][{$operationId}][price]" value="{$price}" />
+												<input {% if not price %}disabled="disabled"{% endif %} type="text" size="5" 
+													name="workCount[{{ operator.id }}][{{ operation.id }}][workCount]" 
+													value="{% if work %}{{ work['workCount'] }}{% else %}0{% endif %}"
+													class="textWorkCount" 
+													data-currentValue="{% if work %}{{ work['workCount'] }}{% endif %}" 
+													data-operationId="{{ operation.id }}" 
+												/>
+												<input type="hidden"
+													name="workCount[{{ operator.id }}][{{ operation.id }}][workId]" 
+													value="{% if work %}{{ work['workId'] }}{% endif %}"
+												/>
+												<input type="hidden"
+													name="workCount[{{ operator.id }}][{{ operation.id }}][workCountOld]"
+													value="{% if work %}{{ work['workCount'] }}{% else %}0{% endif %}"
+												/>
+												<input type="hidden"
+													name="workCount[{{ operator.id }}][{{ operation.id }}][price]"
+													value="{{ price }}"
+												/>
 											</td>
 										{% endfor %}
 											
 										</tr>
-										{#
-										{if !$showRow}
-										<script type="text/javascript">$("#rowOp{$operatorId}").hide()</script>
-										{else}
-										<script type="text/javascript">$("#selOp{$operatorId}").hide()</script>
-										{/if}
-										#}
+
+										{%  if showRow %}
+											<script type="text/javascript">$("#selOp{{ operator.id }}").hide()</script>
+										{% else %}
+											<script type="text/javascript">$("#rowOp{{ operator.id }}").hide()</script>
+										{% endif %}
 									{% endfor %}
 									</tbody>
 
 									<tfoot>
 										<tr>
 											<td class="headcol">Общо</td>
-										{foreach from=$listOperations item=op}
-											{assign var=operationId value=$op->id()}
-											<td id="total{$operationId}">&nbsp;{$operationsTotalCount.$operationId}</td>
-										{/foreach}
+										{% for operation in model.operations %}
+											<td id="total{{ operation.id }}">&nbsp;
+											{% if operatorsWork['operationsTotalCount'] is not empty and operatorsWork['operationsTotalCount'][operation.id] is defined %}
+											    {{ operatorsWork['operationsTotalCount'][operation.id] }}
+											{% else %}
+												0
+											{% endif %}
+											</td>
+										{% endfor %}
 										</tr>
 									</tfoot>
 								

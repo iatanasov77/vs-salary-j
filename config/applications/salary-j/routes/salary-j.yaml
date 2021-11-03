@@ -55,6 +55,11 @@ app_operators_work_browse_operations_grouped:
 app_operators_work_add_operations:
     path: /operators-work/{operatorId}/add
     controller: App\Controller\SalaryJ\OperatorsWorkController::addOperations
+    
+app_operators_work_submit:
+    path: /operators-work/submit
+    controller: App\Controller\SalaryJ\OperatorsWorkController::submitWork
+
 
 app_model_operations_save_operation:
     path: /model-operations/{modelId}/save-opertion
