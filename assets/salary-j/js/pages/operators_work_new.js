@@ -3,9 +3,13 @@ var moment	= require( 'moment' );
 require( 'bootstrap-daterangepicker/daterangepicker.css' );
 require( 'bootstrap-daterangepicker' );
 
+var strDate = $( "#work_date" ).attr( 'data-workDate' ).split( '-' );
+var objDate	= new Date( strDate[0], strDate[1] - 1, strDate[2] );
+
 moment.locale( $( 'html' ).attr( 'lang' ) );
-var currentYear	= parseInt( moment().format( 'YYYY' ), 10 );
-var start = end = moment();
+
+var currentYear	= parseInt( moment( objDate ).format( 'YYYY' ), 10 );
+var start = end = moment( objDate );
 
 // See Configurator: https://www.daterangepicker.com/#config
 var dateRangePickerLabelsBg	= {
@@ -37,7 +41,7 @@ $( function()
 	$( '#work_date' ).on( 'apply.daterangepicker', function( ev, picker )
 	{
 		var date			= picker.startDate.format( 'YYYY-MM-DD' );
-  		document.location	= $( '#work_date' ).attr( 'data-page-url' ) + '?date=' + date;
+  		document.location	= $( '#work_date' ).attr( 'data-pageUrl' ) + '?date=' + date;
 	});
 
 	$( '#btnAddOperator' ).click( function()
