@@ -99,10 +99,10 @@ class ModelsExtController extends AbstractController
         return $this->render( 'salary-j/pages/Operations/model_add_operations.html.twig', $tplVars );
     }
     
-    public function addOperationsNew( int $modelId, $operatorsGroupId, Request $request ) : Response
+    public function addOperationsNew( int $modelId, Request $request ) : Response
     {
         $model          = $this->modelsRepository->find( $modelId );
-        $operators      = $this->operatorsRepository->findBy( ['group' => $operatorsGroupId ?: null] );
+        $operators      = $this->operatorsRepository->findBy( ['application' => $this->applicationContext->getApplication()] );
         $settings       = $this->settingsRepository->getSettings( $this->applicationContext->getApplication()->getId() );
         
         $queryDate      = $request->query->get( 'date' );
@@ -117,7 +117,6 @@ class ModelsExtController extends AbstractController
         
         $tplVars = [
             'model'             => $model,
-            'operatorsGroupId'  => $operatorsGroupId,
             'operators'         => $operators,
             'settings'          => $settings,
             'date'              => $date,

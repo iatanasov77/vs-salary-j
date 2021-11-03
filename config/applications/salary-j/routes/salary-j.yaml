@@ -40,7 +40,7 @@ app_model_add_operations:
     controller: App\Controller\SalaryJ\ModelsExtController::addOperations
     
 app_model_add_operations_new:
-    path: /model-operations/{modelId}/{operatorsGroupId}/add_new
+    path: /model-operations/{modelId}/add_new
     controller: App\Controller\SalaryJ\ModelsExtController::addOperationsNew
     defaults:   { operatorsGroupId: 0 }
     

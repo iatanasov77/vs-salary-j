@@ -39,8 +39,9 @@ class OperatorsController extends AbstractCrudController
     {
         $ogr        = $this->get( 'salaryj.repository.operatorsgroups' );
         $formPost   = $request->request->get( 'operator_form' );
-        
         $group      = $ogr->find( $formPost['operator']['group'] );
+        
+        $entity->setApplication( $this->get( 'vs_application.context.application' )->getApplication() );
         $entity->setGroup( $group );
         $entity->setName( $formPost['operator']['name'] );
     }

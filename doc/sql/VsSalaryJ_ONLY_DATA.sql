@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Oct 31, 2021 at 03:25 PM
+-- Generation Time: Nov 03, 2021 at 09:38 PM
 -- Server version: 8.0.26
 -- PHP Version: 7.4.24
 
@@ -46,9 +46,9 @@ INSERT INTO `JUN_Operations` (`id`, `model_id`, `operation_id`, `operation_name`
 --
 
 INSERT INTO `JUN_Operators` (`id`, `name`, `created_by_id`, `updated_at`, `application_id`, `updated_by_id`, `deleted_by_id`, `created_at`, `deleted_at`, `group_id`) VALUES
-(1, 'Test Operator', NULL, '2021-10-24 12:11:56', NULL, NULL, NULL, '2021-10-24 12:11:56', NULL, 1),
-(2, 'Test Operator 2', NULL, '2021-10-24 12:20:15', NULL, NULL, NULL, '2021-10-24 12:20:15', NULL, NULL),
-(3, 'Test Operator 3', NULL, '2021-10-24 12:32:23', NULL, NULL, NULL, '2021-10-24 12:32:23', NULL, NULL);
+(1, 'Test Operator', NULL, '2021-10-24 12:11:56', 2, NULL, NULL, '2021-10-24 12:11:56', NULL, 1),
+(2, 'Test Operator 2', NULL, '2021-10-24 12:20:15', 2, NULL, NULL, '2021-10-24 12:20:15', NULL, NULL),
+(3, 'Test Operator 3', NULL, '2021-10-24 12:32:23', 2, NULL, NULL, '2021-10-24 12:32:23', NULL, NULL);
 
 --
 -- Dumping data for table `JUN_OperatorsGroups`
@@ -56,6 +56,14 @@ INSERT INTO `JUN_Operators` (`id`, `name`, `created_by_id`, `updated_at`, `appli
 
 INSERT INTO `JUN_OperatorsGroups` (`id`, `name`, `taxon_id`, `application_id`) VALUES
 (1, 'Test Group', 5, 2);
+
+--
+-- Dumping data for table `JUN_OperatorsWork`
+--
+
+INSERT INTO `JUN_OperatorsWork` (`id`, `application_id`, `date`, `count`, `price`, `created_at`, `updated_at`, `created_by_id`, `updated_by_id`, `deleted_by_id`, `operator_id`, `operation_id`) VALUES
+(1, NULL, '2021-10-29', 5, 0.1014, '2021-11-03 09:45:08', '2021-11-03 09:45:08', NULL, NULL, NULL, 3, 1),
+(2, NULL, '2021-10-29', 8, 0.0468, '2021-11-03 09:45:08', '2021-11-03 09:45:08', NULL, NULL, NULL, 2, 2);
 
 --
 -- Dumping data for table `JUN_Settings`
@@ -118,6 +126,15 @@ INSERT INTO `VSAPP_Translations` (`id`, `locale`, `object_class`, `field`, `fore
 
 INSERT INTO `VSUM_Users` (`id`, `info_id`, `api_token`, `salt`, `password`, `roles`, `username`, `email`, `prefered_locale`, `first_name`, `last_name`, `last_login`, `confirmation_token`, `password_requested_at`, `verified`, `enabled`) VALUES
 (1, NULL, 'NOT_IMPLEMETED', '8eca1786603da9c963417f36d7d02ab6', '$2y$13$maxBFr.tQYqNEuWUv8/TmuFfDNzuWuYoqbW0normBKX4LE7Wh09r6', 'a:1:{i:0;s:16:\"ROLE_SUPER_ADMIN\";}', 'admin', 'admin@test-vankosoft-application.lh', 'en_US', 'NOT_EDITED_YET', 'NOT_EDITED_YET', NULL, NULL, NULL, 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `JUN_OperatorsWorkTotals`
+--
+DROP TABLE IF EXISTS `JUN_OperatorsWorkTotals`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `JUN_OperatorsWorkTotals`  AS SELECT `JUN_OperatorsWork`.`id` AS `id`, `JUN_OperatorsWork`.`operator_id` AS `operators_id`, `JUN_OperatorsWork`.`operation_id` AS `operations_id`, `JUN_OperatorsWork`.`price` AS `price`, `JUN_OperatorsWork`.`count` AS `count`, round((`JUN_OperatorsWork`.`count` * `JUN_OperatorsWork`.`price`),2) AS `total`, `JUN_OperatorsWork`.`date` AS `date`, `JUN_Operators`.`group_id` AS `group_id`, `JUN_Operators`.`name` AS `operator_name`, `JUN_Operations`.`operation_id` AS `operation_id`, `JUN_Operations`.`operation_name` AS `operation_name`, `JUN_Models`.`id` AS `models_id`, `JUN_Models`.`number` AS `model_number`, `JUN_Models`.`name` AS `model_name` FROM (((`JUN_OperatorsWork` join `JUN_Operators`) join `JUN_Operations`) join `JUN_Models`) WHERE ((`JUN_Operators`.`id` = `JUN_OperatorsWork`.`operator_id`) AND (`JUN_Operations`.`id` = `JUN_OperatorsWork`.`operation_id`) AND (`JUN_Models`.`id` = `JUN_Operations`.`model_id`)) ;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

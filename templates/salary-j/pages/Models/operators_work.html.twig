@@ -10,7 +10,7 @@
     		<div id="work_date"
     			class="date-range-picker-widget singleDatePicker lang_{{ app.request.locale|slice(0, 2) }}"
     			data-workDate="{{ date | date( 'Y-m-d' ) }}"
-    			data-pageUrl="{{ path( 'app_model_add_operations_new', {'modelId': model.id, 'operatorsGroupId': operatorsGroupId} ) }}"
+    			data-pageUrl="{{ path( 'app_model_add_operations_new', {'modelId': model.id} ) }}"
     		>
                 <i class="fa fa-calendar"></i>&nbsp;
                 <span></span> <i class="fa fa-caret-down"></i>
