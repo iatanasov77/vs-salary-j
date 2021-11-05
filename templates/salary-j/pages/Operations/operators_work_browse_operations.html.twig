@@ -11,6 +11,8 @@
     		<div id="operators_work_period" 
     			class="date-range-picker-widget lang_{{ app.request.locale|slice(0, 2) }}"
     			data-url="{{ path( 'app_operators_work_browse_operations', {'operatorId': operator.id} ) }}"
+    			data-workStartDate="{{ dateRange['startDate'] | date( 'Y-m-d' ) }}"
+    			data-workEndDate="{{ dateRange['endDate'] | date( 'Y-m-d' ) }}"
     		>
                 <i class="fa fa-calendar"></i>&nbsp;
                 <span></span> <i class="fa fa-caret-down"></i>
@@ -19,8 +21,8 @@
 	</div>
 	<div style="clear: both;"></div>
 	<form action="{{ path( 'app_operators_work_browse_operations_grouped', {'operatorId': operator.id} ) }}" method="post">
-		<input type="hidden" name="startDate" id="fromVsdeDate" value="{{ startDate }}" />
-		<input type="hidden" name="endDate" id="toVsdeDate" value="{{ endDate }}" />
+		<input type="hidden" name="startDate" id="fromVsdeDate" value="{{ dateRange['startDate'] | date( 'Y-m-d' ) }}" />
+		<input type="hidden" name="endDate" id="toVsdeDate" value="{{ dateRange['endDate'] | date( 'Y-m-d' ) }}" />
 
 		<input type="submit" name="submit" value="Групирано" />
 	</form>

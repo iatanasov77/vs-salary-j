@@ -5,12 +5,6 @@
 			<form name="formOperatorWorks" action="{$smarty.server.PHP_SELF}?opid={$operator->id()}&act=preview" method="post">
 				<table cellpadding="2" cellspacing="1" width="100%">
 					<tr class="TableHead">
-					{*
-						<td width="3%">&nbsp;</td>
-					
-						<td><a href="{$smarty.server.PHP_SELF}?{$getQuery}&order_by=date">����</a></td>
-						<td width="3%" align="center"><a href="{$smarty.server.PHP_SELF}?{$getQuery}&order_by=id">&sect;</a></td>
-					*}
 						<td width="15%"><a href="{$smarty.server.PHP_SELF}?{$getQuery}&order_by=model_id">Модел</a></td>
 						<td><a href="{$smarty.server.PHP_SELF}?{$getQuery}&order_by=operation_id">Операция</a></td>
 						<td width="5%"><a href="{$smarty.server.PHP_SELF}?{$getQuery}&order_by=price">Ед. Цена</a></td>
@@ -18,46 +12,37 @@
 						<td width="5%"><a href="{$smarty.server.PHP_SELF}?{$getQuery}&order_by=total">Общо</a></td>
 					</tr>
 
-				{foreach from=$opWorkOperations item=op}
+				{% for w in work.listOperations %}
 					<tr class="bottomborder {cycle values=",TableSubHead"}">
-					{*
-						<td>
-							<input type="checkbox" name="work_ids[{$op.unique_id}]" id="chk_{$op.unique_id}" onclick="chkClicked('{$op.unique_id}');" />
-						</td>
 						<td width="15%">
-							{$op.date|date_format:"%d-%m-%Y"}
-						</td>
-						<td>{$op.id}</td>
-					*}
-						<td width="15%">
-							{'cp1251'|iconv:'utf-8':$op.model_number}.&nbsp;&nbsp;{'cp1251'|iconv:'utf-8':$op.model_name}
+							{{ w.modelNumber }}.&nbsp;&nbsp;{{ w.modelName }}
 						</td>
 						<td>
-							{'cp1251'|iconv:'utf-8':$op.operation_number}.&nbsp;&nbsp;{'cp1251'|iconv:'utf-8':$op.operation_name}
+							{{ w.operationId }}.&nbsp;&nbsp;{{ w.operationName }}
 						</td>
 						<td width="5%">
-							{$op.price}
+							{{ w.max_price }}
 						</td>
 						<td width="5%">
-							{$op.count}
+							{{ w.sum_count }}
 						</td>
 						<td width="5%">
-							<div id="total_view_{$op.unique_id}">{$op.sub_total}</div>
+							<div id="total_view_{$op.unique_id}">{{ w.sum_total }}</div>
 						</td>
 					</tr>
-				{/foreach}
+				{% endfor %}
 					<tr>
 						<td colspan="4">&nbsp;</td>
 					</tr>
 					<tr>
 						<td colspan="2">&nbsp;</td>
 						<td align="left"><b>TOTAL:</b></td>
-						<td align="right">{$opWorkTotal}</td>
+						<td align="right">{{ work.grandTotal }}</td>
 					</tr>
 				
 					<tr>
 						<td colspan="7">
-							<input type="button" name="open_print" value="Принтиране" 
+							<input type="button" name="open_print" value="Принтиране"
 								{# onclick="vsOpenPrintPreview('operator_work_grouped');" #}
 								id="btnPrintOperatorWorkGrouped"
 							/>
@@ -70,6 +55,6 @@
 		</td>
 	</tr>
 	<tr>
-		<td>{$pager}</td>
+		<td>{# $pager #}</td>
 	</tr>
 </table>

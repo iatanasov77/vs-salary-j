@@ -44,22 +44,18 @@ class OperatorsWorkController extends AbstractController
     {
         $operator           = $this->operatorsRepository->find( $operatorId );
         
-        $endDate            = new \DateTime();
-        $startDate          = new \DateTime();
-        $startDate->modify( '-7 day' );
-        $dateRangeChanged   = false;
-        if ( $request->isMethod( 'POST' ) ) {
-            $startDate          = \DateTime::createFromFormat( 'Y-m-d', $request->request->get( 'startDate' ) );
-            $endDate            = \DateTime::createFromFormat( 'Y-m-d', $request->request->get( 'endDate' ) );
-            $dateRangeChanged   = $request->request->get( 'dateRangeChanged' );
-        }
-        $work       = $this->operatorsWorkRepository->getWorkForOperator( $operator, $startDate, $endDate );
+        $dateRange          = $this->resolveDateRange( $request );
+        $dateRangeChanged   = $request->request->get( 'dateRangeChanged' ) ? true : false;
+        $work               = $this->operatorsWorkRepository->getWorkForOperator(
+                                $operator,
+                                $dateRange['startDate'],
+                                $dateRange['endDate']
+                            );
         
         $tplVars = [
             'operator'  => $operator,
             'work'      => $work,
-            'startDate' => $startDate->format( 'Y-m-d' ),
-            'endDate'   => $endDate->format( 'Y-m-d' ),
+            'dateRange' => $dateRange,
         ];
         
         if ( $request->isMethod( 'POST' ) && $dateRangeChanged ) {
@@ -71,22 +67,19 @@ class OperatorsWorkController extends AbstractController
     public function browseOperationsGrouped( int $operatorId, Request $request ) : Response
     {
         $operator           = $this->operatorsRepository->find( $operatorId );
-        $endDate            = new \DateTime();
-        $startDate          = new \DateTime();
-        $startDate->modify( '-7 day' );
-        $dateRangeChanged   = false;
-        if ( $request->isMethod( 'POST' ) ) {
-            $startDate          = \DateTime::createFromFormat( 'Y-m-d', $request->request->get( 'startDate' ) );
-            $endDate            = \DateTime::createFromFormat( 'Y-m-d', $request->request->get( 'endDate' ) );
-            $dateRangeChanged   = $request->request->get( 'dateRangeChanged' );
-        }
-        $work       = $this->operatorsWorkRepository->getWorkForOperator( $operator, $startDate, $endDate );
+        $dateRange          = $this->resolveDateRange( $request );
+        $dateRangeChanged   = $request->request->get( 'dateRangeChanged' ) ? true : false;
+        $work               = $this->operatorsWorkRepository->getWorkForOperator(
+                                $operator,
+                                $dateRange['startDate'],
+                                $dateRange['endDate'],
+                                true
+                            );
         
         $tplVars = [
             'operator'  => $operator,
             'work'      => $work,
-            'startDate' => $startDate->format( 'Y-m-d' ),
-            'endDate'   => $endDate->format( 'Y-m-d' ),
+            'dateRange' => $dateRange,
         ];
         
         if ( $request->isMethod( 'POST' ) && $dateRangeChanged ) {
@@ -150,5 +143,28 @@ class OperatorsWorkController extends AbstractController
         
         $em->flush();
         return $this->redirect( $request->headers->get('referer') );
+    }
+    
+    private function resolveDateRange( Request $request ) : array
+    {
+        $queryStartDate     = $request->request->get( 'startDate' );
+        $queryEndDate       = $request->request->get( 'endDate' );
+        
+        if ( $queryStartDate && $queryEndDate ) {
+            $startDate          = \DateTime::createFromFormat( 'Y-m-d', $queryStartDate );
+            $endDate            = \DateTime::createFromFormat( 'Y-m-d', $queryEndDate );
+            $startDate->setTime( 0, 0 );
+        } else {
+            $endDate            = new \DateTime();
+            $startDate          = new \DateTime();
+            $startDate->modify( '-7 day' );
+            $startDate->setTime( 0, 0 );
+        }
+        //echo "<pre>"; var_dump( \DateTime::getLastErrors() ); die;
+        
+        return [
+            'startDate' => $startDate,
+            'endDate'   => $endDate
+        ];
     }
 }

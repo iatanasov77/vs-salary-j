@@ -3,9 +3,13 @@ var moment	= require( 'moment' );
 require( 'bootstrap-daterangepicker/daterangepicker.css' );
 require( 'bootstrap-daterangepicker' );
 
+var strStartDate = $( "#operators_work_period" ).attr( 'data-workStartDate' ).split( '-' );
+var strEndDate = $( "#operators_work_period" ).attr( 'data-workEndDate' ).split( '-' );
+
 moment.locale( $( 'html' ).attr( 'lang' ) );
-var start	= moment().subtract( 30, 'days' );
-var end 	= moment();
+//var start	= moment().subtract( 30, 'days' );
+var start	= moment( new Date( strStartDate[0], strStartDate[1] - 1, strStartDate[2] ) );
+var end 	= moment( new Date( strEndDate[0], strEndDate[1] - 1, strEndDate[2] ) );
 
 // See Configurator: https://www.daterangepicker.com/#config
 var dateRangePickerLabelsBg	= {
