@@ -3,8 +3,8 @@
 	<tr>
 		<td class="DialogBox" valign="top"><br />
 			<form name="formOperatorWorks" action="{$smarty.server.PHP_SELF}?opid={$operator->id()}&act=preview" method="post">
-				<input type="hidden" name="fromVsdeDate" id="fromVsdeDate" value="{$fromVsdeDate}" />
-				<input type="hidden" name="toVsdeDate" id="toVsdeDate" value="{$toVsdeDate}" />
+				<input type="hidden" name="fromVsdeDate" id="fromVsdeDate" value="{{ dateRange['startDate'] | date( 'Y-m-d' ) }}" />
+				<input type="hidden" name="toVsdeDate" id="toVsdeDate" value="{{ dateRange['endDate'] | date( 'Y-m-d' ) }}" />
 
 				<table cellpadding="2" cellspacing="1" width="100%">
 					<tr class="TableHead">
@@ -66,8 +66,8 @@
 						<td colspan="7">
 							<input type="submit" name="sub_works" value="Запази" />
 							<input type="button" name="open_print" value="Принтиране" 
-								{# onclick="vsOpenPrintPreview('operator_work');" #}
-								id="btnPrintOperatorWork"
+								id="btnPrint"
+								data-url="{{ path( 'app_operators_work_print_operations', {'operatorId': operator.id, 'startDate': dateRange['startDate'] | date( 'Y-m-d' ), 'endDate': dateRange['endDate'] | date( 'Y-m-d' )}) }}"
 							/>
 						</td>
 					</tr>

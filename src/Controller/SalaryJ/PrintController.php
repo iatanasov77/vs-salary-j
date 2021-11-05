@@ -29,58 +29,55 @@ class PrintController extends AbstractController
             $this->operatorsWorkRepository  = $operatorsWorkRepository;
     }
     
-    public function printOperations( int $operatorId, Request $request ) : Response
+    public function printOperations( int $operatorId, $startDate, $endDate, Request $request ) : Response
     {
         $operator           = $this->operatorsRepository->find( $operatorId );
-        
-        $endDate            = new \DateTime();
-        $startDate          = new \DateTime();
-        $startDate->modify( '-7 day' );
-        $dateRangeChanged   = false;
-        if ( $request->isMethod( 'POST' ) ) {
-            $startDate          = \DateTime::createFromFormat( 'Y-m-d', $request->request->get( 'startDate' ) );
-            $endDate            = \DateTime::createFromFormat( 'Y-m-d', $request->request->get( 'endDate' ) );
-            $dateRangeChanged   = $request->request->get( 'dateRangeChanged' );
-        }
-        $work       = $this->operatorsWorkRepository->getWorkForOperator( $operator, $startDate, $endDate );
+        $dateRange          = $this->resolveDateRange( $startDate, $endDate );
+        $work               = $this->operatorsWorkRepository->getWorkForOperator(
+                                $operator,
+                                $dateRange['startDate'],
+                                $dateRange['endDate']
+                            );
         
         $tplVars = [
             'operator'  => $operator,
             'work'      => $work,
-            'startDate' => $startDate->format( 'Y-m-d' ),
-            'endDate'   => $endDate->format( 'Y-m-d' ),
+            'dateRange' => $dateRange,
         ];
         
-        if ( $request->isMethod( 'POST' ) && $dateRangeChanged ) {
-            return $this->render( 'salary-j/pages/Operations/Partial/operations.html.twig', $tplVars );
-        }
-        return $this->render( 'salary-j/pages/Operations/operators_work_browse_operations.html.twig', $tplVars );
+        return $this->render( 'salary-j/pages/Print/operators_work_operations.html.twig', $tplVars );
     }
     
-    public function printOperationsGrouped( int $operatorId, Request $request ) : Response
+    public function printOperationsGrouped( int $operatorId, $startDate, $endDate, Request $request ) : Response
     {
         $operator           = $this->operatorsRepository->find( $operatorId );
-        $endDate            = new \DateTime();
-        $startDate          = new \DateTime();
-        $startDate->modify( '-7 day' );
-        $dateRangeChanged   = false;
-        if ( $request->isMethod( 'POST' ) ) {
-            $startDate          = \DateTime::createFromFormat( 'Y-m-d', $request->request->get( 'startDate' ) );
-            $endDate            = \DateTime::createFromFormat( 'Y-m-d', $request->request->get( 'endDate' ) );
-            $dateRangeChanged   = $request->request->get( 'dateRangeChanged' );
-        }
-        $work       = $this->operatorsWorkRepository->getWorkForOperator( $operator, $startDate, $endDate );
+        $dateRange          = $this->resolveDateRange( $startDate, $endDate );
+        $work               = $this->operatorsWorkRepository->getWorkForOperator(
+                                $operator,
+                                $dateRange['startDate'],
+                                $dateRange['endDate'],
+                                true
+                            );
         
         $tplVars = [
             'operator'  => $operator,
             'work'      => $work,
-            'startDate' => $startDate->format( 'Y-m-d' ),
-            'endDate'   => $endDate->format( 'Y-m-d' ),
+            'dateRange' => $dateRange,
         ];
         
-        if ( $request->isMethod( 'POST' ) && $dateRangeChanged ) {
-            return $this->render( 'salary-j/pages/Operations/Partial/operations_grouped.html.twig', $tplVars );
-        }
-        return $this->render( 'salary-j/pages/Operations/operators_work_browse_operations_grouped.html.twig', $tplVars );
+        return $this->render( 'salary-j/pages/Print/operators_work_operations_grouped.html.twig', $tplVars );
+    }
+    
+    private function resolveDateRange( $queryStartDate, $queryEndDate ) : array
+    {
+        $startDate          = \DateTime::createFromFormat( 'Y-m-d', $queryStartDate );
+        $endDate            = \DateTime::createFromFormat( 'Y-m-d', $queryEndDate );
+        $startDate->setTime( 0, 0 );
+        //echo "<pre>"; var_dump( \DateTime::getLastErrors() ); die;
+        
+        return [
+            'startDate' => $startDate,
+            'endDate'   => $endDate
+        ];
     }
 }

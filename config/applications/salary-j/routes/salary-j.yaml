@@ -76,10 +76,10 @@ salaryj_settings_update:
 
 # Print Routes
 app_operators_work_print_operations:
-    path: /operators-work/{operatorId}/print
+    path: /operators-work/{operatorId}/{startDate}__{endDate}/print
     controller: App\Controller\SalaryJ\PrintController::printOperations
 
 app_operators_work_print_operations_grouped:
-    path: /operators-work/{operatorId}/print-grouped
+    path: /operators-work/{operatorId}/{startDate}__{endDate}/print-grouped
     controller: App\Controller\SalaryJ\PrintController::printOperationsGrouped
 

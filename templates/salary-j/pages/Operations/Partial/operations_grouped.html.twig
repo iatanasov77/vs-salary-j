@@ -43,8 +43,8 @@
 					<tr>
 						<td colspan="7">
 							<input type="button" name="open_print" value="Принтиране"
-								{# onclick="vsOpenPrintPreview('operator_work_grouped');" #}
-								id="btnPrintOperatorWorkGrouped"
+								id="btnPrint"
+								data-url="{{ path( 'app_operators_work_print_operations_grouped', {'operatorId': operator.id, 'startDate': dateRange['startDate'] | date( 'Y-m-d' ), 'endDate': dateRange['endDate'] | date( 'Y-m-d' )}) }}"
 							/>
 						</td>
 					</tr>
