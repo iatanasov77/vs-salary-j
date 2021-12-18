@@ -7,6 +7,13 @@ services:
         resource: '../../../../src/Controller'
         tags: ['controller.service_arguments']
         
+    App\Controller\SalaryJ\UsersController:
+        arguments:
+            - '@vs_application.context.application'
+            - '@vs_users.repository.users'
+            - '@vs_users.factory.users'
+        tags: ['controller.service_arguments']
+    
     App\Controller\SalaryJ\ModelsExtController:
         arguments:
             - "@vs_application.context.application"

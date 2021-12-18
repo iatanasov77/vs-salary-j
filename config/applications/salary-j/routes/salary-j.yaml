@@ -22,7 +22,10 @@ app_models:
         templates: "salary-j/pages/Models"
     type: sylius.resource    
     
-
+salaryj_users_index:
+    path: /users
+    controller: App\Controller\SalaryJ\UsersController::index
+    
 app_json_models:
     path: /json/models
     controller: App\Controller\SalaryJ\ModelsExtController::jsonListModels

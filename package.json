@@ -42,6 +42,7 @@
         "webpack-notifier": "^1.6.0"
     },
 	"resolutions": {
+		"@kanety/jquery-simple-tree-table/jquery": "3.4.1",
     	"bootstrap-daterangepicker/jquery": "3.4.1"
 	}
 }
