@@ -1,11 +1,11 @@
 <?php namespace App\Controller\SalaryJ;
 
 use Symfony\Component\HttpFoundation\Request;
-use VS\ApplicationBundle\Controller\AbstractCrudController;
+use Vankosoft\ApplicationBundle\Controller\AbstractCrudController;
 
 class ModelsController extends AbstractCrudController
 {
-    protected function customData( Request $request ) : array
+    protected function customData( Request $request, $entity = NULL ) : array
     {
         $configuration  = $this->requestConfigurationFactory->create( $this->metadata, $this->currentRequest );
         $form           = $this->resourceFormFactory->create( $configuration, $this->getFactory()->createNew() );

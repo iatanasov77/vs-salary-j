@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 use Sylius\Component\Resource\Factory\Factory;
 
-use VS\ApplicationBundle\Component\Context\ApplicationContextInterface;
+use Vankosoft\ApplicationBundle\Component\Context\ApplicationContextInterface;
 
 use App\Form\OperationForm;
 use App\Entity\Operation;

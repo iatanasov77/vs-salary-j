@@ -5,7 +5,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
-use VS\ApplicationBundle\Component\Context\ApplicationContext;
+use Vankosoft\ApplicationBundle\Component\Context\ApplicationContext;
 
 use App\Form\OperationForm;
 use App\Repository\OperationsRepository;

@@ -1,0 +1,71 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\Controller\SalaryJ\:
+        resource: '../../../../src/Controller/SalaryJ'
+        tags: ['controller.service_arguments']
+        autowire: true
+    
+    App\Controller\SalaryJ\AuthController:
+        tags: ['controller.service_arguments']
+        autowire: true
+        arguments:
+            - '@vs_application.context.application'
+            - '@twig'
+    
+    App\Controller\SalaryJ\DefaultController:
+        tags: ['controller.service_arguments']
+        autowire: true
+        arguments:
+            - '@vs_application.context.application'
+            - '@twig'
+        
+    App\Controller\SalaryJ\UsersController:
+        arguments:
+            - '@vs_application.context.application'
+            - '@vs_users.repository.users'
+            - '@vs_users.factory.users'
+        tags: ['controller.service_arguments']
+    
+    App\Controller\SalaryJ\ModelsExtController:
+        arguments:
+            - "@vs_application.context.application"
+            - "@salaryj.repository.models"
+            - "@salaryj.repository.operations"
+            - '@salaryj.repository.operators'
+            - "@salaryj.repository.settings"
+            - '@salaryj.repository.operators_work'
+        tags: ['controller.service_arguments']
+        
+    App\Controller\SalaryJ\SettingsController:
+        arguments:
+            - '@vs_application.context.application'
+            - '@salaryj.repository.settings'
+            - '@salaryj.factory.settings'
+        tags: ['controller.service_arguments']
+        
+    App\Controller\SalaryJ\OperationsExtController:
+        arguments:
+            - '@vs_application.context.application'
+            - '@salaryj.repository.models'
+            - '@salaryj.repository.operations'
+            - '@salaryj.factory.operations'
+        tags: ['controller.service_arguments']
+        
+    App\Controller\SalaryJ\OperatorsWorkController:
+        arguments:
+            - '@vs_application.context.application'
+            - '@salaryj.repository.operators'
+            - '@salaryj.repository.operators_work'
+            - '@salaryj.repository.models'
+            - '@salaryj.repository.operations'
+        tags: ['controller.service_arguments']
+
+    App\Controller\SalaryJ\PrintController:
+        arguments:
+            - '@vs_application.context.application'
+            - '@salaryj.repository.operators'
+            - '@salaryj.repository.operators_work'
+        tags: ['controller.service_arguments']

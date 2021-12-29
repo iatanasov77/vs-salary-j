@@ -4,10 +4,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Sylius\Component\Resource\Model\ResourceInterface;
 
-use VS\ApplicationBundle\Model\Interfaces\ApplicationRelationInterface;
-use VS\ApplicationBundle\Model\Traits\ApplicationRelationEntity;
-use VS\ApplicationBundle\Model\Interfaces\UserAwareInterface;
-use VS\ApplicationBundle\Model\Traits\UserAwareEntity;
+use Vankosoft\ApplicationBundle\Model\Interfaces\ApplicationRelationInterface;
+use Vankosoft\ApplicationBundle\Model\Traits\ApplicationRelationEntity;
+use Vankosoft\ApplicationBundle\Model\Interfaces\UserAwareInterface;
+use Vankosoft\ApplicationBundle\Model\Traits\UserAwareEntity;
 
 /**
  * OperatorsWork

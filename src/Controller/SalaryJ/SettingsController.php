@@ -9,7 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 use Sylius\Component\Resource\Factory\Factory;
 
-use VS\ApplicationBundle\Component\Context\ApplicationContextInterface;
+use Vankosoft\ApplicationBundle\Component\Context\ApplicationContextInterface;
 
 use App\Entity\Settings;
 use App\Repository\SettingsRepository;

@@ -1,6 +1,6 @@
 <?php namespace App\Form;
 
-use VS\ApplicationBundle\Form\AbstractForm;
+use Vankosoft\ApplicationBundle\Form\AbstractForm;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 

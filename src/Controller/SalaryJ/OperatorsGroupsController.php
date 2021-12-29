@@ -1,14 +1,14 @@
 <?php namespace App\Controller\SalaryJ;
 
 use Symfony\Component\HttpFoundation\Request;
-use VS\ApplicationBundle\Controller\AbstractCrudController;
-use VS\ApplicationBundle\Controller\TaxonomyHelperTrait;
+use Vankosoft\ApplicationBundle\Controller\AbstractCrudController;
+use Vankosoft\ApplicationBundle\Controller\TaxonomyHelperTrait;
 
 class OperatorsGroupsController extends AbstractCrudController
 {
     use TaxonomyHelperTrait;
     
-    protected function customData( Request $request ): array
+    protected function customData( Request $request, $entity = NULL ): array
     {
         $taxonomy   = $this->get( 'vs_application.repository.taxonomy' )->findByCode(
             $this->getParameter( 'salary_j.operators_groups.taxonomy_code' )

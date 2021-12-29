@@ -2,7 +2,7 @@
 
 use Symfony\Component\HttpFoundation\Request;
 use Sylius\Component\Resource\ResourceActions;
-use VS\ApplicationBundle\Controller\AbstractCrudController;
+use Vankosoft\ApplicationBundle\Controller\AbstractCrudController;
 
 use App\Form\OperatorFilterForm;
 use App\Form\OperatorsIndexForm;
@@ -10,7 +10,7 @@ use App\Form\Type\OperatorType;
 
 class OperatorsController extends AbstractCrudController
 {
-    protected function customData( Request $request ) : array
+    protected function customData( Request $request, $entity = NULL ) : array
     {
         $configuration  = $this->requestConfigurationFactory->create( $this->metadata, $this->currentRequest );
         $form           = $this->resourceFormFactory->create( $configuration, $this->getFactory()->createNew() );

@@ -20,6 +20,9 @@ vs_application:
             translation:
                 classes:
                     model: App\Entity\Application\TaxonTranslation
+        taxon_image:
+            classes:
+                model: App\Entity\Application\TaxonImage
         translation:
             classes:
                 model: App\Entity\Application\Translation
@@ -31,7 +34,7 @@ vs_application:
                 model: App\Entity\Application\Locale
 
     menu:
-        mainMenu:
+        mainApplicationMenu:
             operators_groups:
                 name: salary-j.menu.operators_groups
                 route: salaryj_operatorsgroups_index

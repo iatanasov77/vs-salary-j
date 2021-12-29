@@ -4,7 +4,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
-use VS\ApplicationBundle\Component\Context\ApplicationContext;
+use Vankosoft\ApplicationBundle\Component\Context\ApplicationContext;
 
 use App\Repository\OperatorsWorkRepository;
 use App\Entity\OperatorsWork;

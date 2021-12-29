@@ -7,6 +7,7 @@ twig:
         applicationTitle: '%applicationTitle%'
         lang: '%lang%'
         locale: '%locale%'
+        formCreateAccount: '%vs_users.form_create_account%'
         alerts: '@vs_app.twig.alerts'
         languages: '%languages%'
         installedBundles: '%kernel.bundles%'

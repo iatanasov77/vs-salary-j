@@ -3,8 +3,8 @@
 use Doctrine\ORM\Mapping as ORM;
 use Sylius\Component\Resource\Model\ResourceInterface;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use VS\ApplicationBundle\Model\Traits\UserAwareEntity;
-use VS\ApplicationBundle\Model\Traits\ApplicationRelationTrait;
+use Vankosoft\ApplicationBundle\Model\Traits\UserAwareEntity;
+use Vankosoft\ApplicationBundle\Model\Traits\ApplicationRelationTrait;
 
 use App\Repository\SettingsRepository;
 
@@ -21,7 +21,7 @@ class Settings implements ResourceInterface
     use TimestampableEntity;
     
     /**
-     * @var \VS\ApplicationBundle\Model\Interfaces\ApplicationInterface
+     * @var \Vankosoft\ApplicationBundle\Model\Interfaces\ApplicationInterface
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\Application\Application")
      * @ORM\Id

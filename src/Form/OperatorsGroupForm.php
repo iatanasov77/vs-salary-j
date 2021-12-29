@@ -1,6 +1,6 @@
 <?php namespace App\Form;
 
-use VS\ApplicationBundle\Form\AbstractForm;
+use Vankosoft\ApplicationBundle\Form\AbstractForm;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -9,7 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
-use VS\ApplicationBundle\Component\I18N;
+use Vankosoft\ApplicationBundle\Component\I18N;
 
 class OperatorsGroupForm extends AbstractForm
 {

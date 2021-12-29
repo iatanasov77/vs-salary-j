@@ -13,4 +13,9 @@ vs_cms:
         multipage_toc_page:
             classes:
                 model: App\Entity\Cms\TocPage
-   
+        file_manager:
+            classes:
+                model: App\Entity\Cms\FileManager
+        file_manager_file:
+            classes:
+                model: App\Entity\Cms\FileManagerFile

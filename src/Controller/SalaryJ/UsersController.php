@@ -9,10 +9,10 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 use Sylius\Component\Resource\Factory\Factory;
 
-use VS\ApplicationBundle\Component\Context\ApplicationContextInterface;
+use Vankosoft\ApplicationBundle\Component\Context\ApplicationContextInterface;
 
 use App\Entity\UserManagement\User;
-use VS\UsersBundle\Repository\UsersRepository;
+use Vankosoft\UsersBundle\Repository\UsersRepository;
 
 class UsersController extends AbstractController
 {

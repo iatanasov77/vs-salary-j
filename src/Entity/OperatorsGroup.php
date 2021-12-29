@@ -5,10 +5,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Sylius\Component\Resource\Model\ResourceInterface;
 
-use VS\ApplicationBundle\Model\Interfaces\TaxonInterface;
-use VS\ApplicationBundle\Model\Taxon;
-use VS\ApplicationBundle\Model\Interfaces\ApplicationRelationInterface;
-use VS\ApplicationBundle\Model\Traits\ApplicationRelationEntity;
+use Vankosoft\ApplicationBundle\Model\Interfaces\TaxonInterface;
+use Vankosoft\ApplicationBundle\Model\Taxon;
+use Vankosoft\ApplicationBundle\Model\Interfaces\ApplicationRelationInterface;
+use Vankosoft\ApplicationBundle\Model\Traits\ApplicationRelationEntity;
 
 /**
  * OperatorsGroups
@@ -46,7 +46,7 @@ class OperatorsGroup implements ResourceInterface, ApplicationRelationInterface
     /**
      * @var TaxonInterface
      * 
-     * @ORM\ManyToOne(targetEntity="VS\ApplicationBundle\Model\Interfaces\TaxonInterface", inversedBy="children", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="Vankosoft\ApplicationBundle\Model\Interfaces\TaxonInterface", inversedBy="children", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="taxon_id", referencedColumnName="id", nullable=false)
      */
     protected $taxon;
