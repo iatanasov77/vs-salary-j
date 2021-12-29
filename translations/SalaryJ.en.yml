@@ -1,5 +1,5 @@
 salary-j:
-    app:
+    layout:
         logedin_as: You are logged in as
         programming_and_design: Programming and Design
         contact_info: Ivan Atanasov phone. 0876 764 428
@@ -11,14 +11,37 @@ salary-j:
         users: Users
         settings: Settings
         logout: Logout
+    pages:
+        operators_groups: Operators Groups
+        add_new_group: Create new Group
+        operators: Operators
+        add_new_operator: Create new Operator
+        filter_by_gtoup: Filter by Group
+        all: ALl
+        nothing: Nothing
+        browse_operations: Browse Operations
+        add_operations: Add Operations
+        models: Models
+        model: Model
+        add_new_model: Create new Model
+        filter_model: Search
+        operations: Operations
+        worked_operations: Worked
+        worked_operations_new: Worked (NEW)
+        total: Total
+        message_no_operations_for_model: No entered operations for the model.
+
     form:
-        locale: 'Locale'
-        name: 'Name'
-        description: 'Description'
-        parent: 'Parent'
-        apply: 'Apply'
-        save: 'Save'
-        cancel: 'Cancel'
+        locale: Locale
+        common_group: Common
+        group: Group
+        name: Name
+        description: Description
+        parent: Parent
+        number: Number
+        apply: Apply
+        save: Save
+        cancel: Cancel
         
         login:
             username: User
@@ -26,9 +49,23 @@ salary-j:
             button_login: Login
             
         operators_group:
-            parent_operators_group: 'Parent Group'
+            parent_operators_group: Parent Group
             parent_operators_group_placeholder: '-- Parent Group --'
-        
             
+        operators:
+            edit_groups: Change Groups
+            edit_names: Change Names
+            remove: Delete
+
+        models:
+            edit_names: Change Names
+            remove: Delete
             
-        
+        operations:
+            add_new_operation: Add New Operation
+            minutes: Minutes
+
+    settings:
+        minute_bonus: Minute Bonus (%)
+        minute_rate: Minute Rate (lv.)
+

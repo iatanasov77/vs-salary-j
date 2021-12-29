@@ -1,5 +1,132 @@
 {% extends "salary-j/base.html.twig" %}
 
 {% block content %}
-    <h1 align="center">NOT IMPLEMENTED !!!</h1>
+    <h1 align="center">{{ 'salary-j.pages.models' | trans( {},'SalaryJ' ) }}</h1>
+
+    {{ form_start(form, { 'attr': {'class': 'form-horizontal', 'id': 'form-post'}, 'action': path('salaryj_models_create'), 'method': 'POST' }) }}
+        {{ form_widget( form._token ) }}
+        {{ form_widget( form.application_code, {'value' : application.code} ) }}
+    
+    	<table cellspacing="0" cellpadding="2">
+    		<tr>
+    			<td colspan="3"><h3><b>{{ 'salary-j.pages.add_new_model' | trans( {},'SalaryJ' ) }}</h3></b></td>
+    		</tr>
+    		<tr>
+    			<td>{{ form_label( form.number ) }}</td>
+    			<td>{{ form_label( form.name ) }}</td>
+    			<td>&nbsp;</td>
+    		</tr>
+    		<tr>
+    			<td>{{ form_widget( form.number, {'attr': {'size': '6'}} ) }}</td>
+				<td>{{ form_widget( form.name, {'attr': {'size': '60'}} ) }}</td>
+				<td>{{ form_widget( form.btnSave ) }}</td>
+			</tr>
+		</table>
+    {{ form_end(form, {'render_rest': false}) }}
+		
+	<table cellspacing="0" cellpadding="2">
+		<tr>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td colspan="3"><h3><b>{{ 'salary-j.pages.filter_model' | trans( {},'SalaryJ' ) }}</h3></b></td>
+		</tr>
+		
+		<tr>
+			<td>
+				<input id="filterModel" type="text" name="filterModel"
+					data-url-json-models = "{{ path( 'app_json_models' ) }}"
+					data-url-operations = "{{ path( 'app_model_browse_operations_get' ) }}"
+				/>
+			</td>
+			<td></td>
+			<td></td>
+		</tr>
+	</table>
+	<br /><br /><br />
+
+	<table cellspacing="0" width="100%">
+		<tr>
+			<td class="DialogTitle">{{ 'salary-j.pages.models' | trans( {},'SalaryJ' ) }}</td>
+		</tr>
+		<tr>
+			<td class="DialogBorder">
+				<table cellspacing="1" class="DialogBox">
+					<tr>
+						<td class="DialogBox" valign="top"><br />
+
+							<div style="line-height: 170%;">
+								<a href="javascript:void(0);" id="checkAll">{{ 'salary-j.pages.all' | trans( {},'SalaryJ' ) }}</a> / 
+    							<a href="javascript:void(0);" id="uncheckAll">{{ 'salary-j.pages.nothing' | trans( {},'SalaryJ' ) }}</a>
+							</div>
+
+							<form action="{$smarty.server.PHP_SELF}" method="post" name="processcategoryform">
+
+								<table cellpadding="2" cellspacing="1" width="100%">
+									<tr class="TableHead">
+										<td width="3%">&nbsp;</td>
+										<td width="5%">{{ 'salary-j.form.number' | trans( {},'SalaryJ' ) }}</td>
+										<td >{{ 'salary-j.form.name' | trans( {},'SalaryJ' ) }}</td>
+										<td width="30%">&nbsp;</td>
+									</tr>
+
+								{% for mod in models %}
+									<tr {cycle values=",class='TableSubHead'"}>
+										<td ><input type="checkbox" name="modids[{{ mod.id }}]" /></td>
+										<td >
+											<input type="text" name="posted_data[{{ mod.id }}][number]" value="{{ mod.number }}" />
+										</td>
+										<td>
+											<font class="ItemsList">
+												<input type="text" size="60" name="posted_data[{{ mod.id }}][name]" value="{{ mod.name }}" />
+											</font>
+										</td>
+										<td>
+											<input type="button" value="{{ 'salary-j.pages.operations' | trans( {},'SalaryJ' ) }}" class="browseOperations"
+												data-url="{{ path( 'app_model_browse_operations', {'modelId': mod.id} ) }}"
+											/>
+											<input type="button" value="{{ 'salary-j.pages.worked_operations' | trans( {},'SalaryJ' ) }}" class="workedOperations"
+												data-url="{{ path( 'app_model_add_operations', {'modelId': mod.id} ) }}"
+											/>
+											<input type="button" value="{{ 'salary-j.pages.worked_operations_new' | trans( {},'SalaryJ' ) }}" class="workedOperationsNew"
+												data-url="{{ path( 'app_model_add_operations_new', {'modelId': mod.id} ) }}"
+											/>
+										</td>
+									</tr>
+								{% endfor %}
+
+									<tr>
+										<td colspan="6" class="SubmitBox">
+											<input type="submit" name="change_names" value="{{ 'salary-j.form.models.edit_names' | trans( {},'SalaryJ' ) }}" />
+											<input type="submit" name="del_models" value="{{ 'salary-j.form.models.remove' | trans( {},'SalaryJ' ) }}" 
+												onClick="return confirm('Наистина ли искате да изтриете маркираните Модели?');"
+											/>
+											<br />
+										</td>
+									</tr>
+								
+								</table>
+								<input type="hidden" name="mode" value="apply" />
+							</form>
+							<br />&nbsp;
+						</td>
+					</tr>
+					<tr>
+						<td>{# $pager #}</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+    {{ encore_entry_link_tags( 'js/pages/models' ) }}
+{% endblock %}
+        
+{% block body_javascripts %}
+    {{ encore_entry_script_tags( 'js/pages/models' ) }}
 {% endblock %}

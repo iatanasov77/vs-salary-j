@@ -1,14 +1,16 @@
 <?php namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Sylius\Component\Resource\Model\ResourceInterface;
 
-use VS\ApplicationBundle\Model\Interfaces\ApplicationRelationInterface;
-use VS\ApplicationBundle\Model\Traits\ApplicationRelationEntity;
-use VS\ApplicationBundle\Model\Interfaces\UserAwareInterface;
-use VS\ApplicationBundle\Model\Traits\UserAwareEntity;
+use Vankosoft\ApplicationBundle\Model\Interfaces\ApplicationRelationInterface;
+use Vankosoft\ApplicationBundle\Model\Traits\ApplicationRelationEntity;
+use Vankosoft\ApplicationBundle\Model\Interfaces\UserAwareInterface;
+use Vankosoft\ApplicationBundle\Model\Traits\UserAwareEntity;
 
 /**
  * Operations
@@ -48,7 +50,7 @@ class Operation implements ResourceInterface, ApplicationRelationInterface, User
     /**
      * @var string
      *
-     * @ORM\Column(name="operation_name", type="string", length=64, nullable=false)
+     * @ORM\Column(name="operation_name", type="string", length=255, nullable=false)
      */
     private $operationName;
 
@@ -58,6 +60,25 @@ class Operation implements ResourceInterface, ApplicationRelationInterface, User
      * @ORM\Column(name="minutes", type="float", precision=10, scale=0, nullable=false)
      */
     private $minutes;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="price", type="float", precision=10, scale=0, nullable=false)
+     */
+    private $price;
+    
+    /**
+     * @var Collection|OperatorsWork[]
+     *
+     * @ORM\OneToMany(targetEntity="App\Entity\OperatorsWork", mappedBy="operator")
+     */
+    private $work;
+    
+    public function __construct()
+    {
+        $this->work = new ArrayCollection();
+    }
     
     public function getModel()
     {
@@ -121,6 +142,45 @@ class Operation implements ResourceInterface, ApplicationRelationInterface, User
     {
         $this->minutes = $minutes;
 
+        return $this;
+    }
+    
+    public function getPrice(): ?float
+    {
+        return $this->price;
+    }
+    
+    public function setPrice(float $price): self
+    {
+        $this->price = $price;
+        
+        return $this;
+    }
+    
+    /**
+     * @return Collection|OperatorsWork[]
+     */
+    public function getWork(): Collection
+    {
+        return $this->work;
+    }
+    
+    public function addWork( OperatorsWork $work ) : self
+    {
+        if ( ! $this->work->contains( $work ) ) {
+            $this->work[] = $work;
+            $work->setOperation( $this );
+        }
+        
+        return $this;
+    }
+    
+    public function removeWork( OperatorsWork $work ) : self
+    {
+        if ( $this->work->contains( $work ) ) {
+            $this->work->removeElement( $work );
+        }
+        
         return $this;
     }
 }

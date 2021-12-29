@@ -1,20 +1,22 @@
 <?php namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 use Sylius\Component\Resource\Model\ResourceInterface;
 
-use VS\ApplicationBundle\Model\Interfaces\ApplicationRelationInterface;
-use VS\ApplicationBundle\Model\Traits\ApplicationRelationEntity;
-use VS\ApplicationBundle\Model\Interfaces\UserAwareInterface;
-use VS\ApplicationBundle\Model\Traits\UserAwareEntity;
+use Vankosoft\ApplicationBundle\Model\Interfaces\ApplicationRelationInterface;
+use Vankosoft\ApplicationBundle\Model\Traits\ApplicationRelationEntity;
+use Vankosoft\ApplicationBundle\Model\Interfaces\UserAwareInterface;
+use Vankosoft\ApplicationBundle\Model\Traits\UserAwareEntity;
 
 /**
  * Operators
  *
- * @ORM\Table(name="JUN_Operators", indexes={@ORM\Index(name="groups_id", columns={"groups_id"})})
+ * @ORM\Table(name="JUN_Operators", indexes={@ORM\Index(name="group_id", columns={"group_id"})})
  * @ORM\Entity
  */
 class Operator implements ResourceInterface, ApplicationRelationInterface, UserAwareInterface
@@ -36,25 +38,31 @@ class Operator implements ResourceInterface, ApplicationRelationInterface, UserA
     /**
      * @var int
      *
-     * @ORM\Column(name="groups_id", type="integer", nullable=false)
      * @ORM\ManyToOne(targetEntity="OperatorsGroup")
-     *
-     * @Assert\NotBlank
      */
-    private $groupsId;
+    private $group;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=64, nullable=false)
+     * @ORM\Column(name="name", type="string", length=255, nullable=false)
      * @Assert\NotBlank
      */
     private $name;
+    
+    /**
+     * @var Collection|OperatorsWork[]
+     * 
+     * @ORM\OneToMany(targetEntity="App\Entity\OperatorsWork", mappedBy="operator")
+     */
+    private $work;
     
     public function __construct()
     {
         //$this->setCreatedAt(new \DateTime());
         $this->setUpdatedAt(new \DateTime());
+        
+        $this->work = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -62,14 +70,14 @@ class Operator implements ResourceInterface, ApplicationRelationInterface, UserA
         return $this->id;
     }
 
-    public function getGroupsId(): ?int
+    public function getGroup(): ?OperatorsGroup
     {
-        return $this->groupsId;
+        return $this->group;
     }
 
-    public function setGroupsId(int $groupsId): self
+    public function setGroup(?OperatorsGroup $group): self
     {
-        $this->groupsId = $groupsId;
+        $this->group = $group;
 
         return $this;
     }
@@ -79,10 +87,37 @@ class Operator implements ResourceInterface, ApplicationRelationInterface, UserA
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(string $name) : self
     {
         $this->name = $name;
 
+        return $this;
+    }
+    
+    /**
+     * @return Collection|OperatorsWork[]
+     */
+    public function getWork(): Collection
+    {
+        return $this->work;
+    }
+    
+    public function addWork( OperatorsWork $work ) : self
+    {
+        if ( ! $this->work->contains( $work ) ) {
+            $this->work[] = $work;
+            $work->setOperator( $this );
+        }
+        
+        return $this;
+    }
+    
+    public function removeWork( OperatorsWork $work ) : self
+    {
+        if ( $this->work->contains( $work ) ) {
+            $this->work->removeElement( $work );
+        }
+        
         return $this;
     }
 }

@@ -11,7 +11,7 @@ class DefaultController extends AbstractController
         return $this->redirect( $this->generateUrl( 'salaryj_operators_index' ) );
     }
     
-    public function openAdminPanel( Request $request ) : Response
+    public function openAdminPanel( Request $request ): Response
     {
         $host   = $this->getParameter( 'vankosoft_host' ); // Get from Parameters
         return $this->redirect( 'http://http://admin.' . $host . '/' );

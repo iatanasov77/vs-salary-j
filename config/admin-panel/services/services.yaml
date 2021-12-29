@@ -1,0 +1,18 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+    App\:
+        resource: '../../../src/*'
+        exclude:
+            - ../../../src/DependencyInjection/
+            - ../../../src/Entity/
+            - ../../../src/Form/
+            - ../../../src/AdminPanelKernel.php
+            - ../../../src/Tests/
+            - ../../../src/Controller/SalaryJ/
+    App\Controller\AdminPanel\:
+        resource: ../../../src/Controller/AdminPanel
+        tags:
+            - controller.service_arguments
+        autowire: true

@@ -1,4 +1,4 @@
-app_operators-groups:
+app_operatorsgroups:
     resource: |
         alias: salaryj.operatorsgroups
         except: ['show']
@@ -21,23 +21,68 @@ app_models:
         path: /models
         templates: "salary-j/pages/Models"
     type: sylius.resource    
-
-app_operations:
-    resource: |
-        alias: salaryj.operations
-        except: ['show']
-        path: /operations
-        templates: "salary-j/pages/Operations"
-    type: sylius.resource
     
-app_operators_work:
-    resource: |
-        alias: salaryj.operatorswork
-        except: ['show']
-        path: /operators-work
-        templates: "salary-j/pages/OperatorsWork"
-    type: sylius.resource
+salaryj_users_index:
+    path: /users
+    controller: App\Controller\SalaryJ\UsersController::index
+    
+app_json_models:
+    path: /json/models
+    controller: App\Controller\SalaryJ\ModelsExtController::jsonListModels
 
-#app_operators:
-#    path: /operators
-#    controller: App\Controller\SalaryJ\OperatorsController::index
+app_model_browse_operations_get:
+    path: /model-operations/browse-get
+    controller: App\Controller\SalaryJ\ModelsExtController::browseOperationsGet
+
+app_model_browse_operations:
+    path: /model-operations/{modelId}/browse
+    controller: App\Controller\SalaryJ\ModelsExtController::browseOperations
+    
+app_model_add_operations:
+    path: /model-operations/{modelId}/add
+    controller: App\Controller\SalaryJ\ModelsExtController::addOperations
+    
+app_model_add_operations_new:
+    path: /model-operations/{modelId}/add_new
+    controller: App\Controller\SalaryJ\ModelsExtController::addOperationsNew
+    defaults:   { operatorsGroupId: 0 }
+    
+app_operators_work_browse_operations:
+    path: /operators-work/{operatorId}/browse
+    controller: App\Controller\SalaryJ\OperatorsWorkController::browseOperations
+
+app_operators_work_browse_operations_grouped:
+    path: /operators-work/{operatorId}/browse-grouped
+    controller: App\Controller\SalaryJ\OperatorsWorkController::browseOperationsGrouped
+
+app_operators_work_add_operations:
+    path: /operators-work/{operatorId}/add
+    controller: App\Controller\SalaryJ\OperatorsWorkController::addOperations
+    
+app_operators_work_submit:
+    path: /operators-work/submit
+    controller: App\Controller\SalaryJ\OperatorsWorkController::submitWork
+
+
+app_model_operations_save_operation:
+    path: /model-operations/{modelId}/save-opertion
+    controller: App\Controller\SalaryJ\OperationsExtController::save
+    
+salaryj_settings_index:
+    path: /settings
+    controller: App\Controller\SalaryJ\SettingsController::index
+
+salaryj_settings_update:
+    path: /settings/update
+    controller: App\Controller\SalaryJ\SettingsController::update
+
+
+# Print Routes
+app_operators_work_print_operations:
+    path: /operators-work/{operatorId}/{startDate}__{endDate}/print
+    controller: App\Controller\SalaryJ\PrintController::printOperations
+
+app_operators_work_print_operations_grouped:
+    path: /operators-work/{operatorId}/{startDate}__{endDate}/print-grouped
+    controller: App\Controller\SalaryJ\PrintController::printOperationsGrouped
+

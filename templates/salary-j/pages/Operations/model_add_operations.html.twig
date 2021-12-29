@@ -1,0 +1,112 @@
+{% extends "salary-j/base.html.twig" %}
+
+{% block content %}
+    <h1 align="center">Модели</h1>
+
+	<p align="center">Добавяне операции за оператор: <b>{$operator->name()}</b></p>
+	
+	<table cellspacing="0" cellpadding="2">
+		<tr>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td colspan="3"><h3><b>Търсене</h3></b></td>
+		</tr>
+		
+		<tr>
+			<td>
+    			<input id="filterModel" type="text" name="filterModel"
+    				data-url-json-models = "{{ path( 'app_json_models' ) }}"
+    				data-url-operations = "/models.php?modid=' + data.item.value + '{if isset($operator)}&opid={$operator->id()}{/if}"
+    			/>
+			</td>
+			<td></td>
+			<td></td>
+		</tr>
+	</table>
+	<br /><br /><br />
+
+	<table cellspacing="0" width="100%">
+		<tr>
+			<td class="DialogTitle">Модели</td>
+		</tr>
+		<tr>
+			<td class="DialogBorder">
+
+				
+
+				<table cellspacing="1" class="DialogBox">
+					<tr>
+						<td class="DialogBox" valign="top"><br />
+
+							<script src="{$wwwDir}js/change_all_checkboxes.js" language="JavaScript" type="text/javascript"></script>
+							<div style="line-height: 170%;">
+								<a href="javascript: checkAll(true, document.processcategoryform, 'modids');">Всички</a> / 
+								<a href="javascript: checkAll(false, document.processcategoryform, 'modids');">Нищо</a>
+							</div>
+
+							<form action="{$smarty.server.PHP_SELF}" method="post" name="processcategoryform">
+
+								<table cellpadding="2" cellspacing="1" width="100%">
+									<tr class="TableHead">
+										<td width="3%">&nbsp;</td>
+										<td width="5%">Номер</td>
+										<td >Име</td>
+										<td width="30%">&nbsp;</td>
+									</tr>
+
+								{foreach from=$listModels item=mod}
+									<tr {cycle values=",class='TableSubHead'"}>
+										<td ><input type="checkbox" name="modids[{$mod->id()}]" /></td>
+										<td >
+											<input type="text" name="posted_data[{$mod->id()}][number]" value="{$mod->number()}" />
+										</td>
+										<td>
+											<font class="ItemsList">
+												<input type="text" size="60" name="posted_data[{$mod->id()}][name]" value="{$mod->name()}" />
+											</font>
+										</td>
+										<td>
+											<input type="button" value="Операции" onclick="document.location='{$smarty.server.PHP_SELF}?modid={$mod->id()}&opid={$operator->id()}'" />
+											<input type="button" value="Изработени" onclick="document.location='{$smarty.server.PHP_SELF}?modid={$mod->id()}&mode=work_count'" />
+											<input type="button" value="Заработка (НОВО)" class="workedOperationsNew"
+												data-url="{{ path( 'app_model_add_operations_new', {'modelId': mod.id} ) }}"
+											/>
+										</td>
+									</tr>
+								{/foreach}
+
+									<tr>
+										<td colspan="6" class="SubmitBox">
+											<input type="submit" name="change_names" value="Смяна на имена" />
+											<input type="submit" name="del_models" value="Изтриване" onClick="return confirm('Наистина ли искате да изтриете маркираните Модели?');" />
+											<br />
+										
+										</td>
+									</tr>
+								
+								</table>
+								<input type="hidden" name="mode" value="apply" />
+							</form>
+							<br />&nbsp;
+						</td>
+					</tr>
+					<tr>
+						<td>{$pager}</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+    {{ encore_entry_link_tags( 'js/pages/models' ) }}
+{% endblock %}
+        
+{% block body_javascripts %}
+    {{ encore_entry_script_tags( 'js/pages/models' ) }}
+{% endblock %}

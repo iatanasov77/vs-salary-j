@@ -5,8 +5,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Sylius\Component\Resource\Model\ResourceInterface;
 
-use VS\ApplicationBundle\Model\Interfaces\TaxonInterface;
-use VS\ApplicationBundle\Model\Taxon;
+use Vankosoft\ApplicationBundle\Model\Interfaces\TaxonInterface;
+use Vankosoft\ApplicationBundle\Model\Taxon;
+use Vankosoft\ApplicationBundle\Model\Interfaces\ApplicationRelationInterface;
+use Vankosoft\ApplicationBundle\Model\Traits\ApplicationRelationEntity;
 
 /**
  * OperatorsGroups
@@ -14,8 +16,10 @@ use VS\ApplicationBundle\Model\Taxon;
  * @ORM\Table(name="JUN_OperatorsGroups")
  * @ORM\Entity
  */
-class OperatorsGroup implements ResourceInterface
+class OperatorsGroup implements ResourceInterface, ApplicationRelationInterface
 {
+    use ApplicationRelationEntity;
+    
     /**
      * @var int
      *
@@ -35,23 +39,23 @@ class OperatorsGroup implements ResourceInterface
     /**
      * @var Collection|Operator[]
      * 
-     * @ORM\OneToMany(targetEntity="App\Entity\Operator", mappedBy="groupsId")
+     * @ORM\OneToMany(targetEntity="App\Entity\Operator", mappedBy="group")
      */
     protected $operators;
     
     /**
      * @var TaxonInterface
      * 
-     * @ORM\ManyToOne(targetEntity="VS\ApplicationBundle\Model\Interfaces\TaxonInterface", inversedBy="children")
-     * @ORM\JoinColumn(name="taxon_id", referencedColumnName="id", onDelete="CASCADE", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Vankosoft\ApplicationBundle\Model\Interfaces\TaxonInterface", inversedBy="children", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="taxon_id", referencedColumnName="id", nullable=false)
      */
     protected $taxon;
     
     /**
      * @var OperatorsGroup
      * 
-     * @ORM\ManyToOne(targetEntity="VS\ApplicationBundle\Model\Interfaces\TaxonInterface", inversedBy="children")
-     * @ORM\JoinColumn(name="taxon_id", referencedColumnName="id", onDelete="CASCADE", nullable=false)
+     * @ORM\ManyToOne(targetEntity="App\Entity\OperatorsGroup", inversedBy="children", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="taxon_id", referencedColumnName="id", nullable=true)
      */
     protected $parent;
     
@@ -105,7 +109,7 @@ class OperatorsGroup implements ResourceInterface
     
     public function removeOperator( Operator $operator ) : OperatorsGroup
     {
-        if ( ! $this->operators->contains( $operator ) ) {
+        if ( $this->operators->contains( $operator ) ) {
             $this->operators->removeElement( $operator );
             $operator->removeGroup( $this );
         }

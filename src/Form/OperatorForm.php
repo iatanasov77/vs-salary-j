@@ -1,10 +1,14 @@
 <?php namespace App\Form;
 
-use VS\ApplicationBundle\Form\AbstractForm;
+use Vankosoft\ApplicationBundle\Form\AbstractForm;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
 
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+
+use App\Form\Type\OperatorType;
+use App\Entity\Operator;
+use App\Entity\OperatorsGroup;
 
 class OperatorForm extends AbstractForm
 {
@@ -13,18 +17,11 @@ class OperatorForm extends AbstractForm
         parent::buildForm( $builder, $options );
         
         $builder
-            ->add( 'category_taxon', ChoiceType::class, [
-                'label'                 => 'vs_cms.form.page.categories',
-                'translation_domain'    => 'VSCmsBundle',
-                'multiple'              => true,
-                'required'              => false,
-                'mapped'                => false,
-                'placeholder'           => 'vs_cms.form.page.categories_placeholder',
-            ])
-            
-            ->add( 'title', TextType::class, [
-                'label'                 => 'vs_cms.form.title',
-                'translation_domain'    => 'VSCmsBundle',
+            ->add( 'application_code', HiddenType::class, ['mapped' => false] )
+        
+            ->add( 'operator', OperatorType::class, [
+                'mapped'        => false,
+                'data_class'    => Operator::class,
             ])
         ;
     }

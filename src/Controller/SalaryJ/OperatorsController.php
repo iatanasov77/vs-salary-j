@@ -1,41 +1,48 @@
 <?php namespace App\Controller\SalaryJ;
 
 use Symfony\Component\HttpFoundation\Request;
-use VS\ApplicationBundle\Controller\AbstractCrudController;
+use Sylius\Component\Resource\ResourceActions;
+use Vankosoft\ApplicationBundle\Controller\AbstractCrudController;
+
+use App\Form\OperatorFilterForm;
+use App\Form\OperatorsIndexForm;
+use App\Form\Type\OperatorType;
 
 class OperatorsController extends AbstractCrudController
 {
-    protected function customData() : array
-    { 
-        $taxonomy   = $this->get( 'vs_application.repository.taxonomy' )->findByCode(
-            $this->getParameter( 'salary_j.operators_groups.taxonomy_code' )
-        );
+    protected function customData( Request $request, $entity = NULL ) : array
+    {
+        $configuration  = $this->requestConfigurationFactory->create( $this->metadata, $this->currentRequest );
+        $form           = $this->resourceFormFactory->create( $configuration, $this->getFactory()->createNew() );
+        
+        $filterGroup    = $request->query->get( 'group' );
+        if ( empty( $filterGroup ) )
+            $filterGroup    = null;
+        
+        $operators  = $this->get( 'salaryj.repository.operators' )->findBy( ['group' => $filterGroup] );
+        $indexForms = [];
+        foreach ( $operators as $op ) {
+            $indexForms[]   = $this->createForm( OperatorType::class, $op )->createView();
+        }
         
         return [
-            'operatorsGroups'   => $this->get( 'salaryj.repository.operatorsgroups' )->findAll(),
-            'taxonomyId'        => $taxonomy ? $taxonomy->getId() : 0,
+            'application'   => $this->get( 'vs_application.context.application' )->getApplication(),
+            'form'          => $form->createView(),
+            'filter_form'   => $this->createForm( OperatorFilterForm::class )->createView(),
+            'filter_value'  => $request->query->get( 'group' ),
+            'index_forms'   => $indexForms,
+            'operators'     => $operators,
         ];
     }
     
     protected function prepareEntity( &$entity, &$form, Request $request )
     {
-        $pcr        = $this->get( 'vs_cms.repository.page_categories' );
-        $formPost   = $request->request->get( 'page_form' );
+        $ogr        = $this->get( 'salaryj.repository.operatorsgroups' );
+        $formPost   = $request->request->get( 'operator_form' );
+        $group      = $ogr->find( $formPost['operator']['group'] );
         
-        if ( isset( $formPost['category_taxon'] ) ) {
-            foreach ( $formPost['category_taxon'] as $taxonId ) {
-                $category       = $pcr->findOneBy( ['taxon' => $taxonId] );
-                if ( $category ) {
-                    $categories[]   = $category;
-                    $entity->addCategory( $category );
-                }
-            }
-            
-            foreach ( $entity->getCategories() as $cat ) {
-                if ( ! $categories->contains( $cat ) ) {
-                    $entity->removeCategory( $cat );
-                }
-            }
-        }
+        $entity->setApplication( $this->get( 'vs_application.context.application' )->getApplication() );
+        $entity->setGroup( $group );
+        $entity->setName( $formPost['operator']['name'] );
     }
 }

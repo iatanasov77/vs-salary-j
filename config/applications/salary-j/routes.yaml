@@ -1,6 +1,6 @@
 app_home:
     path: /
-    controller: App\Controller\Application\DefaultController::index
+    controller: App\Controller\SalaryJ\DefaultController::index
 
 admin_panel:
     path: /admin

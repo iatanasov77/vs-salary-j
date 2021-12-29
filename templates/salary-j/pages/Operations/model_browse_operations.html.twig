@@ -1,0 +1,145 @@
+{% extends "salary-j/base.html.twig" %}
+
+{% block content %}
+	<h1 align="center">{{ 'salary-j.pages.operations' | trans( {},'SalaryJ' ) }}</h1>
+	<h2 align="center">{{ 'salary-j.pages.model' | trans( {},'SalaryJ' ) }}: {{ model.number }} - {{ model.name }}</h2>
+
+	{{ form_start( operationForm, { 'action': path('app_model_operations_save_operation', {'modelId': model.id}), 'method': 'POST' } ) }}
+		{{ form_widget( operationForm._token ) }}
+		{{ form_widget( operationForm.price, {'value' : 1} ) }} {# Fake Value #}
+        
+		<table cellspacing="0" cellpadding="2">
+			<tr>
+				<td colspan="4"><h3><b>{{ 'salary-j.form.operations.add_new_operation' | trans( {},'SalaryJ' ) }}</h3></b></td>
+			</tr>
+			<tr>
+				<td>{{ form_label( operationForm.operationId ) }}</td>
+				<td>{{ form_label( operationForm.operationName ) }}</td>
+				<td>{{ form_label( operationForm.minutes ) }}</td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td>{{ form_widget( operationForm.operationId, {'attr': {'size': '6'}} ) }}</td>
+				<td>{{ form_widget( operationForm.operationName, {'attr': {'size': '60'}} ) }}</td>
+				<td>{{ form_widget( operationForm.minutes, {'attr': {'size': '6'}} ) }}</td>
+				<!-- <td><input type="text" size="6" name="price" /></td> -->
+
+				<td>{{ form_widget( operationForm.btnSave ) }}</td>
+			</tr>
+		</table>
+	{{ form_end(operationForm, {'render_rest': false}) }}
+	<br /><br />
+	
+	<input type="button" value="{{ 'salary-j.pages.worked_operations' | trans( {},'SalaryJ' ) }}"
+		onclick="document.location='{$smarty.server.PHP_SELF}?modid={$smarty.get.modid}&mode=work_count'"
+	/>
+	<input type="button" value="{{ 'salary-j.pages.worked_operations_new' | trans( {},'SalaryJ' ) }}"
+		onclick="document.location='model_work.php?modid={$smarty.get.modid}&mode=work_count'"
+	/>
+	<br /><br />
+
+	<table cellspacing="0" width="100%">
+		<tr>
+			<td class="DialogTitle">{{ 'salary-j.pages.operations' | trans( {},'SalaryJ' ) }}</td>
+		</tr>
+		<tr>
+			<td class="DialogBorder">
+	
+				<table cellspacing="1" class="DialogBox">
+					<tr>
+						<td class="DialogBox" valign="top"><br />
+							<form action="{$smarty.server.PHP_SELF}?modid={$smarty.get.modid}" method="post" name="procoperform">
+
+								<input type="hidden" name="vsdeDate" id="vsdeDate" value="{$vsdeDate}" />
+								<input type="hidden" name="modid" value="{$smarty.get.modid}" />
+								<input type="hidden" name="opid" value="{$operator->id()}" />
+
+								<input type="hidden" name="mode" value="" />
+
+								<script src="{$wwwDir}js/change_all_checkboxes.js" language="JavaScript" type="text/javascript"></script>
+								<div style="line-height: 170%;">
+									<a href="javascript: checkAll(true, document.procoperform, 'opids');">Всички</a> / 
+									<a href="javascript: checkAll(false, document.procoperform, 'opids');">Нищо</a>
+								</div>
+
+								<table cellpadding="2" cellspacing="1" width="70%">
+									<tr class="TableHead">
+										<td></td>
+										<td width="5%">{{ 'salary-j.form.number' | trans( {},'SalaryJ' ) }}</td>
+										<td >{{ 'salary-j.form.name' | trans( {},'SalaryJ' ) }}</td>
+										<td width="5%">{{ 'salary-j.form.operations.minutes' | trans( {},'SalaryJ' ) }}</td>
+										<td width="5%">{{ 'salary-j.form.operations.minutes' | trans( {},'SalaryJ' ) }} + {{ settings.minuteBonus.value }}%</td>
+										<td width="5%">{{ 'salary-j.form.operations.minutes' | trans( {},'SalaryJ' ) }} * {{ settings.minuteRate.value }} лв.</td>
+										<!-- 
+										<td width="5%">Цена (старо)</td>
+										 -->
+									</tr>
+
+								{% for op in model.operations %}
+									<tr {cycle values=",class='TableSubHead'"}>
+										<td>
+											<input type="checkbox" name="opids[{{ op.id }}]" />
+										</td>
+										<td >
+											<input type="text" size="4" name="posted_data[{{ op.id }}][number]" value="{{ op.operationId }}" />
+										</td>
+										<td>
+											<font class="ItemsList">
+												<input type="text" size="60" name="posted_data[{{ op.id }}][name]" value="{{ op.operationName }}" />
+											</font>
+										</td>
+										
+										<td><input class="textMinutes" type="text" name="posted_data[{{ op.id }}][minutes]" value="{{ op.minutes }}" data-currentValue="{{ op.minutes }}" data-operationId="{{ op.id }}" size="6"/></td>
+										
+										<td id="bonus{{ op.id }}">{{ ( op.minutes * ( 1 + ( settings.minuteBonus.value / 100 ) ) ) | number_format( 2 ) }}</td>
+										<td id="price{{ op.id }}">{{ ( op.minutes * ( 1 + ( settings.minuteBonus.value / 100 ) ) * settings.minuteRate.value ) | number_format( 4 ) }}</td>
+										
+										<!-- 
+										<td><input type="text" name="posted_data[{$op->id()}][price]" value="{$op->price()}" size="6"/></td>
+										 -->
+									</tr>
+								{% endfor %}
+									<tr>
+										<td colspan="6"><hr /></td>
+									</tr>
+
+									<tr>
+										<td colspan="3" align="right">{{ 'salary-j.pages.total' | trans( {},'SalaryJ' ) }}:</td>
+										<td id="totalMinutes">{{ totals.totalMinutes }}</td>
+										<td id="totalBonus">{{ ( totals.totalMinutes * ( 1 + ( settings.minuteBonus.value / 100 ) ) ) | number_format( 2 ) }}</td>
+										<td id="totalPrice">{{ ( totals.totalMinutes * ( 1 + ( settings.minuteBonus.value / 100 ) ) * settings.minuteRate.value ) | number_format( 4 ) }}</td>
+										<!-- 
+										<td id="totalPrice">{$modelPrice}</td>
+										 -->
+									</tr>
+
+									<tr>
+										<td colspan="7"><hr /></td>
+									</tr>
+									<tr>
+										<td colspan="7">
+											<input type="submit" name="submitAddWork" value="{{ 'salary-j.form.save' | trans( {},'SalaryJ' ) }}"  />
+										</td>
+									</tr>
+								</table>
+							</form>
+							<br />&nbsp;
+						</td>
+					</tr>
+					<tr>
+						<td>{# $pager #}</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+    {{ encore_entry_link_tags( 'js/pages/operations' ) }}
+{% endblock %}
+        
+{% block body_javascripts %}
+    {{ encore_entry_script_tags( 'js/pages/operations' ) }}
+{% endblock %}

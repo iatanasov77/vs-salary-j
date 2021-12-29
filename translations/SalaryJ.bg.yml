@@ -1,5 +1,5 @@
 salary-j:
-    app:
+    layout:
         logedin_as: Вие влезнахте като
         programming_and_design: Програмиране и Дизайн
         contact_info: Иван Атанасов тел. 0876 764 428
@@ -11,14 +11,37 @@ salary-j:
         users: Потребители
         settings: Настройки
         logout: Изход
+    pages:
+        operators_groups: Групи Оператори
+        add_new_group: Добавяне на нова Група
+        operators: Оператори
+        add_new_operator: Добавяне на нов Оператор
+        filter_by_gtoup: Филтър по Група
+        all: Всички
+        nothing: Нищо
+        browse_operations: Преглед Операции
+        add_operations: Добавяне Операции
+        models: Модели
+        model: Модел
+        add_new_model: Добавяне на нов Модел
+        filter_model: Търсене
+        operations: Операции
+        worked_operations: Изработени
+        worked_operations_new: Заработка (НОВО)
+        total: Общо
+        message_no_operations_for_model: Няма въведени операции за модела.
+        
     form:
-        locale: 'Език'
-        name: 'Име'
-        description: 'Описание'
-        parent: 'Родител'
-        apply: 'Въведи'
-        save: 'Запази'
-        cancel: 'Отказ'
+        locale: Език
+        common_group: Обща
+        group: Група
+        name: Име
+        description: Описание
+        parent: Родител
+        number: Номер
+        apply: Въведи
+        save: Запази
+        cancel: Отказ
         
         login:
             username: Потребител
@@ -26,7 +49,24 @@ salary-j:
             button_login: Вход
 
         operators_group:
-            parent_operators_group: 'Родителска Група'
+            parent_operators_group: Родителска Група
             parent_operators_group_placeholder: '-- Родителска Група --'
             
+        operators:
+            edit_groups: Промяна на Групи
+            edit_names: Смяна на Имена
+            remove: Изтриване
+            
+        models:
+            edit_names: Смяна на Имена
+            remove: Изтриване
+            
+        operations:
+            add_new_operation: Добавяне на нова Операция
+            minutes: Минути
+            
+    settings:
+        minute_bonus: Минутен Бонус (%)
+        minute_rate: Минутна Ставка (лв.)
+
             
