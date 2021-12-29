@@ -1,3 +1,24 @@
+1.3.0	|	Release date: **29.12.2021**
+============================================
+* Update Application:
+  - Update Vankosoft Application
+* New Features:
+  - Remove Uneeded VSAPP_VERSION file.
+  - OperatorsGroups is Done.
+  - Many Improvements of the Operators page but it is not donbe yet.
+  - Prepare Operators Page.
+  - Models Page is Done.
+  - Settings Page is Done.
+  - Operations Page is Done.
+  - Operators Work is Done.
+  - Print Window for OperatorsWork.
+  - Create Application Users Resource.
+* Bug-Fixes:
+  - Fix Current Date Display on Model Work Widget.
+  - Remove OperatorsGroup From Work.
+  - Fix Display OperatorsWork Grouped by Operations.
+
+
 1.2.1	|	Release date: **18.10.2021**
 ============================================
 * New Features:
