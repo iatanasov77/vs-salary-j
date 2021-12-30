@@ -17,8 +17,8 @@ salary-j:
         operators: Operators
         add_new_operator: Create new Operator
         filter_by_gtoup: Filter by Group
-        all: ALl
-        nothing: Nothing
+        all: Check All
+        nothing: Uncheck All
         browse_operations: Browse Operations
         add_operations: Add Operations
         models: Models
