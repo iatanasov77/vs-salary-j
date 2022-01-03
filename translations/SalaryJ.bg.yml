@@ -36,9 +36,17 @@ salary-j:
         common_group: Обща
         group: Група
         name: Име
+        username: Потребителско Име
+        email: Е-мейл
+        user_roles: Потребителски Роли
+        allowed_applications: Позволени Приложения
+        last_logged_in: Последно Влизане
         description: Описание
         parent: Родител
         number: Номер
+        modify_profile: Редакция на Профил
+        add_new_user: Добави нов потребител
+        delete_selected: Изтрий избраните
         apply: Въведи
         save: Запази
         cancel: Отказ
@@ -64,6 +72,19 @@ salary-j:
         operations:
             add_new_operation: Добавяне на нова Операция
             minutes: Минути
+            
+        users:
+            edit_user: Редакция на Потребител
+            details: Данни за Потребител
+            personal_information: Лични Данни
+            contact_information: Данни за Контакт
+            username_and_password: 'Потребителско име & Парола'
+            
+            user_title: Титла
+            mister: Гн.
+            mrs: Г-жа
+            miss: Г-ца
+            phone: Телефон
             
     settings:
         minute_bonus: Минутен Бонус (%)

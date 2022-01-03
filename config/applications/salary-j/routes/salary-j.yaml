@@ -26,6 +26,10 @@ salaryj_users_index:
     path: /users
     controller: App\Controller\SalaryJ\UsersController::index
     
+salaryj_users_update:
+    path: /users/{userId}/update
+    controller: App\Controller\SalaryJ\UsersController::update
+    
 app_json_models:
     path: /json/models
     controller: App\Controller\SalaryJ\ModelsExtController::jsonListModels
