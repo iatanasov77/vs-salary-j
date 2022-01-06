@@ -1,3 +1,4 @@
+import {  VsPath } from '../includes/fos_js_routes.js';
 
 function checkAll( flag, form, prefix )
 {
@@ -38,4 +39,12 @@ $( function()
 	{
 		document.location	= $( this ).attr( 'data-url' );
 	});
+	
+	$( '#btnWorkTotal' ).on( 'click', function( e )
+    {
+        var currentGroup    = $( '#operator_filter_form_filter_groups' ).val();
+        currentGroup        = ! currentGroup || ! currentGroup.length ? 0 : currentGroup;
+        
+        document.location   = VsPath( 'app_operators_work_browse_totals', { groupId: currentGroup } );
+    });
 });

@@ -50,7 +50,13 @@ app_model_add_operations_new:
     path: /model-operations/{modelId}/add_new
     controller: App\Controller\SalaryJ\ModelsExtController::addOperationsNew
     defaults:   { operatorsGroupId: 0 }
-    
+
+app_operators_work_browse_totals:
+    path: /operators-work/{groupId}/browse-group
+    controller: App\Controller\SalaryJ\OperatorsWorkController::browseTotals
+    options:
+        expose: true
+
 app_operators_work_browse_operations:
     path: /operators-work/{operatorId}/browse
     controller: App\Controller\SalaryJ\OperatorsWorkController::browseOperations
@@ -89,4 +95,8 @@ app_operators_work_print_operations:
 app_operators_work_print_operations_grouped:
     path: /operators-work/{operatorId}/{startDate}__{endDate}/print-grouped
     controller: App\Controller\SalaryJ\PrintController::printOperationsGrouped
+
+app_operators_work_print_operators_totals:
+    path: /operators-group-work/{groupId}/{startDate}__{endDate}/print
+    controller: App\Controller\SalaryJ\PrintController::printOperatorsTotals
 

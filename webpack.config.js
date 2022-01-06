@@ -104,8 +104,8 @@ Encore
     .addEntry( 'js/pages/operations', './assets/salary-j/js/pages/operations.js' )
     .addEntry( 'js/pages/operators_work', './assets/salary-j/js/pages/operators_work.js' )
     .addEntry( 'js/pages/operators_work_new', './assets/salary-j/js/pages/operators_work_new.js' )
-    .addEntry( 'js/pages/print', './assets/salary-j/js/pages/print.js' )
     .addEntry( 'js/pages/users', './assets/salary-j/js/pages/users.js' )
+    .addEntry( 'js/pages/operators_work_browse_totals', './assets/salary-j/js/pages/operators_work_browse_totals.js' )
 ;
 
 const applicationConfig = Encore.getWebpackConfig();

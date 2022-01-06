@@ -1,6 +1,6 @@
 sylius_resource:
     resources:
-        salaryj.operatorsgroups: 
+        salaryj.operatorsgroups:
             driver: doctrine/orm
             classes:
                 model:      App\Entity\OperatorsGroup

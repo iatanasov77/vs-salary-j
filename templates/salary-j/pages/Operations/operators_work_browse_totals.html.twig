@@ -1,0 +1,64 @@
+{% extends "salary-j/base.html.twig" %}
+
+{% block content %}
+    {% if ( group ) %}
+        {% set groupName = group.name %}
+    {% else %}
+        {% set groupName = 'salary-j.form.common_group' | trans( {},'SalaryJ' ) %}
+    {% endif %}
+    <h1 align="center">{{ 'salary-j.pages.worked_operations_by_group' | trans( {},'SalaryJ' ) }}: <span id="grpName">{{ groupName }}</span></h1>
+    <div class="date-range-picker-container">
+        <div class="date-range-picker-subcontainer">
+            <span class="date-range-picker-label">{{ 'salary-j.pages.period_for' | trans( {},'SalaryJ' ) }}: </span>
+            <div id="operators_work_period"
+                class="date-range-picker-widget lang_{{ app.request.locale|slice(0, 2) }}"
+                data-workStartDate="{{ dateRange['startDate'] | date( 'Y-m-d' ) }}"
+                data-workEndDate="{{ dateRange['endDate'] | date( 'Y-m-d' ) }}"
+                data-url="{{ path( 'app_operators_work_browse_totals', {'groupId': groupId} ) }}"
+            >
+                <i class="fa fa-calendar"></i>&nbsp;
+                <span></span> <i class="fa fa-caret-down"></i>
+            </div>
+        </div>
+    </div>
+    <br /><br /><br />
+
+    <table cellspacing="0" width="100%">
+        <tr>
+            <td class="DialogTitle">{{ 'salary-j.pages.operators' | trans( {},'SalaryJ' ) }}</td>
+        </tr>
+        <tr>
+            <td class="DialogBorder">
+
+                <table cellspacing="1" class="DialogBox">
+                    <tr>
+                        <td class="DialogBox" valign="top">
+                            {{ form_start(filter_form, { 'method': 'POST' }) }}
+                                {{ 'salary-j.pages.filter_by_gtoup' | trans( {},'SalaryJ' ) }}:&nbsp;&nbsp;&nbsp;
+                                {{ form_widget( filter_form.filter_groups, { value : groupId, attr: { 'data-currentGroupId': groupId } } ) }}&nbsp;&nbsp;&nbsp;
+                            {{ form_end(filter_form, {'render_rest': false}) }}
+                            <br /><br />
+                            
+                            <div  id="OperatorsContainer">
+                                {% include 'salary-j/pages/Operations/Partial/operators_totals.html.twig' %}
+                            </div>
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{#$pager#}</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags( 'js/pages/operators_work_browse_totals' ) }}
+{% endblock %}
+
+{% block body_javascripts %}
+    {{ encore_entry_script_tags( 'js/pages/operators_work_browse_totals' ) }}
+{% endblock %}

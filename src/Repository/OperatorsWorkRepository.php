@@ -63,6 +63,57 @@ class OperatorsWorkRepository extends EntityRepository
     }
     
     /**
+     * Got from JunObjectsFactory::operatorsWork
+     *
+     * @param unknown $groupId
+     * @param unknown $minDate
+     * @param unknown $maxDate
+     */
+    public function getOperatorsWork( $groupId, $minDate, $maxDate )
+    {
+        // SELECT operators_id, operator_name, SUM(total) AS sub_total FROM JUN_OperatorsWorkTotals WHERE group_id IS NULL AND date = '2021-10-29' GROUP BY operators_id ORDER BY operator_name
+        $entityManager  = $this->getEntityManager();
+        $qb             = $entityManager->createQueryBuilder( 'owt' )
+                                        ->select( 'owt' )
+                                        ->select([
+                                            'owt.operatorId AS operatorId',
+                                            'owt.operatorName AS operatorName',
+                                            'MAX(owt.total) AS subTotal',
+                                        ])
+                                        ->from( 'App\Entity\OperatorsWorkTotals', 'owt' )
+                                        ->groupBy( 'owt.operatorId' )
+                                        ->orderBy( 'owt.operatorName', 'ASC' );
+        
+        if ( $groupId ) {
+            $qb->andWhere( 'owt.groupId = :groupId' )->setParameter( 'groupId', $groupId );
+        } else {
+            $qb->andWhere( 'owt.groupId IS NULL' );
+        }
+        
+        //var_dump( $minDate ); die;
+        if( $minDate == $maxDate ) {
+            $qb->andWhere( 'owt.date = :minDate' )->setParameter( 'minDate', $minDate );
+        } else {
+            $qb->andWhere( 'owt.date >= :minDate' )->andWhere( 'owt.date <= :maxDate' )
+                ->setParameter( 'minDate', $minDate )->setParameter( 'maxDate', $maxDate );
+        }
+
+        $work       = [];
+        $grandTotal = 0;
+        $query      = $qb->getQuery();
+        //$this->debugQuery( $query );
+        foreach ( $query->getResult( AbstractQuery::HYDRATE_ARRAY ) as $owt ) {
+            $work[] = $owt;
+            $grandTotal += $owt['subTotal'];
+        }
+        
+        return [
+            'work'          => $work,
+            'grandTotal'    => $grandTotal,
+        ];
+    }
+    
+    /**
      * @NOTE Need Optimization and Refactoring
      * Got from JunObjectsFactory::makeOperationsWorkCount
      * 
@@ -72,7 +123,7 @@ class OperatorsWorkRepository extends EntityRepository
      * @param boolean $groupOperations
      * @return unknown[]|number[][]|NULL[][]
      */
-    function getOperationsWorkCount( $modelId, $minDate, $maxDate, $groupOperations = false )
+    public function getOperationsWorkCount( $modelId, $minDate, $maxDate, $groupOperations = false )
     {
         $entityManager  = $this->getEntityManager();
         $qb             = $entityManager->createQueryBuilder( 'owt' )

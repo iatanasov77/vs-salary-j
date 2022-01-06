@@ -30,6 +30,13 @@ salary-j:
         worked_operations_new: Worked (NEW)
         total: Total
         message_no_operations_for_model: No entered operations for the model.
+        worked_operations_by_group: Operations worked from a group
+        period_for: Date Period
+        general_statement: General Statement
+        name: Name
+        worked: Worked
+        print: Print
+        to: to
         
     form:
         locale: Locale

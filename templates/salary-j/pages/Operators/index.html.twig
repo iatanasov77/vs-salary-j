@@ -37,9 +37,8 @@
     					<td class="DialogBox" valign="top">
     					
     						{{ 'salary-j.pages.filter_by_gtoup' | trans( {},'SalaryJ' ) }}:&nbsp;&nbsp;&nbsp;
-    						{{ form_widget( filter_form.filter_groups, {'value' : filter_value} ) }}
-    						&nbsp;&nbsp;&nbsp;
-    						<input type="button" value="Заработка Общо" onclick="document.location = 'operators_work.php?group='+document.getElementById('filter_groups').value;" />
+    						{{ form_widget( filter_form.filter_groups, {'value' : filter_value} ) }}&nbsp;&nbsp;&nbsp;
+    						<input type="button" value="Заработка Общо" id="btnWorkTotal" />
     						<br /><br />
     						
     						<div style="line-height: 170%;">
