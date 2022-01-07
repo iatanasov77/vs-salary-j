@@ -27,6 +27,7 @@ salary-j:
         filter_model: Търсене
         operations: Операции
         operation: Операция
+        worked_by_model: Заработка за Модел
         worked_operations: Изработени
         worked_operations_new: Заработка (НОВО)
         total: Общо
@@ -61,7 +62,10 @@ salary-j:
         number: Номер
         modify_profile: Редакция на Профил
         add_new_user: Добави нов потребител
+        add_new_operator: Добавяне на Оператор
         delete_selected: Изтрий избраните
+        select: Избери
+        add: Добави
         apply: Въведи
         save: Запази
         cancel: Отказ

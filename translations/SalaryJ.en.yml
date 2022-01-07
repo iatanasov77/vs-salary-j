@@ -27,6 +27,7 @@ salary-j:
         filter_model: Search
         operations: Operations
         operation: Operation
+        worked_by_model: Worked for Model
         worked_operations: Worked
         worked_operations_new: Worked (NEW)
         total: Total
@@ -61,7 +62,10 @@ salary-j:
         number: Number
         modify_profile: Modify profile
         add_new_user: Add New User
+        add_new_operator: Add an Operator
         delete_selected: Delete selected
+        select: Select
+        add: Add
         apply: Apply
         save: Save
         cancel: Cancel

@@ -1,12 +1,11 @@
 {% extends "salary-j/base.html.twig" %}
 
 {% block content %}
-	<h1 align="center">Заработка за Модел</h1>
+	<h1 align="center">{{ 'salary-j.pages.worked_by_model' | trans( {},'SalaryJ' ) }}</h1>
 	<h2 align="center">{{ model.number }} - {{ model.name }}</h2>
 	<div class="date-range-picker-container">
 		<div class="date-range-picker-subcontainer singleDatePickerSubcontainer">
-    		<span class="date-range-picker-label">Дата: </span>
-    		{#<input id="operators_work_period" name="operators_work_period">#}
+    		<span class="date-range-picker-label">{{ 'salary-j.pages.date' | trans( {},'SalaryJ' ) }}: </span>
     		<div id="work_date"
     			class="date-range-picker-widget singleDatePicker lang_{{ app.request.locale|slice(0, 2) }}"
     			data-workDate="{{ date | date( 'Y-m-d' ) }}"
@@ -21,23 +20,23 @@
 	<form name="formModel" action="{$smarty.server.PHP_SELF}" method="post">
 		<table cellspacing="0" cellpadding="2">
 			<tr>
-				<td colspan="3"><h3><b>Добавяне на Оператор</h3></b></td>
+				<td colspan="3"><h3><b>{{ 'salary-j.form.add_new_operator' | trans( {},'SalaryJ' ) }}</h3></b></td>
 			</tr>
 			<tr>
-				<td>Оператори</td>
+				<td>{{ 'salary-j.pages.operators' | trans( {},'SalaryJ' ) }}</td>
 				
 				<td>&nbsp;</td>
 			</tr>
 			<tr>
 				<td>
 					<select id="selOperator" name="selOperator" >
-						<option value="0">Избери</option>
+						<option value="0">{{ 'salary-j.form.select' | trans( {},'SalaryJ' ) }}</option>
 					{% for op in operators %}
 						<option id="selOp{{ op.id }}" value="{{ op.id }}">{{ op.name }}</option>
 					{% endfor %}
 					</select>
 				</td>
-				<td><input id="btnAddOperator" type="button" name="sub_model" value="Добави" /></td>
+				<td><input id="btnAddOperator" type="button" name="sub_model" value="{{ 'salary-j.form.add' | trans( {},'SalaryJ' ) }}" /></td>
 			</tr>
 		</table>
 	</form>
@@ -46,7 +45,7 @@
 	<table cellspacing="0" width="100%">
 		<tr>
 			<td class="DialogBorder">
-				<div style="margin: 10px 0 10px 20px;">Заработка</div>
+				<div style="margin: 10px 0 10px 20px;">{{ 'salary-j.pages.worked' | trans( {},'SalaryJ' ) }}</div>
 
 				<table cellspacing="1" class="DialogBox">
 					<tr>
@@ -137,7 +136,7 @@
 								
 								</table>
 								</div>
-								<input type="submit" name="saveForm" value="Запази" />
+								<input type="submit" name="saveForm" value="{{ 'salary-j.form.save' | trans( {},'SalaryJ' ) }}" />
 							</form>
 						{% endif %}
 							<br />&nbsp;
