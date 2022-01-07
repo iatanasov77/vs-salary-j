@@ -49,6 +49,11 @@ class OperationsExtController extends AbstractController
             
             $entity->setApplication( $this->applicationContext->getApplication() );
             $entity->setModel( $this->modelsRepository->find( $modelId ) );
+            if ( $entity->getId() ) {
+                $entity->setUpdatedBy( $this->getUser() );
+            } else {
+                $entity->setCreatedBy( $this->getUser() );
+            }
             
             $em->persist( $entity );
             $em->flush();

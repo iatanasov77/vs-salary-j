@@ -176,6 +176,7 @@ class OperatorsWorkController extends AbstractController
                     $work->setDate( $date );
                     $work->setCount( $data['workCount'] );
                     $work->setUnitPrice( $data['price'] );
+                    $work->setCreatedBy( $this->getUser() );
                     
                     $em->persist( $work );
                 }
@@ -188,6 +189,7 @@ class OperatorsWorkController extends AbstractController
                     
                     $work->setCount( $data['workCount'] );
                     $work->setUnitPrice( $data['price'] );
+                    $work->setUpdatedBy( $this->getUser() );
                     
                     $em->persist( $work );
                 }

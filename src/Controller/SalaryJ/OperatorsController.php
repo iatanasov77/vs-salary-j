@@ -44,5 +44,10 @@ class OperatorsController extends AbstractCrudController
         $entity->setApplication( $this->get( 'vs_application.context.application' )->getApplication() );
         $entity->setGroup( $group );
         $entity->setName( $formPost['operator']['name'] );
+        if ( $entity->getId() ) {
+            $entity->setUpdatedBy( $this->getUser() );
+        } else {
+            $entity->setCreatedBy( $this->getUser() );
+        }
     }
 }
