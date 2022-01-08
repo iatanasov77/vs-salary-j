@@ -3,6 +3,7 @@
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -18,6 +19,7 @@ use Vankosoft\ApplicationBundle\Model\Traits\UserAwareEntity;
  *
  * @ORM\Table(name="JUN_Operators", indexes={@ORM\Index(name="group_id", columns={"group_id"})})
  * @ORM\Entity
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false, hardDelete=false)
  */
 class Operator implements ResourceInterface, ApplicationRelationInterface, UserAwareInterface
 {
@@ -53,7 +55,7 @@ class Operator implements ResourceInterface, ApplicationRelationInterface, UserA
     /**
      * @var Collection|OperatorsWork[]
      * 
-     * @ORM\OneToMany(targetEntity="App\Entity\OperatorsWork", mappedBy="operator")
+     * @ORM\OneToMany(targetEntity="App\Entity\OperatorsWork", mappedBy="operator", orphanRemoval=true)
      */
     private $work;
     

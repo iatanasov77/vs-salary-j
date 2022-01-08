@@ -1,3 +1,5 @@
+import {  VsGetSubmitButton } from '../includes/vs_form.js';
+import {  VsPath } from '../includes/fos_js_routes.js';
 require( 'jquery-ui-dist/jquery-ui.css' );
 require( 'jquery-ui-dist/jquery-ui.js' );
 
@@ -53,4 +55,40 @@ $( function()
 		// document.location='model_work.php?modid={$mod->id()}'
 		document.location	= $( this ).attr( 'data-url' );
 	});
+	
+	$( '#models_index_form' ).on( 'submit', function( e )
+    {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        var submitName  = VsGetSubmitButton();
+        var formData    = new FormData( this );
+        var submitUrl   = null;
+        var redirectUrl = VsPath( 'salaryj_models_index', {} );
+        switch ( true ) {
+          case ( submitName == 'change_names' ):
+            submitUrl = VsPath( 'app_models_ext_update', {} );
+            break;
+          case ( submitName == 'del_models' ):
+            submitUrl = VsPath( 'app_models_ext_delete', {} );
+            break;
+        }
+        
+        if ( submitUrl ) {
+            $.ajax({
+                type: $( this ).attr( 'method' ),
+                url: submitUrl,
+                data: formData,
+                success: function ( data ) {
+                    document.location = redirectUrl;
+                }, 
+                error: function( XMLHttpRequest, textStatus, errorThrown ) {
+                    alert( 'FATAL ERROR!!!' );
+                },
+                cache: false,
+                contentType: false,
+                processData: false
+            });
+        }
+    });
 });

@@ -3,6 +3,7 @@
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Sylius\Component\Resource\Model\ResourceInterface;
@@ -17,6 +18,7 @@ use Vankosoft\ApplicationBundle\Model\Traits\UserAwareEntity;
  *
  * @ORM\Table(name="JUN_Operations", indexes={@ORM\Index(name="model_id", columns={"model_id"})})
  * @ORM\Entity
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false, hardDelete=false)
  */
 class Operation implements ResourceInterface, ApplicationRelationInterface, UserAwareInterface
 {
@@ -71,7 +73,7 @@ class Operation implements ResourceInterface, ApplicationRelationInterface, User
     /**
      * @var Collection|OperatorsWork[]
      *
-     * @ORM\OneToMany(targetEntity="App\Entity\OperatorsWork", mappedBy="operator")
+     * @ORM\OneToMany(targetEntity="App\Entity\OperatorsWork", mappedBy="operation", orphanRemoval=true)
      */
     private $work;
     

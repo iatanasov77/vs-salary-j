@@ -54,8 +54,8 @@ yarn-error.log
 ###< liip/imagine-bundle ###
 
 ###> VankosoftApplication Files ###
-/public/admin_panel/build/
-/public/admin_panel/bundles/
+/public/admin-panel/build/
+/public/admin-panel/bundles/
 ###< VankosoftApplication Files ###
 
 ###> SalaryJ Files ###

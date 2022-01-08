@@ -62,7 +62,7 @@
     							<a href="javascript:void(0);" id="uncheckAll">{{ 'salary-j.pages.nothing' | trans( {},'SalaryJ' ) }}</a>
 							</div>
 
-							<form action="{$smarty.server.PHP_SELF}" method="post" name="processcategoryform">
+							<form method="post" name="models_index_form" id="models_index_form">
 
 								<table cellpadding="2" cellspacing="1" width="100%">
 									<tr class="TableHead">
@@ -99,9 +99,9 @@
 
 									<tr>
 										<td colspan="6" class="SubmitBox">
-											<input type="submit" name="change_names" value="{{ 'salary-j.form.models.edit_names' | trans( {},'SalaryJ' ) }}" />
+											<input type="submit" name="change_names" value="{{ 'salary-j.form.save' | trans( {},'SalaryJ' ) }}" />
 											<input type="submit" name="del_models" value="{{ 'salary-j.form.models.remove' | trans( {},'SalaryJ' ) }}" 
-												onClick="return confirm('Наистина ли искате да изтриете маркираните Модели?');"
+												onClick="return confirm( '{{ 'salary-j.form.models.remove_confirm' | trans( {},'SalaryJ' ) }}' );"
 											/>
 											<br />
 										</td>

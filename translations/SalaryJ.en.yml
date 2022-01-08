@@ -83,10 +83,12 @@ salary-j:
             edit_groups: Change Groups
             edit_names: Change Names
             remove: Delete
+            remove_confirm: Do you want to delete the checked Operators?
 
         models:
             edit_names: Change Names
             remove: Delete
+            remove_confirm: Do you want to delete the checked Models?
             
         operations:
             add_new_operation: Add New Operation

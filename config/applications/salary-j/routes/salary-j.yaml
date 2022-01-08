@@ -13,6 +13,8 @@ app_operators:
         path: /operators
         templates: "salary-j/pages/Operators"
     type: sylius.resource
+    options:
+        expose: true
 
 app_models:
     resource: |
@@ -20,7 +22,9 @@ app_models:
         except: ['show']
         path: /models
         templates: "salary-j/pages/Models"
-    type: sylius.resource    
+    type: sylius.resource
+    options:
+        expose: true
     
 salaryj_users_index:
     path: /users
@@ -29,6 +33,30 @@ salaryj_users_index:
 salaryj_users_update:
     path: /users/{userId}/update
     controller: App\Controller\SalaryJ\UsersController::update
+
+app_operators_ext_update:
+    path: /operators-ext/update
+    controller: App\Controller\SalaryJ\OperatorsExtController::updateOperators
+    options:
+        expose: true
+    
+app_operators_ext_delete:
+    path: /operators-ext/delete
+    controller: App\Controller\SalaryJ\OperatorsExtController::deleteOperators
+    options:
+        expose: true
+
+app_models_ext_update:
+    path: /models-ext/update
+    controller: App\Controller\SalaryJ\ModelsExtController::updateModels
+    options:
+        expose: true
+    
+app_models_ext_delete:
+    path: /models-ext/delete
+    controller: App\Controller\SalaryJ\ModelsExtController::deleteModels
+    options:
+        expose: true
     
 app_json_models:
     path: /json/models

@@ -83,10 +83,12 @@ salary-j:
             edit_groups: Промяна на Групи
             edit_names: Смяна на Имена
             remove: Изтриване
+            remove_confirm: Наистина ли искате да изтриете маркираните Оператори?
             
         models:
             edit_names: Смяна на Имена
             remove: Изтриване
+            remove_confirm: Наистина ли искате да изтриете маркираните Модели?
             
         operations:
             add_new_operation: Добавяне на нова Операция

@@ -46,8 +46,7 @@
     							<a href="javascript:void(0);" id="uncheckAll">{{ 'salary-j.pages.nothing' | trans( {},'SalaryJ' ) }}</a>
     						</div>
     
-    						<form action="{$smarty.server.PHP_SELF}" method="post" name="operatorsform" id="operatorsform">
-    
+                            {{ form_start( index_form, { attr: { id: 'operators_index_form'} } ) }}
     							<table cellpadding="2" cellspacing="1" width="100%">
     								<tr class="TableHead">
     									<td width="3%">&nbsp;</td>
@@ -56,25 +55,25 @@
     									<td width="40%">&nbsp;</td>
     								</tr>
     
-    							{% for op in operators %}
+                                {% for opId, opWidget in index_form.operators %}
     								<tr {cycle values=",class='TableSubHead'"}>
     									<td>
-    										<input type="checkbox" name="op_ids[{{ op.id }}]" id="chk_{{ op.id }}" />
+    										<input type="checkbox" name="submitedOperators[{{ opId }}]" id="chk_{{ opId }}" />
     									</td>
     									<td>
-    										{{ form_widget( index_forms[loop.index0].group ) }}
+    										{{ form_widget( opWidget.group ) }}
     									</td>
     									<td>
     										<font class="ItemsList">
-    											{{ form_widget( index_forms[loop.index0].name ) }}
+                                                {{ form_widget( opWidget.name ) }}
     										</font>
     									</td>
     									<td>
     										<input type="button" value="{{ 'salary-j.pages.browse_operations' | trans( {},'SalaryJ' ) }}" class="browseOperations"
-    											data-url="{{ path( 'app_operators_work_browse_operations', {'operatorId': op.id} ) }}"
+    											data-url="{{ path( 'app_operators_work_browse_operations', {'operatorId': opId} ) }}"
     										 />
     										<input type="button" value="{{ 'salary-j.pages.add_operations' | trans( {},'SalaryJ' ) }}" class="addOperations"
-    											data-url="{{ path( 'app_operators_work_add_operations', {'operatorId': op.id} ) }}"
+    											data-url="{{ path( 'app_operators_work_add_operations', {'operatorId': opId} ) }}"
     										/>
     									</td>
     								</tr>
@@ -82,28 +81,29 @@
     
     								<tr>
     									<td colspan="6" class="SubmitBox">
-    										<input type="submit" name="sub_operators" value="{{ 'salary-j.form.operators.edit_groups' | trans( {},'SalaryJ' ) }}"  />
-    										<input type="submit" name="change_names" value="{{ 'salary-j.form.operators.edit_names' | trans( {},'SalaryJ' ) }}" />
-    										<input type="submit" name="del_operators" value="{{ 'salary-j.form.operators.remove' | trans( {},'SalaryJ' ) }}" 
-    											onClick="return confirm('Наистина ли искате да изтриете маркираните Оператори');" 
-    										/>
-    										<br /><br />
+    									   {{ form_widget( index_form.change_names ) }}
+    									   {{ form_widget( index_form.del_operators ) }}
+    									   <br /><br />
     									</td>
     								</tr>
     
     							</table>
-    							<input type="hidden" name="mode" value="apply" />
-    						</form>
+    						{{ form_end( index_form ) }}
     						<br />&nbsp;
     					</td>
     				</tr>
     				<tr>
-    					<td>{# $pager #}</td>
+    					<td></td>
     				</tr>
     			</table>
     		</td>
     	</tr>
     </table>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags( 'js/pages/operators' ) }}
 {% endblock %}
 
 {% block body_javascripts %}

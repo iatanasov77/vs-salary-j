@@ -20,9 +20,9 @@ class OperatorsController extends AbstractCrudController
             $filterGroup    = null;
         
         $operators  = $this->get( 'salaryj.repository.operators' )->findBy( ['group' => $filterGroup] );
-        $indexForms = [];
+        $operatorsIndexed = [];
         foreach ( $operators as $op ) {
-            $indexForms[]   = $this->createForm( OperatorType::class, $op )->createView();
+            $operatorsIndexed[$op->getId()] = $op;
         }
         
         return [
@@ -30,8 +30,8 @@ class OperatorsController extends AbstractCrudController
             'form'          => $form->createView(),
             'filter_form'   => $this->createForm( OperatorFilterForm::class )->createView(),
             'filter_value'  => $request->query->get( 'group' ),
-            'index_forms'   => $indexForms,
-            'operators'     => $operators,
+            'index_form'    =>  $this->createForm( OperatorsIndexForm::class, ['operators' => $operatorsIndexed] )->createView(),
+            'operators'     => $operatorsIndexed,
         ];
     }
     

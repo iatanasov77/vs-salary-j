@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 use Vankosoft\ApplicationBundle\Component\Context\ApplicationContext;
+use Vankosoft\ApplicationBundle\Component\Status;
 
 use App\Form\OperationForm;
 use App\Repository\OperationsRepository;
@@ -48,7 +49,51 @@ class ModelsExtController extends AbstractController
         $this->operatorsWorkRepository  = $operatorsWorkRepository;
     }
     
-    public function jsonListModels( Request $request ) : Response
+    public function updateModels( Request $request ): JsonResponse
+    {
+        $em             = $this->getDoctrine()->getManager();
+        $modelsData     = $request->get( 'posted_data' );
+        $submitedModels = $request->get( 'modids' );
+        if ( is_array( $submitedModels ) ) {
+            foreach( array_keys( $submitedModels ) as $modelId ) {
+                $model  = $this->modelsRepository->find( $modelId );
+                
+                $model->setNumber( $modelsData[$modelId]['number'] );
+                $model->setName( $modelsData[$modelId]['name'] );
+                
+                $em->persist( $model );
+            }
+            $em->flush();
+        }
+        
+        return new JsonResponse([
+            'status'    => Status::STATUS_OK,
+        ]);
+    }
+    
+    public function deleteModels( Request $request ): JsonResponse
+    {
+        $em             = $this->getDoctrine()->getManager();
+        $submitedModels = $request->get( 'modids' );
+        if ( is_array( $submitedModels ) ) {
+            foreach( array_keys( $submitedModels ) as $modelId ) {
+                $model  = $this->modelsRepository->find( $modelId );
+                
+                $model->setDeletedBy( $this->getUser() );
+                $em->persist( $model );
+                $em->flush(); // Need Flush() to save deleted_by_id field
+                
+                $em->remove( $model );
+            }
+            $em->flush();
+        }
+        
+        return new JsonResponse([
+            'status'    => Status::STATUS_OK,
+        ]);
+    }
+    
+    public function jsonListModels( Request $request ): JsonResponse
     {
         $listModels = $this->modelsRepository->findAll();
         
@@ -62,12 +107,12 @@ class ModelsExtController extends AbstractController
         }
         
         return new JsonResponse([
-            'status'    => 'ok', 
+            'status'    => Status::STATUS_OK, 
             'data'      => $aaModels,  
         ]);
     }
     
-    public function browseOperations( int $modelId, Request $request ) : Response
+    public function browseOperations( int $modelId, Request $request ): Response
     {
         $model          = $this->modelsRepository->find( $modelId );
         $operationForm  = $this->createForm( OperationForm::class );
@@ -85,12 +130,12 @@ class ModelsExtController extends AbstractController
         return $this->render( 'salary-j/pages/Operations/model_browse_operations.html.twig', $tplVars );
     }
     
-    public function browseOperationsGet( Request $request ) : Response
+    public function browseOperationsGet( Request $request ): Response
     {
         return $this->browseOperations( $request->query->get( 'modid' ), $request );
     }
     
-    public function addOperations( int $modelId, Request $request ) : Response
+    public function addOperations( int $modelId, Request $request ): Response
     {
         $tplVars = [
             
@@ -99,7 +144,7 @@ class ModelsExtController extends AbstractController
         return $this->render( 'salary-j/pages/Operations/model_add_operations.html.twig', $tplVars );
     }
     
-    public function addOperationsNew( int $modelId, Request $request ) : Response
+    public function addOperationsNew( int $modelId, Request $request ): Response
     {
         $model          = $this->modelsRepository->find( $modelId );
         $operators      = $this->operatorsRepository->findBy( ['application' => $this->applicationContext->getApplication()] );

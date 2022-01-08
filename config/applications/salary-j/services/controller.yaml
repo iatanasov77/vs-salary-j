@@ -29,6 +29,12 @@ services:
             - '@vs_users.factory.users'
         tags: ['controller.service_arguments']
     
+    App\Controller\SalaryJ\OperatorsExtController:
+        arguments:
+            - "@vs_application.context.application"
+            - '@salaryj.repository.operators'
+        tags: ['controller.service_arguments']
+        
     App\Controller\SalaryJ\ModelsExtController:
         arguments:
             - "@vs_application.context.application"
