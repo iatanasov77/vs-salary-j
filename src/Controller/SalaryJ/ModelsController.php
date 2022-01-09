@@ -30,8 +30,11 @@ class ModelsController extends AbstractCrudController
     {
         $currentUser        = $this->getUser();
         $applicationContext = $this->get( 'vs_application.context.application' );
+        $formPost           = $request->request->get( 'model_form' );
         
         $entity->setApplication( $applicationContext->getApplication() );
+        $entity->setNumber( $formPost['model']['number'] );
+        $entity->setName( $formPost['model']['name'] );
         if ( $entity->getId() ) {
             $entity->setUpdatedBy( $currentUser );
         } else {
