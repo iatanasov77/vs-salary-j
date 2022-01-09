@@ -12,6 +12,7 @@ use App\Form\OperationForm;
 use App\Repository\OperationsRepository;
 use App\Repository\SettingsRepository;
 use App\Repository\OperatorsWorkRepository;
+use App\Form\ModelsIndexForm;
 
 class ModelsExtController extends AbstractController
 {
@@ -51,19 +52,19 @@ class ModelsExtController extends AbstractController
     
     public function updateModels( Request $request ): JsonResponse
     {
-        $em             = $this->getDoctrine()->getManager();
-        $modelsData     = $request->get( 'posted_data' );
-        $submitedModels = $request->get( 'modids' );
-        if ( is_array( $submitedModels ) ) {
-            foreach( array_keys( $submitedModels ) as $modelId ) {
-                $model  = $this->modelsRepository->find( $modelId );
-                
-                $model->setNumber( $modelsData[$modelId]['number'] );
-                $model->setName( $modelsData[$modelId]['name'] );
-                
-                $em->persist( $model );
+        $em     = $this->getDoctrine()->getManager();
+        $form   = $this->createForm( ModelsIndexForm::class, ['models' => $this->getModels()] );
+        
+        $form->handleRequest( $request );
+        if ( $form->isSubmitted() ) {
+            $models          = $form->get( 'models' )->getData();
+            $submitedModels  = $request->get( 'submitedModels' );
+            if ( is_array( $submitedModels ) ) {
+                foreach( array_keys( $submitedModels ) as $modelId ) {
+                    $em->persist( $models[$modelId] );
+                }
+                $em->flush();
             }
-            $em->flush();
         }
         
         return new JsonResponse([
@@ -73,19 +74,23 @@ class ModelsExtController extends AbstractController
     
     public function deleteModels( Request $request ): JsonResponse
     {
-        $em             = $this->getDoctrine()->getManager();
-        $submitedModels = $request->get( 'modids' );
-        if ( is_array( $submitedModels ) ) {
-            foreach( array_keys( $submitedModels ) as $modelId ) {
-                $model  = $this->modelsRepository->find( $modelId );
-                
-                $model->setDeletedBy( $this->getUser() );
-                $em->persist( $model );
-                $em->flush(); // Need Flush() to save deleted_by_id field
-                
-                $em->remove( $model );
+        $em     = $this->getDoctrine()->getManager();
+        $form   = $this->createForm( ModelsIndexForm::class, ['models' => $this->getModels()] );
+        
+        $form->handleRequest( $request );
+        if ( $form->isSubmitted() ) {
+            $models          = $form->get( 'models' )->getData();
+            $submitedModels  = $request->get( 'submitedModels' );
+            if ( is_array( $submitedModels ) ) {
+                foreach( array_keys( $submitedModels ) as $modelId ) {
+                    $models[$modelId]->setDeletedBy( $this->getUser() );
+                    $em->persist( $models[$modelId] );
+                    $em->flush(); // Need Flush() to save deleted_by_id field
+                    
+                    $em->remove( $models[$modelId] );
+                }
+                $em->flush();
             }
-            $em->flush();
         }
         
         return new JsonResponse([
@@ -193,5 +198,16 @@ class ModelsExtController extends AbstractController
         }
         //echo"<pre>"; var_dump( $workCount ); die;
         return $workCount;
+    }
+    
+    private function getModels(): array
+    {
+        $models = $this->modelsRepository->findAll();
+        $modelsIndexed = [];
+        foreach ( $models as $mod ) {
+            $modelsIndexed[$mod->getId()] = $mod;
+        }
+        
+        return $modelsIndexed;
     }
 }

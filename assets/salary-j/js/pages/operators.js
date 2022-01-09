@@ -1,5 +1,5 @@
-import {  VsPath } from '../includes/fos_js_routes.js';
-import {  VsGetSubmitButton } from '../includes/vs_form.js';
+import { VsPath } from '../includes/fos_js_routes.js';
+import { VsGetSubmitButton } from '../includes/vs_form.js';
 import { VsFormDlete } from '../includes/resource-delete.js';
 
 function checkAll( flag, form, prefix )

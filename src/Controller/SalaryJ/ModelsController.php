@@ -3,6 +3,8 @@
 use Symfony\Component\HttpFoundation\Request;
 use Vankosoft\ApplicationBundle\Controller\AbstractCrudController;
 
+use App\Form\ModelsIndexForm;
+
 class ModelsController extends AbstractCrudController
 {
     protected function customData( Request $request, $entity = NULL ) : array
@@ -11,11 +13,15 @@ class ModelsController extends AbstractCrudController
         $form           = $this->resourceFormFactory->create( $configuration, $this->getFactory()->createNew() );
             
         $models         = $this->get( 'salaryj.repository.models' )->findAll();
-            
+        $modelsIndexed  = [];
+        foreach ( $models as $mod ) {
+            $modelsIndexed[$mod->getId()] = $mod;
+        }
+        
         return [
             'application'   => $this->get( 'vs_application.context.application' )->getApplication(),
             'form'          => $form->createView(),
-            
+            'index_form'    =>  $this->createForm( ModelsIndexForm::class, ['models' => $modelsIndexed] )->createView(),
             'models'        => $models,
         ];
     }
