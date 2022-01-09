@@ -27,6 +27,7 @@ return [
 	Liip\ImagineBundle\LiipImagineBundle::class => ['all' => true],
 	SPE\FilesizeExtensionBundle\SPEFilesizeExtensionBundle::class => ['all' => true],
 	
+    BabDev\PagerfantaBundle\BabDevPagerfantaBundle::class => ['all' => true],
     Sylius\Bundle\ResourceBundle\SyliusResourceBundle::class => ['all' => true],
     Sylius\Bundle\ThemeBundle\SyliusThemeBundle::class => ['all' => true],
 	

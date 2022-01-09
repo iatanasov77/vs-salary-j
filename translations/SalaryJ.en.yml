@@ -11,6 +11,10 @@ salary-j:
         users: Users
         settings: Settings
         logout: Logout
+    pagination:
+        previous: Previous
+        next: Next
+        go_to_page: 'Go to page '
     pages:
         operators_groups: Operators Groups
         add_new_group: Create new Group

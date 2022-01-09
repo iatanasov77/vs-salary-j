@@ -5,6 +5,13 @@ app_operatorsgroups:
         path: /operators-groups
         templates: "salary-j/pages/OperatorsGroups"
     type: sylius.resource
+    defaults:
+        _controller: salaryj.controller.operatorsgroups:indexAction
+        _sylius:
+            paginate: 10
+            sorting:
+                score: desc
+            template: "salary-j/pages/OperatorsGroups/index.html.twig"
     
 app_operators:
     resource: |
@@ -13,6 +20,13 @@ app_operators:
         path: /operators
         templates: "salary-j/pages/Operators"
     type: sylius.resource
+    defaults:
+        _controller: salaryj.controller.operators:indexAction
+        _sylius:
+            paginate: 10
+            sorting:
+                score: desc
+            template: "salary-j/pages/Operators/index.html.twig"
     options:
         expose: true
 
@@ -23,6 +37,13 @@ app_models:
         path: /models
         templates: "salary-j/pages/Models"
     type: sylius.resource
+    defaults:
+        _controller: salaryj.controller.models:indexAction
+        _sylius:
+            paginate: 10
+            sorting:
+                score: desc
+            template: "salary-j/pages/Models/index.html.twig"
     options:
         expose: true
     

@@ -51,6 +51,7 @@ yarn-error.log
 
 ###> liip/imagine-bundle ###
 /public/media/cache/
+/public/admin-panel/media/cache/
 ###< liip/imagine-bundle ###
 
 ###> VankosoftApplication Files ###
