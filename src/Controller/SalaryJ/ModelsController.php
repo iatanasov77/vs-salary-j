@@ -11,13 +11,9 @@ class ModelsController extends AbstractCrudController
     {
         $configuration  = $this->requestConfigurationFactory->create( $this->metadata, $this->currentRequest );
         $form           = $this->resourceFormFactory->create( $configuration, $this->getFactory()->createNew() );
-            
-        $resources      = $this->resourcesCollectionProvider->get( $configuration, $this->get( 'salaryj.repository.models' ) );
-        $models         = $resources;
-        //$models         = $this->get( 'salaryj.repository.models' )->findAll();
         
         $modelsIndexed  = [];
-        foreach ( $models as $mod ) {
+        foreach ( $this->resources as $mod ) {
             $modelsIndexed[$mod->getId()] = $mod;
         }
         
@@ -25,7 +21,7 @@ class ModelsController extends AbstractCrudController
             'application'   => $this->get( 'vs_application.context.application' )->getApplication(),
             'form'          => $form->createView(),
             'index_form'    =>  $this->createForm( ModelsIndexForm::class, ['models' => $modelsIndexed] )->createView(),
-            'models'        => $models,
+            'models'        => $modelsIndexed,
         ];
     }
     
