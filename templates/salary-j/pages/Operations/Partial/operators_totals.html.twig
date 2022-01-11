@@ -1,0 +1,56 @@
+
+<div style="line-height: 170%;">
+    <a href="javascript:void(0);" id="checkAll">{{ 'salary-j.pages.all' | trans( {},'SalaryJ' ) }}</a> / 
+    <a href="javascript:void(0);" id="uncheckAll">{{ 'salary-j.pages.nothing' | trans( {},'SalaryJ' ) }}</a>
+</div>
+
+<form action="{$smarty.server.PHP_SELF}" method="post" name="processcategoryform">
+    <table cellpadding="2" cellspacing="1" width="100%">
+        <tr>
+            <td colspan="2" align="left">
+                <input type="checkbox" name="print_summary" />{{ 'salary-j.pages.general_statement' | trans( {},'SalaryJ' ) }}
+            </td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr class="TableHead">
+            <td width="3%">&nbsp;</td>
+            <td >{{ 'salary-j.pages.name' | trans( {},'SalaryJ' ) }}</td>
+            <td width="10%">{{ 'salary-j.pages.worked' | trans( {},'SalaryJ' ) }}</td>
+            <td width="40%">&nbsp;</td>
+        </tr>
+
+    {% for w in work.work %}
+        <tr class="bottomborder {{ cycle(['', 'TableSubHead'], loop.index0) }}">
+            <td><input type="checkbox" name="op_ids[{{ w.operatorId }}]" /></td>
+            <td><font class="ItemsList">{{ w.operatorName }}</font></td>
+            <td>{{ w.subTotal }}</td>
+            <td>
+            
+            </td>
+        </tr>
+    {% endfor %}
+    
+        <tr>
+            <td colspan="4"><hr /></td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td align="right"><b>{{ 'salary-j.pages.total' | trans( {},'SalaryJ' ) }}:</b></td>
+            <td align="left">{{ work.grandTotal }}</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td colspan="6" class="SubmitBox">
+                <input type="button" name="print_work"
+                    id="btnPrint"
+                    value="{{ 'salary-j.pages.print' | trans( {},'SalaryJ' ) }}"
+                    data-url="{{ path( 'app_operators_work_print_operators_totals', {'groupId': groupId, 'startDate': dateRange['startDate'] | date( 'Y-m-d' ), 'endDate': dateRange['endDate'] | date( 'Y-m-d' )}) }}"
+                />
+                <br />
+            </td>
+        </tr>
+    </table>
+    <input type="hidden" name="mode" value="apply" />
+</form>
+<br />&nbsp;

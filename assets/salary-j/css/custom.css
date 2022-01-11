@@ -9,9 +9,18 @@
 	margin-bottom: 10px;
 }
 
+/*
+ * USED IN
+ * -------
+ * Models/operators_work.html.twig
+ * Operations/operators_work_browse_operations_grouped.html.twig
+ * Operations/operators_work_browse_operations.html.twig
+ * Operations/operators_work_browse_totals.html.twig
+ *
+ */
 .date-range-picker-subcontainer {
-	width: 35%;
-	margin: 0 auto;
+	width: 25%;
+	margin: auto;
 }
 
 .date-range-picker-label {

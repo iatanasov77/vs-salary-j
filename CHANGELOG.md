@@ -1,3 +1,24 @@
+1.3.1	|	Release date: **11.01.2022**
+============================================
+* New Features:
+  - Add Test Theme For Example.
+  - Improve Users Index Template.
+  - Users Add, Edit and Delete.
+  - Done Operators Work Totals.
+  - Some Template Translations.
+  - Update ENV Variables.
+  - Update Templates Language Strings.
+  - Set CreatedBy and UpdatedBy
+  - Operators Index Page Actions.
+  - Create ModelsIndexForm and Improve Models Index Page.
+  - Begin Using Paginator.
+  - Improve Operators Resource.
+  - Improve Models Resource.
+* Bug-Fixes:
+  - Fix LoginForm CSRF Token.
+  - Fix ModelsController
+
+
 1.3.0	|	Release date: **29.12.2021**
 ============================================
 * Update Application:

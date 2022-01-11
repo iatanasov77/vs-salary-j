@@ -31,4 +31,14 @@ services:
             - "%salaryj.model.operations.class%"
         tags:
             - { name: form.type }
+    
+    salaryj.resources.users.form:
+        class: App\Form\UserForm
+        tags:
+            - { name: form.type }
+        arguments:
+            - "@request_stack"
+            - '%vs_users.model.users.class%'
+            - '%vs_application.model.application.class%'
+            - '@salaryj.component.orm'
 

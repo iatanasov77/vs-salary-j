@@ -15,23 +15,18 @@ class OperatorsController extends AbstractCrudController
         $configuration  = $this->requestConfigurationFactory->create( $this->metadata, $this->currentRequest );
         $form           = $this->resourceFormFactory->create( $configuration, $this->getFactory()->createNew() );
         
-        $filterGroup    = $request->query->get( 'group' );
-        if ( empty( $filterGroup ) )
-            $filterGroup    = null;
-        
-        $operators  = $this->get( 'salaryj.repository.operators' )->findBy( ['group' => $filterGroup] );
-        $indexForms = [];
-        foreach ( $operators as $op ) {
-            $indexForms[]   = $this->createForm( OperatorType::class, $op )->createView();
+        $operatorsIndexed = [];
+        foreach ( $this->resources as $op ) {
+            $operatorsIndexed[$op->getId()] = $op;
         }
         
         return [
             'application'   => $this->get( 'vs_application.context.application' )->getApplication(),
             'form'          => $form->createView(),
             'filter_form'   => $this->createForm( OperatorFilterForm::class )->createView(),
-            'filter_value'  => $request->query->get( 'group' ),
-            'index_forms'   => $indexForms,
-            'operators'     => $operators,
+            'filter_value'  => $request->attributes->get( 'groupId' ),
+            'index_form'    =>  $this->createForm( OperatorsIndexForm::class, ['operators' => $operatorsIndexed] )->createView(),
+            'operators'     => $operatorsIndexed,
         ];
     }
     
@@ -44,5 +39,10 @@ class OperatorsController extends AbstractCrudController
         $entity->setApplication( $this->get( 'vs_application.context.application' )->getApplication() );
         $entity->setGroup( $group );
         $entity->setName( $formPost['operator']['name'] );
+        if ( $entity->getId() ) {
+            $entity->setUpdatedBy( $this->getUser() );
+        } else {
+            $entity->setCreatedBy( $this->getUser() );
+        }
     }
 }

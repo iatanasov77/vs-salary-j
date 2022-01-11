@@ -1,7 +1,7 @@
 {% extends "salary-j/base.html.twig" %}
 
 {% block content %}
-	<h1 align="center">Настройки</h1>
+	<h1 align="center">{{ 'salary-j.menu.settings' | trans( {},'SalaryJ' ) }}</h1>
 	<br /><br /><br />
 
     {{ form_start(form, { 'action': path('salaryj_settings_update'), 'method': 'POST' }) }}
@@ -31,7 +31,7 @@
 			</tr>
 			<tr>
 				<td></td>
-				<td align="right"><input type="submit" name="sub_settings" value="Запази" /></td>
+				<td align="right"><input type="submit" name="sub_settings" value="{{ 'salary-j.form.save' | trans( {},'SalaryJ' ) }}" /></td>
 			</tr>
 		</table>
 	{{ form_end(form, {'render_rest': false}) }}

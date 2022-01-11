@@ -1,0 +1,66 @@
+app_operatorsgroups_index:
+    path: /operators-groups/
+    methods: [GET]
+    defaults:
+        _controller: salaryj.controller.operatorsgroups:indexAction
+        _sylius:
+            paginate: 10
+            sorting:
+                score: desc
+            template: "salary-j/pages/OperatorsGroups/index.html.twig"
+
+app_operatorsgroups:
+    resource: |
+        alias: salaryj.operatorsgroups
+        except: ['show']
+        path: /operators-groups
+        templates: "salary-j/pages/OperatorsGroups"
+    type: sylius.resource
+
+app_operators_index:
+    path: /operators/{groupId}/
+    methods: [GET]
+    defaults:
+        _controller: salaryj.controller.operators:indexAction
+        _sylius:
+            paginate: 10
+            sorting:
+                score: desc
+            filterable: true
+            criteria:
+                group: $groupId
+            template: "salary-j/pages/Operators/index.html.twig"
+    options:
+        expose: true
+              
+app_operators:
+    resource: |
+        alias: salaryj.operators
+        except: ['show']
+        path: /operators/{groupId}
+        templates: "salary-j/pages/Operators"
+    type: sylius.resource
+    options:
+        expose: true
+
+app_models_index:
+    path: /models/
+    methods: [GET]
+    defaults:
+        _controller: salaryj.controller.models:indexAction
+        _sylius:
+            paginate: 10
+            sorting:
+                score: desc
+            template: "salary-j/pages/Models/index.html.twig"
+    options:
+        expose: true
+    
+app_models:
+    resource: |
+        alias: salaryj.models
+        except: ['show']
+        path: /models
+        templates: "salary-j/pages/Models"
+    type: sylius.resource
+

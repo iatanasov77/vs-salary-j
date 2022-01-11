@@ -1,3 +1,4 @@
+require( '../includes/vs_print.js' );
 var moment	= require( 'moment' );
 
 require( 'bootstrap-daterangepicker/daterangepicker.css' );
@@ -51,6 +52,7 @@ $( function()
         endDate: end,
         locale: dateRangePickerLabelsBg
 	}, cb);
+	
 	cb( start, end );
 	
 	$( '#operators_work_period' ).on( 'apply.daterangepicker', function( ev, picker )
@@ -63,4 +65,10 @@ $( function()
   		
   		changePeriod( startDate, endDate );
 	});
+	
+	$( '#btnPrint' ).on( 'click', function( ev )
+    {
+        var addr = $( this ).attr( 'data-url' );
+        vsOpenPrintPreview( addr );
+    });
 });

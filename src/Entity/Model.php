@@ -2,6 +2,7 @@
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Sylius\Component\Resource\Model\ResourceInterface;
@@ -16,6 +17,7 @@ use Vankosoft\ApplicationBundle\Model\Traits\UserAwareEntity;
  *
  * @ORM\Table(name="JUN_Models")
  * @ORM\Entity
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false, hardDelete=false)
  */
 class Model implements ResourceInterface, ApplicationRelationInterface, UserAwareInterface
 {

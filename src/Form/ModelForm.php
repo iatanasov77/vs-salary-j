@@ -10,6 +10,9 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 use Vankosoft\ApplicationBundle\Component\I18N;
 
+use App\Form\Type\ModelType;
+use App\Entity\Model;
+
 class ModelForm extends AbstractForm
 {
     public function buildForm( FormBuilderInterface $builder, array $options )
@@ -29,16 +32,15 @@ class ModelForm extends AbstractForm
                 'mapped'                => false,
             ])
             
-            
-            ->add( 'number', TextType::class, [
-                'label'                 => 'salary-j.form.number',
-                'translation_domain'    => 'SalaryJ',
-            ])
-            
-            ->add( 'name', TextType::class, [
-                'label'                 => 'salary-j.form.name',
-                'translation_domain'    => 'SalaryJ',
+            ->add( 'model', ModelType::class, [
+                'mapped'        => false,
+                'data_class'    => Model::class,
             ])
         ;
+    }
+    
+    public function getName()
+    {
+        return 'salary_j.model';
     }
 }

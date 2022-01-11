@@ -1,30 +1,34 @@
-app_operatorsgroups:
-    resource: |
-        alias: salaryj.operatorsgroups
-        except: ['show']
-        path: /operators-groups
-        templates: "salary-j/pages/OperatorsGroups"
-    type: sylius.resource
-    
-app_operators:
-    resource: |
-        alias: salaryj.operators
-        except: ['show']
-        path: /operators
-        templates: "salary-j/pages/Operators"
-    type: sylius.resource
-
-app_models:
-    resource: |
-        alias: salaryj.models
-        except: ['show']
-        path: /models
-        templates: "salary-j/pages/Models"
-    type: sylius.resource    
-    
 salaryj_users_index:
     path: /users
     controller: App\Controller\SalaryJ\UsersController::index
+    
+salaryj_users_update:
+    path: /users/{userId}/update
+    controller: App\Controller\SalaryJ\UsersController::update
+
+app_operators_ext_update:
+    path: /operators-ext/update
+    controller: App\Controller\SalaryJ\OperatorsExtController::updateOperators
+    options:
+        expose: true
+    
+app_operators_ext_delete:
+    path: /operators-ext/delete
+    controller: App\Controller\SalaryJ\OperatorsExtController::deleteOperators
+    options:
+        expose: true
+
+app_models_ext_update:
+    path: /models-ext/update
+    controller: App\Controller\SalaryJ\ModelsExtController::updateModels
+    options:
+        expose: true
+    
+app_models_ext_delete:
+    path: /models-ext/delete
+    controller: App\Controller\SalaryJ\ModelsExtController::deleteModels
+    options:
+        expose: true
     
 app_json_models:
     path: /json/models
@@ -46,7 +50,13 @@ app_model_add_operations_new:
     path: /model-operations/{modelId}/add_new
     controller: App\Controller\SalaryJ\ModelsExtController::addOperationsNew
     defaults:   { operatorsGroupId: 0 }
-    
+
+app_operators_work_browse_totals:
+    path: /operators-work/{groupId}/browse-group
+    controller: App\Controller\SalaryJ\OperatorsWorkController::browseTotals
+    options:
+        expose: true
+
 app_operators_work_browse_operations:
     path: /operators-work/{operatorId}/browse
     controller: App\Controller\SalaryJ\OperatorsWorkController::browseOperations
@@ -85,4 +95,8 @@ app_operators_work_print_operations:
 app_operators_work_print_operations_grouped:
     path: /operators-work/{operatorId}/{startDate}__{endDate}/print-grouped
     controller: App\Controller\SalaryJ\PrintController::printOperationsGrouped
+
+app_operators_work_print_operators_totals:
+    path: /operators-group-work/{groupId}/{startDate}__{endDate}/print
+    controller: App\Controller\SalaryJ\PrintController::printOperatorsTotals
 

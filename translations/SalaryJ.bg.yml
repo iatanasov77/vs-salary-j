@@ -11,6 +11,10 @@ salary-j:
         users: Потребители
         settings: Настройки
         logout: Изход
+    pagination:
+        previous: Previous
+        next: Next
+        go_to_page: 'Go to page '
     pages:
         operators_groups: Групи Оператори
         add_new_group: Добавяне на нова Група
@@ -26,19 +30,46 @@ salary-j:
         add_new_model: Добавяне на нов Модел
         filter_model: Търсене
         operations: Операции
+        operation: Операция
+        worked_by_model: Заработка за Модел
         worked_operations: Изработени
         worked_operations_new: Заработка (НОВО)
         total: Общо
         message_no_operations_for_model: Няма въведени операции за модела.
+        worked_operations_by_group: Изработени Операции от Група
+        worked_operations_by: Изработени Операции от
+        period_for: За периода
+        general_statement: Обща Ведомост
+        name: Име
+        worked: Заработка
+        print: Принтиране
+        to: до
+        unit_price: Ед. Цена
+        pieces: Бройки
+        date: Дата
+        grouped: Групирано
+        grouped_by_operations: Групирано по Операции
+        separated: Разделно
         
     form:
         locale: Език
         common_group: Обща
         group: Група
         name: Име
+        username: Потребителско Име
+        email: Е-мейл
+        user_roles: Потребителски Роли
+        allowed_applications: Позволени Приложения
+        last_logged_in: Последно Влизане
         description: Описание
         parent: Родител
         number: Номер
+        modify_profile: Редакция на Профил
+        add_new_user: Добави нов потребител
+        add_new_operator: Добавяне на Оператор
+        delete_selected: Изтрий избраните
+        select: Избери
+        add: Добави
         apply: Въведи
         save: Запази
         cancel: Отказ
@@ -56,14 +87,29 @@ salary-j:
             edit_groups: Промяна на Групи
             edit_names: Смяна на Имена
             remove: Изтриване
+            remove_confirm: Наистина ли искате да изтриете маркираните Оператори?
             
         models:
             edit_names: Смяна на Имена
             remove: Изтриване
+            remove_confirm: Наистина ли искате да изтриете маркираните Модели?
             
         operations:
             add_new_operation: Добавяне на нова Операция
             minutes: Минути
+            
+        users:
+            edit_user: Редакция на Потребител
+            details: Данни за Потребител
+            personal_information: Лични Данни
+            contact_information: Данни за Контакт
+            username_and_password: 'Потребителско име & Парола'
+            
+            user_title: Титла
+            mister: Гн.
+            mrs: Г-жа
+            miss: Г-ца
+            phone: Телефон
             
     settings:
         minute_bonus: Минутен Бонус (%)

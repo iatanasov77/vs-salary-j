@@ -64,7 +64,9 @@
 						</td>
 					</tr>
 					<tr>
-						<td>{# $pager #}</td>
+						<td>
+						  {% if resources.haveToPaginate() %} {{ pagerfanta( resources ) }}{% endif %}
+						</td>
 					</tr>
 				</table>
 			</td>

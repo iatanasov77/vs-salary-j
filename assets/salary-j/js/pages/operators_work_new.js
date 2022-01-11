@@ -30,6 +30,7 @@ $( function()
 	    maxYear: currentYear
 	}, cb );
 	
+	
 	$( '#work_date.lang_bg' ).daterangepicker({
 	    singleDatePicker: true,
 	    minYear: currentYear - 10,
@@ -37,6 +38,7 @@ $( function()
 	    locale: dateRangePickerLabelsBg
 	}, cb );
 	cb( start, end );
+	
 	
 	$( '#work_date' ).on( 'apply.daterangepicker', function( ev, picker )
 	{

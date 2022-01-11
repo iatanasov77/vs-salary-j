@@ -6,11 +6,13 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 use Vankosoft\ApplicationBundle\Component\Context\ApplicationContext;
+use Vankosoft\ApplicationBundle\Component\Status;
 
 use App\Form\OperationForm;
 use App\Repository\OperationsRepository;
 use App\Repository\SettingsRepository;
 use App\Repository\OperatorsWorkRepository;
+use App\Form\ModelsIndexForm;
 
 class ModelsExtController extends AbstractController
 {
@@ -48,7 +50,55 @@ class ModelsExtController extends AbstractController
         $this->operatorsWorkRepository  = $operatorsWorkRepository;
     }
     
-    public function jsonListModels( Request $request ) : Response
+    public function updateModels( Request $request ): JsonResponse
+    {
+        $em     = $this->getDoctrine()->getManager();
+        $form   = $this->createForm( ModelsIndexForm::class, ['models' => $this->getModels()] );
+        
+        $form->handleRequest( $request );
+        if ( $form->isSubmitted() ) {
+            $models          = $form->get( 'models' )->getData();
+            $submitedModels  = $request->get( 'submitedModels' );
+            if ( is_array( $submitedModels ) ) {
+                foreach( array_keys( $submitedModels ) as $modelId ) {
+                    $em->persist( $models[$modelId] );
+                }
+                $em->flush();
+            }
+        }
+        
+        return new JsonResponse([
+            'status'    => Status::STATUS_OK,
+        ]);
+    }
+    
+    public function deleteModels( Request $request ): JsonResponse
+    {
+        $em     = $this->getDoctrine()->getManager();
+        $form   = $this->createForm( ModelsIndexForm::class, ['models' => $this->getModels()] );
+        
+        $form->handleRequest( $request );
+        if ( $form->isSubmitted() ) {
+            $models          = $form->get( 'models' )->getData();
+            $submitedModels  = $request->get( 'submitedModels' );
+            if ( is_array( $submitedModels ) ) {
+                foreach( array_keys( $submitedModels ) as $modelId ) {
+                    $models[$modelId]->setDeletedBy( $this->getUser() );
+                    $em->persist( $models[$modelId] );
+                    $em->flush(); // Need Flush() to save deleted_by_id field
+                    
+                    $em->remove( $models[$modelId] );
+                }
+                $em->flush();
+            }
+        }
+        
+        return new JsonResponse([
+            'status'    => Status::STATUS_OK,
+        ]);
+    }
+    
+    public function jsonListModels( Request $request ): JsonResponse
     {
         $listModels = $this->modelsRepository->findAll();
         
@@ -62,12 +112,12 @@ class ModelsExtController extends AbstractController
         }
         
         return new JsonResponse([
-            'status'    => 'ok', 
+            'status'    => Status::STATUS_OK, 
             'data'      => $aaModels,  
         ]);
     }
     
-    public function browseOperations( int $modelId, Request $request ) : Response
+    public function browseOperations( int $modelId, Request $request ): Response
     {
         $model          = $this->modelsRepository->find( $modelId );
         $operationForm  = $this->createForm( OperationForm::class );
@@ -85,12 +135,12 @@ class ModelsExtController extends AbstractController
         return $this->render( 'salary-j/pages/Operations/model_browse_operations.html.twig', $tplVars );
     }
     
-    public function browseOperationsGet( Request $request ) : Response
+    public function browseOperationsGet( Request $request ): Response
     {
         return $this->browseOperations( $request->query->get( 'modid' ), $request );
     }
     
-    public function addOperations( int $modelId, Request $request ) : Response
+    public function addOperations( int $modelId, Request $request ): Response
     {
         $tplVars = [
             
@@ -99,7 +149,7 @@ class ModelsExtController extends AbstractController
         return $this->render( 'salary-j/pages/Operations/model_add_operations.html.twig', $tplVars );
     }
     
-    public function addOperationsNew( int $modelId, Request $request ) : Response
+    public function addOperationsNew( int $modelId, Request $request ): Response
     {
         $model          = $this->modelsRepository->find( $modelId );
         $operators      = $this->operatorsRepository->findBy( ['application' => $this->applicationContext->getApplication()] );
@@ -148,5 +198,16 @@ class ModelsExtController extends AbstractController
         }
         //echo"<pre>"; var_dump( $workCount ); die;
         return $workCount;
+    }
+    
+    private function getModels(): array
+    {
+        $models = $this->modelsRepository->findAll();
+        $modelsIndexed = [];
+        foreach ( $models as $mod ) {
+            $modelsIndexed[$mod->getId()] = $mod;
+        }
+        
+        return $modelsIndexed;
     }
 }

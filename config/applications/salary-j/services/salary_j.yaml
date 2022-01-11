@@ -5,4 +5,9 @@ services:
     _defaults:
         autowire: true
         autoconfigure: true
+        
+    salaryj.component.orm:
+        class: App\Component\Orm
+        arguments:
+            - '@translator'
 

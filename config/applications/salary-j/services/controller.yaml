@@ -29,6 +29,12 @@ services:
             - '@vs_users.factory.users'
         tags: ['controller.service_arguments']
     
+    App\Controller\SalaryJ\OperatorsExtController:
+        arguments:
+            - "@vs_application.context.application"
+            - '@salaryj.repository.operators'
+        tags: ['controller.service_arguments']
+        
     App\Controller\SalaryJ\ModelsExtController:
         arguments:
             - "@vs_application.context.application"
@@ -56,16 +62,21 @@ services:
         
     App\Controller\SalaryJ\OperatorsWorkController:
         arguments:
+            - '@twig'
+            - '@translator'
             - '@vs_application.context.application'
             - '@salaryj.repository.operators'
             - '@salaryj.repository.operators_work'
             - '@salaryj.repository.models'
             - '@salaryj.repository.operations'
+            - '@salaryj.repository.operatorsgroups'
         tags: ['controller.service_arguments']
 
     App\Controller\SalaryJ\PrintController:
         arguments:
+            - '@translator'
             - '@vs_application.context.application'
             - '@salaryj.repository.operators'
             - '@salaryj.repository.operators_work'
+            - '@salaryj.repository.operatorsgroups'
         tags: ['controller.service_arguments']

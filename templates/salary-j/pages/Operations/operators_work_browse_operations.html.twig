@@ -3,11 +3,10 @@
 {% block content %}
 	<div id="operator_id" style="visibility:hidden; display:none;">{{ operator.id }}</div>
 
-	<h1 align="center">Изработени Операции от: {{ operator.name }}</h1>
+	<h1 align="center">{{ 'salary-j.pages.worked_operations_by' | trans( {},'SalaryJ' ) }}: {{ operator.name }}</h1>
 	<div class="date-range-picker-container">
 		<div class="date-range-picker-subcontainer">
-    		<span class="date-range-picker-label">За периода</span>
-    		{#<input id="operators_work_period" name="operators_work_period">#}
+    		<span class="date-range-picker-label">{{ 'salary-j.pages.period_for' | trans( {},'SalaryJ' ) }}</span>
     		<div id="operators_work_period" 
     			class="date-range-picker-widget lang_{{ app.request.locale|slice(0, 2) }}"
     			data-url="{{ path( 'app_operators_work_browse_operations', {'operatorId': operator.id} ) }}"
@@ -24,13 +23,13 @@
 		<input type="hidden" name="startDate" id="fromVsdeDate" value="{{ dateRange['startDate'] | date( 'Y-m-d' ) }}" />
 		<input type="hidden" name="endDate" id="toVsdeDate" value="{{ dateRange['endDate'] | date( 'Y-m-d' ) }}" />
 
-		<input type="submit" name="submit" value="Групирано" />
+		<input type="submit" name="submit" value="{{ 'salary-j.pages.grouped' | trans( {},'SalaryJ' ) }}" />
 	</form>
 	<br /><br /><br />
 
 	<table cellspacing="0" width="100%">
 		<tr>
-			<td class="DialogTitle">Операции</td>
+			<td class="DialogTitle">{{ 'salary-j.pages.operations' | trans( {},'SalaryJ' ) }}</td>
 		</tr>
 		<tr>
 			<td class="DialogBorder" id="OperationsContainer">
@@ -47,5 +46,4 @@
         
 {% block body_javascripts %}
     {{ encore_entry_script_tags( 'js/pages/operators_work' ) }}
-    {{ encore_entry_script_tags( 'js/pages/print' ) }}
 {% endblock %}

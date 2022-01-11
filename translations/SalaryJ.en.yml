@@ -11,14 +11,18 @@ salary-j:
         users: Users
         settings: Settings
         logout: Logout
+    pagination:
+        previous: Previous
+        next: Next
+        go_to_page: 'Go to page '
     pages:
         operators_groups: Operators Groups
         add_new_group: Create new Group
         operators: Operators
         add_new_operator: Create new Operator
         filter_by_gtoup: Filter by Group
-        all: ALl
-        nothing: Nothing
+        all: Check All
+        nothing: Uncheck All
         browse_operations: Browse Operations
         add_operations: Add Operations
         models: Models
@@ -26,19 +30,46 @@ salary-j:
         add_new_model: Create new Model
         filter_model: Search
         operations: Operations
+        operation: Operation
+        worked_by_model: Worked for Model
         worked_operations: Worked
         worked_operations_new: Worked (NEW)
         total: Total
         message_no_operations_for_model: No entered operations for the model.
-
+        worked_operations_by_group: Operations worked from a group
+        worked_operations_by: Operations worked from
+        period_for: Date Period
+        general_statement: General Statement
+        name: Name
+        worked: Worked
+        print: Print
+        to: to
+        unit_price: Unit Price
+        pieces: Pieces
+        date: Date
+        grouped: Grouped
+        grouped_by_operations: Grouped by Operations
+        separated: Separated
+        
     form:
         locale: Locale
         common_group: Common
         group: Group
         name: Name
+        username: Username
+        email: E-mail
+        user_roles: User Roles
+        allowed_applications: Allowed Applications
+        last_logged_in: Last logged in
         description: Description
         parent: Parent
         number: Number
+        modify_profile: Modify profile
+        add_new_user: Add New User
+        add_new_operator: Add an Operator
+        delete_selected: Delete selected
+        select: Select
+        add: Add
         apply: Apply
         save: Save
         cancel: Cancel
@@ -56,14 +87,29 @@ salary-j:
             edit_groups: Change Groups
             edit_names: Change Names
             remove: Delete
+            remove_confirm: Do you want to delete the checked Operators?
 
         models:
             edit_names: Change Names
             remove: Delete
+            remove_confirm: Do you want to delete the checked Models?
             
         operations:
             add_new_operation: Add New Operation
             minutes: Minutes
+            
+        users:
+            edit_user: Edit User Details
+            details: User Details
+            personal_information: Personal Information
+            contact_information: Contact Information
+            username_and_password: 'Username & Password'
+            
+            user_title: Title
+            mister: Mr.
+            mrs: Mrs.
+            miss: Miss
+            phone: Phone
 
     settings:
         minute_bonus: Minute Bonus (%)
