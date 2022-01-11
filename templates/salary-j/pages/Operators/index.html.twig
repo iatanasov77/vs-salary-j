@@ -3,7 +3,7 @@
 {% block content %}
     <h1 align="center">{{ 'salary-j.pages.operators' | trans( {},'SalaryJ' ) }}</h1>
     
-    {{ form_start(form, { 'action': path('salaryj_operators_create'), 'method': 'POST' }) }}
+    {{ form_start(form, { 'action': path('salaryj_operators_create', {groupId: 0}), 'method': 'POST' }) }}
         {{ form_widget( form._token ) }}
         {{ form_widget( form.application_code, {'value' : application.code} ) }}
     
@@ -41,6 +41,7 @@
     						<input type="button" value="Заработка Общо" id="btnWorkTotal" />
     						<br /><br />
     						
+    				    {% if ( index_form.operators.children | length ) %}
     						<div style="line-height: 170%;">
     							<a href="javascript:void(0);" id="checkAll">{{ 'salary-j.pages.all' | trans( {},'SalaryJ' ) }}</a> / 
     							<a href="javascript:void(0);" id="uncheckAll">{{ 'salary-j.pages.nothing' | trans( {},'SalaryJ' ) }}</a>
@@ -89,6 +90,7 @@
     
     							</table>
     						{{ form_end( index_form ) }}
+    				    {% endif %}
     						<br />&nbsp;
     					</td>
     				</tr>

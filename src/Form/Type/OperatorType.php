@@ -22,10 +22,12 @@ class OperatorType extends AbstractType
             ->add( 'group', EntityType::class, [
                 'label'                 => 'salary-j.form.group',
                 'translation_domain'    => 'SalaryJ',
-                'required'              => false,
+                'required'              => true,
                 'class'                 => OperatorsGroup::class,
                 'choice_label'          => 'name',
-                'placeholder'           => 'salary-j.form.common_group',
+                
+                // Not Use Placeholder
+                //'placeholder'           => 'salary-j.form.common_group',
             ])
             
             ->add( 'name', TextType::class, [

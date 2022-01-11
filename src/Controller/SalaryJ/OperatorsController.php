@@ -15,14 +15,8 @@ class OperatorsController extends AbstractCrudController
         $configuration  = $this->requestConfigurationFactory->create( $this->metadata, $this->currentRequest );
         $form           = $this->resourceFormFactory->create( $configuration, $this->getFactory()->createNew() );
         
-        $filterGroup    = $request->query->get( 'group' );
-        if ( empty( $filterGroup ) )
-            $filterGroup    = null;
-        
-        // Need to Use Paginator Like ModelsController 
-        $operators  = $this->get( 'salaryj.repository.operators' )->findBy( ['group' => $filterGroup] );
         $operatorsIndexed = [];
-        foreach ( $operators as $op ) {
+        foreach ( $this->resources as $op ) {
             $operatorsIndexed[$op->getId()] = $op;
         }
         
@@ -30,7 +24,7 @@ class OperatorsController extends AbstractCrudController
             'application'   => $this->get( 'vs_application.context.application' )->getApplication(),
             'form'          => $form->createView(),
             'filter_form'   => $this->createForm( OperatorFilterForm::class )->createView(),
-            'filter_value'  => $request->query->get( 'group' ),
+            'filter_value'  => $request->attributes->get( 'groupId' ),
             'index_form'    =>  $this->createForm( OperatorsIndexForm::class, ['operators' => $operatorsIndexed] )->createView(),
             'operators'     => $operatorsIndexed,
         ];

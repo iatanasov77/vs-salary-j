@@ -41,6 +41,8 @@ vs_application:
             operators:
                 name: salary-j.menu.operators
                 route: salaryj_operators_index
+                routeParameters:
+                  groupId: int
             models:
                 name: salary-j.menu.models
                 route: salaryj_models_index
