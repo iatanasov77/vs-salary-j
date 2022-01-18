@@ -1,3 +1,10 @@
+1.3.2	|	Release date: **18.01.2022**
+============================================
+* New Features:
+  - Update .htaccess To can Submit OpertorsWork Form.
+  - Move Default Application Templates as XCartTheme.
+
+
 1.3.1	|	Release date: **11.01.2022**
 ============================================
 * New Features:
