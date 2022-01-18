@@ -132,7 +132,7 @@ class ModelsExtController extends AbstractController
             'totals'        => $totals,
         ];
         
-        return $this->render( 'salary-j/pages/Operations/model_browse_operations.html.twig', $tplVars );
+        return $this->render( 'pages/Operations/model_browse_operations.html.twig', $tplVars );
     }
     
     public function browseOperationsGet( Request $request ): Response
@@ -146,7 +146,7 @@ class ModelsExtController extends AbstractController
             
         ];
         
-        return $this->render( 'salary-j/pages/Operations/model_add_operations.html.twig', $tplVars );
+        return $this->render( 'pages/Operations/model_add_operations.html.twig', $tplVars );
     }
     
     public function addOperationsNew( int $modelId, Request $request ): Response
@@ -174,7 +174,7 @@ class ModelsExtController extends AbstractController
             'workCount'         => $this->getWorkCount( $operatorsWork['listOperations'], $date )
         ];
         
-        return $this->render( 'salary-j/pages/Models/operators_work.html.twig', $tplVars );
+        return $this->render( 'pages/Models/operators_work.html.twig', $tplVars );
     }
     
     private function getWorkCount( $workedOperations, $date )

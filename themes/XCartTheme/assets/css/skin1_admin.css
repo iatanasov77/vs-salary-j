@@ -1,0 +1,1790 @@
+
+tr.bottomborder td {
+    border-bottom: 1px solid black !important; 
+}
+
+BODY
+{
+    FONT-SIZE: 10px;
+    COLOR: #2c3e49;
+    FONT-FAMILY: Verdana, Arial, Helvetica, Sans-serif
+}
+DIV
+{
+    FONT-SIZE: 10px;
+    COLOR: #2c3e49;
+    FONT-FAMILY: Verdana, Arial, Helvetica, Sans-serif
+}
+TH
+{
+    FONT-SIZE: 10px;
+    COLOR: #2c3e49;
+    FONT-FAMILY: Verdana, Arial, Helvetica, Sans-serif
+}
+
+TD
+{
+    FONT-SIZE: 10px;
+    COLOR: #2c3e49;
+    FONT-FAMILY: Verdana, Arial, Helvetica, Sans-serif
+}
+P
+{
+    FONT-SIZE: 10px;
+    COLOR: #2c3e49;
+    FONT-FAMILY: Verdana, Arial, Helvetica, Sans-serif
+}
+INPUT
+{
+    FONT-SIZE: 10px;
+    COLOR: #2c3e49;
+    FONT-FAMILY: Verdana, Arial, Helvetica, Sans-serif
+}
+SELECT
+{
+    FONT-SIZE: 10px;
+    COLOR: #2c3e49;
+    FONT-FAMILY: Verdana, Arial, Helvetica, Sans-serif
+}
+TEXTAREA
+{
+    FONT-SIZE: 10px;
+    COLOR: #2c3e49;
+    FONT-FAMILY: Verdana, Arial, Helvetica, Sans-serif
+}
+TT
+{
+    FONT-SIZE: 10px;
+    COLOR: #2c3e49;
+    FONT-FAMILY: Verdana, Arial, Helvetica, Sans-serif
+}
+A:link
+{
+    COLOR: #112536;
+    TEXT-DECORATION: none
+}
+A:visited
+{
+    COLOR: #112536;
+    TEXT-DECORATION: none
+}
+A:hover
+{
+    COLOR: #2c3e49;
+    TEXT-DECORATION: underline
+}
+A:active
+{
+    COLOR: #112536;
+    TEXT-DECORATION: none
+}
+H1
+{
+    FONT-SIZE: 14px;
+    COLOR: #a10000
+}
+H2
+{
+    FONT-SIZE: 13px
+}
+H3
+{
+    FONT-SIZE: 12px;
+    COLOR: #a10000
+}
+HR
+{
+    COLOR: #dddddd;
+    HEIGHT: 1px;
+    BACKGROUND-COLOR: transparent
+}
+HTML
+{
+    PADDING-RIGHT: 0px;
+    PADDING-LEFT: 0px;
+    PADDING-BOTTOM: 0px;
+    MARGIN: 0px;
+    PADDING-TOP: 0px;
+    HEIGHT: 100%;
+    BACKGROUND-COLOR: #ffffff
+}
+BODY
+{
+    PADDING-RIGHT: 0px;
+    PADDING-LEFT: 0px;
+    PADDING-BOTTOM: 0px;
+    MARGIN: 0px;
+    PADDING-TOP: 0px;
+    HEIGHT: 100%;
+    BACKGROUND-COLOR: #ffffff
+}
+FORM
+{
+    MARGIN: 0px
+}
+TABLE
+{
+    BORDER-RIGHT: 0px;
+    BORDER-TOP: 0px;
+    BORDER-LEFT: 0px;
+    BORDER-BOTTOM: 0px
+}
+IMG
+{
+    BORDER-RIGHT: 0px;
+    BORDER-TOP: 0px;
+    BORDER-LEFT: 0px;
+    BORDER-BOTTOM: 0px
+}
+TABLE.Container
+{
+    HEIGHT: 100%
+}
+TD.Container
+{
+    VERTICAL-ALIGN: top;
+    HEIGHT: 90%
+}
+.AuthText
+{
+    FONT-SIZE: 11px;
+    COLOR: #789bb6
+}
+.AuthText:link
+{
+    COLOR: #789bb6;
+    TEXT-DECORATION: underline
+}
+.AuthText:link
+{
+    COLOR: #789bb6;
+    TEXT-DECORATION: underline
+}
+.AuthText:hover
+{
+    COLOR: #789bb6;
+    TEXT-DECORATION: none
+}
+.AuthText:active
+{
+    COLOR: #789bb6;
+    TEXT-DECORATION: underline
+}
+.HeadLogo
+{
+    PADDING-LEFT: 27px;
+    TEXT-ALIGN: left
+}
+.HeadRightBox
+{
+    VERTICAL-ALIGN: top;
+    TEXT-ALIGN: right
+}
+.HeadText
+{
+    COLOR: #5480a2;
+    TEXT-ALIGN: right
+}
+.HeadLine
+{
+    PADDING-RIGHT: 20px;
+    BACKGROUND-POSITION: 50% top;
+    /*BACKGROUND-IMAGE: url(images/head_linebg.gif);*/
+    BACKGROUND-REPEAT: repeat-x
+}
+.HeadThinLine
+{
+    HEIGHT: 1px;
+    BACKGROUND-COLOR: #cb480c
+}
+.PrintableRow
+{
+    PADDING-RIGHT: 186px;
+    VERTICAL-ALIGN: middle;
+    WIDTH: 100%;
+    HEIGHT: 18px
+}
+.HeadTopPad
+{
+    HEIGHT: 18px
+}
+.HeadTopPad IMG
+{
+    WIDTH: 1px;
+    HEIGHT: 18px
+}
+.BottomRow
+{
+    VERTICAL-ALIGN: bottom;
+    TEXT-ALIGN: center
+}
+.BottomBox
+{
+    PADDING-RIGHT: 12px;
+    BORDER-TOP: #ffd30d 1px solid;
+    PADDING-LEFT: 12px;
+    VERTICAL-ALIGN: middle;
+    COLOR: #b1c6d7;
+    HEIGHT: 40px;
+    BACKGROUND-COLOR: #f4f5f7
+}
+.Bottom
+{
+    COLOR: #667d92
+}
+A.Bottom:link
+{
+    COLOR: #667d92;
+    TEXT-DECORATION: underline
+}
+A.Bottom:visited
+{
+    COLOR: #667d92;
+    TEXT-DECORATION: underline
+}
+A.Bottom:hover
+{
+    COLOR: #667d92;
+    TEXT-DECORATION: none
+}
+A.Bottom:active
+{
+    COLOR: #667d92;
+    TEXT-DECORATION: underline
+}
+.BottomPopup
+{
+    PADDING-BOTTOM: 10px;
+    WIDTH: 100%;
+    TEXT-ALIGN: right
+}
+.BottomPopup A
+{
+    FONT-WEIGHT: bold
+}
+.BottomDialogBox
+{
+    PADDING-LEFT: 13px;
+    PADDING-BOTTOM: 10px;
+    PADDING-TOP: 10px;
+    BACKGROUND-COLOR: #e8edf4
+}
+.SubmitBox
+{
+    PADDING-TOP: 10px
+}
+.SubmitBox INPUT
+{
+    MARGIN-RIGHT: 15px
+}
+HR.Line
+{
+    BORDER-LEFT-WIDTH: 0px;
+    BORDER-BOTTOM-WIDTH: 0px;
+    WIDTH: 100%;
+    HEIGHT: 1px;
+    BORDER-RIGHT-WIDTH: 0px
+}
+.SectionBox
+{
+    FONT-WEIGHT: normal;
+    BACKGROUND-COLOR: #ffffff;
+    TEXT-ALIGN: left
+}
+.Text
+{
+    COLOR: #010101
+}
+.NumberOfArticles
+{
+    FONT-WEIGHT: bold;
+    COLOR: #010101
+}
+.TopLabel
+{
+    FONT-SIZE: 10px;
+    COLOR: #010101;
+    HEIGHT: 22px
+}
+.Message
+{
+    COLOR: #b51a00
+}
+.Line
+{
+    BACKGROUND-COLOR: #9d1500
+}
+TD.ButtonsRow
+{
+    PADDING-RIGHT: 12px;
+    PADDING-LEFT: 2px;
+    PADDING-BOTTOM: 2px;
+    PADDING-TOP: 2px
+}
+.CustomerMessage
+{
+    FONT-WEIGHT: bold;
+    COLOR: #b51a00
+}
+.ErrorMessage
+{
+    FONT-WEIGHT: bold;
+    COLOR: #b51a00
+}
+.Star
+{
+    COLOR: #ff0000
+}
+.TableHead
+{
+    FONT-WEIGHT: bold;
+    TEXT-TRANSFORM: uppercase;
+    BACKGROUND-COLOR: #c5d0e1;
+    TEXT-ALIGN: center
+}
+.TableSubHead
+{
+    FONT-WEIGHT: normal;
+    BACKGROUND-COLOR: #eeeeee
+}
+.Spc
+{
+    WIDTH: 1px;
+    HEIGHT: 1px
+}
+TABLE.EmptyBox
+{
+    WIDTH: 100%
+}
+TABLE.EmptyBox TR TD
+{
+    PADDING-RIGHT: 0px;
+    PADDING-LEFT: 0px;
+    PADDING-BOTTOM: 0px;
+    PADDING-TOP: 0px
+}
+.AdminSmallMessage
+{
+    COLOR: #a10000
+}
+.AdminTitle
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 12px;
+    COLOR: #a10000
+}
+.TableHeadLevel2
+{
+    FONT-WEIGHT: bold;
+    COLOR: #010101;
+    HEIGHT: 20px;
+    BACKGROUND-COLOR: #cccccc;
+    TEXT-ALIGN: center
+}
+.TableLine
+{
+    BACKGROUND-COLOR: #f0f0f0
+}
+.TableSeparator
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 11px;
+    COLOR: #010101
+}
+.InputWidth
+{
+    WIDTH: 80%
+}
+.StatisticsBar
+{
+    BACKGROUND-COLOR: #ffce31
+}
+.StatisticsBarHL
+{
+    BACKGROUND-COLOR: #ff8400
+}
+.HightLightRow
+{
+    FONT-WEIGHT: bold;
+    BACKGROUND-COLOR: #b0b0b0
+}
+TD.OptionLabel
+{
+    PADDING-RIGHT: 10px;
+    WHITE-SPACE: nowrap
+}
+.PopupContainer
+{
+    WIDTH: 100%;
+    HEIGHT: 100%;
+    TEXT-ALIGN: center
+}
+.PopupTitle
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 12px;
+    VERTICAL-ALIGN: middle;
+    HEIGHT: 15px;
+    BACKGROUND-COLOR: #d0ddeb;
+    TEXT-ALIGN: center
+}
+.PopupBG
+{
+    BACKGROUND-COLOR: #d0ddeb
+}
+.PopupHelpLink
+{
+    FONT-SIZE: 9px;
+    COLOR: #112536;
+    TEXT-DECORATION: none
+}
+.BuyNowQuantity
+{
+    PADDING-RIGHT: 10px;
+    WIDTH: 15%;
+    WHITE-SPACE: nowrap;
+    HEIGHT: 25px
+}
+.BuyNowPrices
+{
+    VERTICAL-ALIGN: middle;
+    WIDTH: 100%;
+    HEIGHT: 25px
+}
+.VertMenuLeftColumn
+{
+    PADDING-RIGHT: 20px;
+    PADDING-LEFT: 6px;
+    VERTICAL-ALIGN: top;
+    WIDTH: 150px
+}
+.VertMenuRightColumn
+{
+    PADDING-RIGHT: 6px;
+    PADDING-LEFT: 20px;
+    VERTICAL-ALIGN: top;
+    WIDTH: 148px
+}
+.VertMenuBox
+{
+    PADDING-RIGHT: 5px;
+    PADDING-LEFT: 5px;
+    PADDING-TOP: 3px;
+    BACKGROUND-COLOR: #ffffff
+}
+.VertMenuBorder
+{
+    BORDER-RIGHT: #5f94c0 1px solid;
+    BORDER-TOP: #5f94c0 1px solid;
+    BORDER-LEFT: #5f94c0 1px solid;
+    BORDER-BOTTOM: #5f94c0 1px solid
+}
+.VertMenuTitleBox
+{
+    BACKGROUND-POSITION: 50% top;
+    /*BACKGROUND-IMAGE: url(images/admin_menu_bg.gif);*/
+    BORDER-BOTTOM: #215485 1px solid;
+    BACKGROUND-REPEAT: repeat-x;
+    HEIGHT: 22px;
+    BACKGROUND-COLOR: #477dbe
+}
+.VertMenuTitle
+{
+    PADDING-RIGHT: 0px;
+    PADDING-LEFT: 0px;
+    FONT-WEIGHT: bold;
+    PADDING-BOTTOM: 0px;
+    COLOR: #ffffff;
+    PADDING-TOP: 0px;
+    BACKGROUND-COLOR: transparent
+}
+.VertMenuSubTitle
+{
+    BACKGROUND-COLOR: #ffa92f
+}
+.VertMenuTitleIcon
+{
+    MARGIN-LEFT: 5px;
+    WIDTH: 17px;
+    MARGIN-RIGHT: 8px;
+    HEIGHT: 17px
+}
+.VertMenuItems
+{
+    FONT-SIZE: 10px;
+    COLOR: #112536;
+    TEXT-DECORATION: none
+}
+A.VertMenuItems:link
+{
+    FONT-SIZE: 10px;
+    COLOR: #112536;
+    TEXT-DECORATION: none
+}
+A.VertMenuItems:visited
+{
+    FONT-SIZE: 10px;
+    COLOR: #112536;
+    TEXT-DECORATION: none
+}
+A.VertMenuItems:hover
+{
+    FONT-SIZE: 10px;
+    COLOR: #2c3e49;
+    TEXT-DECORATION: underline
+}
+A.VertMenuItems:active
+{
+    FONT-SIZE: 10px;
+    COLOR: #112536;
+    TEXT-DECORATION: none
+}
+.VertMenuItemsHL
+{
+    FONT-WEIGHT: bold;
+    COLOR: #112536;
+    TEXT-DECORATION: none
+}
+A.VertMenuItemsHL:link
+{
+    FONT-WEIGHT: bold;
+    COLOR: #112536;
+    TEXT-DECORATION: none
+}
+A.VertMenuItemsHL:visited
+{
+    FONT-WEIGHT: bold;
+    COLOR: #112536;
+    TEXT-DECORATION: none
+}
+A.VertMenuItemsHL:hover
+{
+    FONT-WEIGHT: bold;
+    COLOR: #010101;
+    TEXT-DECORATION: underline
+}
+A.VertMenuItemsHL:active
+{
+    FONT-WEIGHT: bold;
+    COLOR: #112536;
+    TEXT-DECORATION: none
+}
+.VertMenuHr
+{
+    BORDER-LEFT-WIDTH: 0px;
+    BORDER-BOTTOM-WIDTH: 0px;
+    WIDTH: 100%;
+    COLOR: #999999;
+    HEIGHT: 1px;
+    BORDER-RIGHT-WIDTH: 0px
+}
+.CategoriesList
+{
+    FONT-SIZE: 12px
+}
+TABLE.DialogBox
+{
+    VERTICAL-ALIGN: top;
+    WIDTH: 100%;
+    HEIGHT: 100%
+}
+TD.DialogBox
+{
+    PADDING-RIGHT: 10px;
+    PADDING-LEFT: 10px;
+    PADDING-BOTTOM: 10px;
+    PADDING-TOP: 10px;
+    BACKGROUND-COLOR: #ffffff;
+    TEXT-ALIGN: left
+}
+.DialogBorder
+{
+    PADDING-RIGHT: 0px;
+    PADDING-LEFT: 0px;
+    PADDING-BOTTOM: 0px;
+    PADDING-TOP: 0px;
+    HEIGHT: 100%;
+    BACKGROUND-COLOR: #acb7c7
+}
+TD.DialogTitle
+{
+    BORDER-RIGHT: #acb7c7 1px solid;
+    PADDING-RIGHT: 0px;
+    BACKGROUND-POSITION: 50% top;
+    BORDER-TOP: #acb7c7 1px solid;
+    PADDING-LEFT: 18px;
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 11px;
+    /*BACKGROUND-IMAGE: url(images/admin_dialog_bg.gif);*/
+    PADDING-BOTTOM: 0px;
+    VERTICAL-ALIGN: middle;
+    BORDER-LEFT: #acb7c7 1px solid;
+    COLOR: #010101;
+    PADDING-TOP: 0px;
+    BACKGROUND-REPEAT: repeat-x;
+    HEIGHT: 19px;
+    BACKGROUND-COLOR: #d5dce5;
+    TEXT-ALIGN: left
+}
+FONT.DialogTitle
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 13px;
+    MARGIN-LEFT: 10px;
+    VERTICAL-ALIGN: bottom;
+    COLOR: #010101;
+    HEIGHT: 33px;
+    TEXT-ALIGN: left
+}
+TABLE.DialogInfo
+{
+    WIDTH: 100%;
+    TEXT-ALIGN: center
+}
+.DialogInfoTitle
+{
+    PADDING-RIGHT: 5px;
+    PADDING-LEFT: 5px;
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 11px;
+    PADDING-BOTTOM: 0px;
+    VERTICAL-ALIGN: middle;
+    COLOR: #041527;
+    PADDING-TOP: 0px;
+    HEIGHT: 15px;
+    TEXT-ALIGN: left
+}
+.DialogInfoTitleBorder
+{
+    BORDER-RIGHT: #5f94c0 1px solid;
+    PADDING-RIGHT: 0px;
+    BORDER-TOP: #5f94c0 1px solid;
+    PADDING-LEFT: 0px;
+    PADDING-BOTTOM: 0px;
+    VERTICAL-ALIGN: bottom;
+    BORDER-LEFT: #5f94c0 1px solid;
+    PADDING-TOP: 0px;
+    BORDER-BOTTOM: #5f94c0 1px solid;
+    HEIGHT: 15px;
+    BACKGROUND-COLOR: #96badc
+}
+.DialogInfoBorder
+{
+    BORDER-RIGHT: #acb7c7 1px solid;
+    PADDING-RIGHT: 0px;
+    PADDING-LEFT: 0px;
+    PADDING-BOTTOM: 0px;
+    BORDER-LEFT: #acb7c7 1px solid;
+    PADDING-TOP: 0px;
+    BORDER-BOTTOM: #acb7c7 1px solid
+}
+.DialogTr
+{
+    COLOR: #1a2b3c
+}
+.DialogInfoIcon
+{
+    WIDTH: 16px;
+    HEIGHT: 16px
+}
+.DialogInfoClose
+{
+    WIDTH: 15px;
+    HEIGHT: 14px
+}
+.NavDialogTitle
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 11px;
+    COLOR: #010101
+}
+.NavDialogTitle1
+{
+    BACKGROUND-POSITION: 50% bottom;
+    BORDER-TOP: #cb480c 1px solid;
+    PADDING-LEFT: 8px;
+    /*BACKGROUND-IMAGE: url(images/nav_bg.gif);*/
+    BORDER-LEFT: #cb480c 1px solid;
+    WIDTH: 50%;
+    BORDER-BOTTOM: #cb480c 1px solid;
+    BACKGROUND-REPEAT: repeat-x;
+    HEIGHT: 19px;
+    BACKGROUND-COLOR: #ffca44
+}
+.NavDialogTitle2
+{
+    BORDER-RIGHT: #cb480c 1px solid;
+    BACKGROUND-POSITION: 50% bottom;
+    BORDER-TOP: #cb480c 1px solid;
+    PADDING-LEFT: 8px;
+    /*BACKGROUND-IMAGE: url(images/nav_bg.gif);*/
+    WIDTH: 50%;
+    BORDER-BOTTOM: #cb480c 1px solid;
+    BACKGROUND-REPEAT: repeat-x;
+    HEIGHT: 19px;
+    BACKGROUND-COLOR: #ffca44
+}
+.NavDialogBorder
+{
+    BORDER-RIGHT: #acb7c7 1px solid;
+    BORDER-LEFT: #acb7c7 1px solid;
+    BORDER-BOTTOM: #acb7c7 1px solid
+}
+.NavDialogBox
+{
+    BACKGROUND-COLOR: #ffffff
+}
+.NavDialogSeparator
+{
+    PADDING-LEFT: 7px;
+    /*BACKGROUND-IMAGE: url(images/separator.gif);*/
+    WIDTH: 100%;
+    HEIGHT: 14px
+}
+.NavDialogSeparator IMG
+{
+    WIDTH: 100%;
+    HEIGHT: 14px
+}
+.NavDialogCell
+{
+    PADDING-RIGHT: 3px;
+    HEIGHT: 18px
+}
+.NavDialogCell A IMG
+{
+    WIDTH: 9px;
+    HEIGHT: 9px
+}
+.NavMenuItems
+{
+    FONT-SIZE: 11px;
+    COLOR: #112536;
+    TEXT-DECORATION: none
+}
+A.NavMenuItems:link
+{
+    FONT-SIZE: 11px;
+    COLOR: #112536;
+    TEXT-DECORATION: underline
+}
+A.NavMenuItems:visited
+{
+    FONT-SIZE: 11px;
+    COLOR: #112536;
+    TEXT-DECORATION: underline
+}
+A.NavMenuItems:hover
+{
+    FONT-SIZE: 11px;
+    COLOR: #2c3e49;
+    TEXT-DECORATION: none
+}
+A.NavMenuItems:active
+{
+    FONT-SIZE: 11px;
+    COLOR: #112536;
+    TEXT-DECORATION: underline
+}
+.NavMenuItemsHL
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 11px;
+    COLOR: #112536
+}
+A.NavMenuItemsHL:link
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 11px;
+    COLOR: #112536;
+    TEXT-DECORATION: underline
+}
+A.NavMenuItemsHL:visited
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 11px;
+    COLOR: #112536;
+    TEXT-DECORATION: underline
+}
+A.NavMenuItemsHL:hover
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 11px;
+    COLOR: #112536;
+    TEXT-DECORATION: none
+}
+A.NavMenuItemsHL:active
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 11px;
+    COLOR: #112536;
+    TEXT-DECORATION: underline
+}
+.ProductTitle
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 12px;
+    COLOR: #793a02;
+    TEXT-DECORATION: none
+}
+.ProductTitle:link
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 12px;
+    COLOR: #793a02;
+    TEXT-DECORATION: none
+}
+.ProductTitle:visited
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 12px;
+    COLOR: #793a02;
+    TEXT-DECORATION: none
+}
+.ProductTitle:hover
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 12px;
+    COLOR: #793a02;
+    TEXT-DECORATION: underline
+}
+.ProductTitle:active
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 12px;
+    COLOR: #793a02;
+    TEXT-DECORATION: none
+}
+.ProductTitleHidden
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 11px;
+    COLOR: #666666
+}
+.ProductDetailsTitle
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 12px;
+    COLOR: #b51a00
+}
+.ProductDetails
+{
+    COLOR: #010101
+}
+.ProductPriceTitle
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 12px;
+    COLOR: #010101
+}
+.ProductPriceConverting
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 12px;
+    COLOR: #010101
+}
+.ProductPrice
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 12px;
+    COLOR: #b51a00
+}
+.ProductPriceSmall
+{
+    FONT-WEIGHT: bold;
+    COLOR: #b51a00
+}
+.SaveMoneyLabel
+{
+    FONT-WEIGHT: bold;
+    /*BACKGROUND-IMAGE: url(images/save_money.gif);*/
+    VERTICAL-ALIGN: middle;
+    WIDTH: 57px;
+    COLOR: #ffffff;
+    BACKGROUND-REPEAT: no-repeat;
+    HEIGHT: 57px;
+    BACKGROUND-COLOR: transparent;
+    TEXT-ALIGN: center
+}
+.MarketPrice
+{
+    FONT-SIZE: 14px;
+    FONT-FAMILY: 'Times New Roman', Arial, Helvetica, Sans-serif
+}
+.PImgBox
+{
+    PADDING-RIGHT: 8px;
+    VERTICAL-ALIGN: top;
+    WIDTH: 100px;
+    TEXT-ALIGN: left
+}
+TD.PListImgBox
+{
+    PADDING-RIGHT: 8px;
+    VERTICAL-ALIGN: top;
+    WIDTH: 125px;
+    WHITE-SPACE: nowrap;
+    TEXT-ALIGN: center
+}
+DIV.PListImgBox
+{
+    WHITE-SPACE: nowrap
+}
+HR.PListLine
+{
+    BORDER-LEFT-WIDTH: 0px;
+    BORDER-BOTTOM-WIDTH: 0px;
+    WIDTH: 100%;
+    HEIGHT: 1px;
+    BORDER-RIGHT-WIDTH: 0px
+}
+.PListTaxBox
+{
+    PADDING-RIGHT: 2px;
+    PADDING-LEFT: 70px;
+    PADDING-BOTTOM: 2px;
+    PADDING-TOP: 2px
+}
+.PListCell
+{
+    PADDING-RIGHT: 10px;
+    PADDING-LEFT: 10px;
+    PADDING-BOTTOM: 10px;
+    VERTICAL-ALIGN: top;
+    PADDING-TOP: 10px;
+    BACKGROUND-COLOR: #ffffff;
+    TEXT-ALIGN: center
+}
+.ItemsList
+{
+    FONT-WEIGHT: bold;
+    COLOR: #112536
+}
+.ItemsListDisabled
+{
+    COLOR: #909090
+}
+A.ItemsList:link
+{
+    FONT-WEIGHT: bold;
+    COLOR: #112536;
+    TEXT-DECORATION: none
+}
+A.ItemsList:visited
+{
+    FONT-WEIGHT: bold;
+    COLOR: #112536;
+    TEXT-DECORATION: none
+}
+A.ItemsList:hover
+{
+    FONT-WEIGHT: bold;
+    COLOR: #112536;
+    TEXT-DECORATION: none
+}
+A.ItemsList:active
+{
+    FONT-WEIGHT: bold;
+    COLOR: #112536;
+    TEXT-DECORATION: none
+}
+.NavigationPath
+{
+    COLOR: #818891;
+    TEXT-DECORATION: none
+}
+.NavigationPath:link
+{
+    COLOR: #818891;
+    TEXT-DECORATION: underline
+}
+.NavigationPath:visited
+{
+    COLOR: #818891;
+    TEXT-DECORATION: underline
+}
+.NavigationPath:hover
+{
+    COLOR: #818891;
+    TEXT-DECORATION: none
+}
+.NavigationPath:active
+{
+    COLOR: #818891;
+    TEXT-DECORATION: underline
+}
+.FormButton
+{
+    FONT-WEIGHT: bold;
+    COLOR: #112536
+}
+TABLE.ButtonTable
+{
+    VERTICAL-ALIGN: middle;
+    CURSOR: pointer;
+    DIRECTION: ltr
+}
+TABLE.ButtonTable TD
+{
+    PADDING-RIGHT: 0px;
+    PADDING-LEFT: 0px;
+    PADDING-BOTTOM: 0px;
+    PADDING-TOP: 0px
+}
+TD.Button
+{
+    PADDING-RIGHT: 5px;
+    PADDING-LEFT: 5px;
+    /*BACKGROUND: url(images/butbg.gif) #ffb244 repeat-x;*/
+    VERTICAL-ALIGN: middle;
+    WHITE-SPACE: nowrap
+}
+FONT.Button
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 11px;
+    COLOR: #490101;
+    FONT-FAMILY: Verdana;
+    TEXT-DECORATION: none
+}
+IMG.ButtonSide
+{
+    WIDTH: 7px;
+    HEIGHT: 21px
+}
+TD.Button_menu
+{
+    PADDING-RIGHT: 1px;
+    PADDING-LEFT: 1px;
+    /*BACKGROUND: url(images/but_menubg.gif) #2860f5 repeat-x;*/
+    VERTICAL-ALIGN: middle;
+    WHITE-SPACE: nowrap
+}
+FONT.Button_menu
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 10px;
+    COLOR: #ffffff;
+    FONT-FAMILY: Verdana;
+    BACKGROUND-COLOR: transparent;
+    TEXT-DECORATION: none
+}
+IMG.ButtonSide_menu
+{
+    WIDTH: 5px;
+    HEIGHT: 20px
+}
+.SimpleButton TR TD
+{
+    PADDING-RIGHT: 0px;
+    PADDING-LEFT: 0px;
+    PADDING-BOTTOM: 0px;
+    PADDING-TOP: 0px;
+    WHITE-SPACE: nowrap
+}
+A.Button:link
+{
+    FONT-SIZE: 11px;
+    COLOR: #082d70;
+    TEXT-DECORATION: underline
+}
+A.Button:visited
+{
+    FONT-SIZE: 11px;
+    COLOR: #082d70;
+    TEXT-DECORATION: underline
+}
+A.Button:hover
+{
+    FONT-SIZE: 11px;
+    COLOR: #082d70;
+    TEXT-DECORATION: underline
+}
+A.Button:active
+{
+    FONT-SIZE: 11px;
+    COLOR: #082d70;
+    TEXT-DECORATION: underline
+}
+.GoImage
+{
+    BORDER-RIGHT: 0px;
+    BORDER-TOP: 0px;
+    VERTICAL-ALIGN: middle;
+    BORDER-LEFT: 0px;
+    WIDTH: 20px;
+    BORDER-BOTTOM: 0px;
+    HEIGHT: 18px
+}
+.GoImage_admin
+{
+    BORDER-RIGHT: 0px;
+    BORDER-TOP: 0px;
+    VERTICAL-ALIGN: middle;
+    BORDER-LEFT: 0px;
+    WIDTH: 22px;
+    BORDER-BOTTOM: 0px;
+    HEIGHT: 21px
+}
+.SmallNote:link
+{
+    FONT-SIZE: 9px;
+    COLOR: #3c6992;
+    FONT-FAMILY: Arial, Verdana, Helvetica, Sans-serif;
+    TEXT-DECORATION: none
+}
+.SmallNote:visited
+{
+    FONT-SIZE: 9px;
+    COLOR: #3c6992;
+    FONT-FAMILY: Arial, Verdana, Helvetica, Sans-serif;
+    TEXT-DECORATION: none
+}
+.SmallNote:hover
+{
+    FONT-SIZE: 9px;
+    COLOR: #3c6992;
+    FONT-FAMILY: Arial, Verdana, Helvetica, Sans-serif;
+    TEXT-DECORATION: underline
+}
+.SmallNote:active
+{
+    FONT-SIZE: 9px;
+    COLOR: #3c6992;
+    FONT-FAMILY: Arial, Verdana, Helvetica, Sans-serif;
+    TEXT-DECORATION: none
+}
+.SmallText
+{
+    FONT-SIZE: 9px;
+    COLOR: #3c6992;
+    FONT-FAMILY: Arial, Verdana, Helvetica, Sans-serif;
+    TEXT-DECORATION: none
+}
+.SubcatTitle
+{
+    PADDING-LEFT: 5px;
+    WIDTH: 95%;
+    TEXT-ALIGN: left
+}
+.SubcatInfo
+{
+    COLOR: #010101;
+    WHITE-SPACE: nowrap;
+    TEXT-ALIGN: right
+}
+.SearchSortTitle
+{
+    PADDING-RIGHT: 20px;
+    FONT-WEIGHT: bold
+}
+.SearchSortLink:link
+{
+    TEXT-DECORATION: underline
+}
+.SearchSortLink:visited
+{
+    TEXT-DECORATION: underline
+}
+.SearchSortLink:hover
+{
+    TEXT-DECORATION: underline
+}
+.SearchSortLink:active
+{
+    TEXT-DECORATION: underline
+}
+.SearchSortImg
+{
+    WIDTH: 9px;
+    MARGIN-RIGHT: 5px;
+    HEIGHT: 9px
+}
+.SearchSortCell
+{
+    PADDING-RIGHT: 20px
+}
+.ExpandSectionMark
+{
+    VERTICAL-ALIGN: middle;
+    WIDTH: 11px;
+    CURSOR: pointer
+}
+.Tab
+{
+    BACKGROUND-POSITION: 50% bottom;
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 11px;
+    /*BACKGROUND-IMAGE: url(images/tab_bg.gif);*/
+    VERTICAL-ALIGN: top;
+    WIDTH: 112px;
+    COLOR: #253161;
+    BACKGROUND-REPEAT: repeat-x;
+    HEIGHT: 15px;
+    BACKGROUND-COLOR: #f1f1f6;
+    TEXT-ALIGN: center;
+    TEXT-DECORATION: none
+}
+.Tab A:link
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 11px;
+    COLOR: #253161;
+    TEXT-DECORATION: none
+}
+.Tab A:visited
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 11px;
+    COLOR: #253161;
+    TEXT-DECORATION: none
+}
+.Tab A:hover
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 11px;
+    COLOR: #253161;
+    TEXT-DECORATION: underline
+}
+.Tab A:active
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 11px;
+    COLOR: #253161;
+    TEXT-DECORATION: none
+}
+.TabTop
+{
+    /*BACKGROUND-IMAGE: url(images/tab_t.gif);*/
+    HEIGHT: 5px;
+    BACKGROUND-COLOR: #fcfdfd
+}
+TD.TabLeftCornerTop
+{
+    BACKGROUND-POSITION: 50% top;
+    /*BACKGROUND-IMAGE: url(images/tab_ct1.gif);*/
+    WIDTH: 5px
+}
+TD.TabRightCornerTop
+{
+    BACKGROUND-POSITION: 50% top;
+    /*BACKGROUND-IMAGE: url(images/tab_ct2.gif);*/
+    WIDTH: 5px
+}
+TD.TabLeftSide
+{
+    BACKGROUND-POSITION: 50% bottom;
+    /*BACKGROUND-IMAGE: url(images/tab_l.gif);*/
+    WIDTH: 5px;
+    BACKGROUND-REPEAT: no-repeat;
+    BACKGROUND-COLOR: #f6f9f9
+}
+TD.TabRightSide
+{
+    BACKGROUND-POSITION: 50% bottom;
+    /*BACKGROUND-IMAGE: url(images/tab_r.gif);*/
+    WIDTH: 5px;
+    BACKGROUND-REPEAT: no-repeat;
+    BACKGROUND-COLOR: #f6f9f9
+}
+TD.TabLeftCornerBot
+{
+    /*BACKGROUND-IMAGE: url(images/tab_cb1.gif);*/
+    WIDTH: 5px;
+    HEIGHT: 5px
+}
+TD.TabRightCornerBot
+{
+    /*BACKGROUND-IMAGE: url(images/tab_cb2.gif);*/
+    WIDTH: 5px;
+    HEIGHT: 5px
+}
+TD.TabCenter
+{
+    /*BACKGROUND-IMAGE: url(images/tab_b.gif);*/
+    HEIGHT: 5px
+}
+IMG.TabCorner
+{
+    WIDTH: 5px;
+    HEIGHT: 5px
+}
+IMG.TabSide
+{
+    WIDTH: 5px;
+    HEIGHT: 1px
+}
+.NavigationArrow
+{
+    WIDTH: 9px;
+    HEIGHT: 9px
+}
+.NavigationTitle
+{
+    PADDING-RIGHT: 10px;
+    WHITE-SPACE: nowrap;
+    HEIGHT: 14px
+}
+.NavigationCell
+{
+    /*BACKGROUND-IMAGE: url(images/page.gif);*/
+    VERTICAL-ALIGN: bottom;
+    WIDTH: 17px;
+    HEIGHT: 14px;
+    TEXT-ALIGN: center
+}
+.NavigationCell A:link
+{
+    TEXT-DECORATION: none
+}
+.NavigationCell A:visited
+{
+    TEXT-DECORATION: none
+}
+.NavigationCell A:hover
+{
+    TEXT-DECORATION: none
+}
+.NavigationCell A:active
+{
+    TEXT-DECORATION: none
+}
+.NavigationCell IMG
+{
+    WIDTH: 17px;
+    HEIGHT: 1px
+}
+.NavigationCellWide
+{
+    /*BACKGROUND-IMAGE: url(images/page_wide.gif);*/
+    VERTICAL-ALIGN: bottom;
+    WIDTH: 23px;
+    HEIGHT: 14px;
+    TEXT-ALIGN: center
+}
+.NavigationCellWide A:link
+{
+    TEXT-DECORATION: none
+}
+.NavigationCellWide A:visited
+{
+    TEXT-DECORATION: none
+}
+.NavigationCellWide A:hover
+{
+    TEXT-DECORATION: none
+}
+.NavigationCellWide A:active
+{
+    TEXT-DECORATION: none
+}
+.NavigationCellWide IMG
+{
+    WIDTH: 23px;
+    HEIGHT: 1px
+}
+.NavigationCellSel
+{
+    FONT-WEIGHT: bold;
+    VERTICAL-ALIGN: middle;
+    WIDTH: 15px;
+    TEXT-ALIGN: center
+}
+TABLE.SubHeaderGrey
+{
+    MARGIN-BOTTOM: 10px;
+    WIDTH: 100%
+}
+.SubHeaderGrey
+{
+    PADDING-RIGHT: 0px;
+    PADDING-LEFT: 0px;
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 11px;
+    PADDING-BOTTOM: 0px;
+    COLOR: #666666;
+    PADDING-TOP: 0px
+}
+.SubHeaderGreyLine
+{
+    PADDING-RIGHT: 0px;
+    PADDING-LEFT: 0px;
+    PADDING-BOTTOM: 0px;
+    PADDING-TOP: 0px;
+    HEIGHT: 1px;
+    BACKGROUND-COLOR: #cccccc
+}
+TABLE.SubHeaderBlack
+{
+    MARGIN-BOTTOM: 10px;
+    WIDTH: 100%
+}
+.SubHeaderBlack
+{
+    PADDING-RIGHT: 0px;
+    PADDING-LEFT: 0px;
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 12px;
+    PADDING-BOTTOM: 0px;
+    COLOR: #010101;
+    PADDING-TOP: 0px
+}
+.SubHeaderBlackLine
+{
+    PADDING-RIGHT: 0px;
+    PADDING-LEFT: 0px;
+    PADDING-BOTTOM: 0px;
+    PADDING-TOP: 0px;
+    HEIGHT: 1px;
+    BACKGROUND-COLOR: #000000
+}
+TABLE.SubHeaderRed
+{
+    MARGIN-BOTTOM: 10px;
+    WIDTH: 100%
+}
+.SubHeaderRed
+{
+    PADDING-RIGHT: 0px;
+    PADDING-LEFT: 0px;
+    FONT-WEIGHT: bold;
+    PADDING-BOTTOM: 0px;
+    PADDING-TOP: 0px
+}
+.SubHeaderRedLine
+{
+    PADDING-RIGHT: 0px;
+    PADDING-LEFT: 0px;
+    PADDING-BOTTOM: 0px;
+    PADDING-TOP: 0px;
+    HEIGHT: 1px;
+    BACKGROUND-COLOR: #acb7c7
+}
+TABLE.SubHeader
+{
+    MARGIN-BOTTOM: 10px;
+    WIDTH: 100%
+}
+.SubHeader
+{
+    PADDING-RIGHT: 0px;
+    PADDING-LEFT: 0px;
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 11px;
+    PADDING-BOTTOM: 0px;
+    COLOR: #b51a00;
+    PADDING-TOP: 0px
+}
+.SubHeaderLine
+{
+    PADDING-RIGHT: 0px;
+    PADDING-LEFT: 0px;
+    PADDING-BOTTOM: 0px;
+    PADDING-TOP: 0px;
+    HEIGHT: 1px;
+    BACKGROUND-COLOR: #9d1500
+}
+.RegSectionTitle
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 10px;
+    COLOR: #2c3e49
+}
+DIV.Lbl
+{
+    DISPLAY: inline;
+    FONT-WEIGHT: bold;
+    COLOR: green
+}
+.Section
+{
+    PADDING-RIGHT: 0px;
+    DISPLAY: inline;
+    PADDING-LEFT: 0px;
+    PADDING-BOTTOM: 0px;
+    MARGIN: 0px;
+    PADDING-TOP: 0px
+}
+.DataTable
+{
+    BORDER-RIGHT: white 1px solid
+}
+.UsersActionDisable
+{
+    COLOR: #cc0000
+}
+.UsersActionEnable
+{
+    COLOR: #00cc00
+}
+TABLE.DataSheet
+{
+    WIDTH: 100%;
+    BACKGROUND-COLOR: black
+}
+TR.DataSheet
+{
+    FONT-WEIGHT: bold;
+    TEXT-TRANSFORM: uppercase;
+    COLOR: #010101;
+    WHITE-SPACE: nowrap;
+    HEIGHT: 20px;
+    BACKGROUND-COLOR: #cccccc;
+    TEXT-ALIGN: center
+}
+TABLE.DataSheet TR TD
+{
+    PADDING-RIGHT: 2px;
+    PADDING-LEFT: 2px;
+    PADDING-BOTTOM: 2px;
+    PADDING-TOP: 2px;
+    BACKGROUND-COLOR: white
+}
+TABLE.DataSheet TR TH
+{
+    PADDING-RIGHT: 2px;
+    PADDING-LEFT: 2px;
+    PADDING-BOTTOM: 2px;
+    PADDING-TOP: 2px
+}
+.AELinkBox
+{
+    PADDING-BOTTOM: 3px;
+    TEXT-ALIGN: right
+}
+.DBOption
+{
+    COLOR: #0000cc
+}
+.FSOption
+{
+    COLOR: #cc0000
+}
+.DataField
+{
+    PADDING-BOTTOM: 20px
+}
+.SpecialOffersThumb
+{
+    DISPLAY: inline;
+    MARGIN-LEFT: -51px
+}
+.SpecialOffersThumb A IMG
+{
+    WIDTH: 47px;
+    HEIGHT: 44px
+}
+.AffiliateCellBG
+{
+    /*BACKGROUND-IMAGE: url(images/tree_v.gif);*/
+    VERTICAL-ALIGN: middle;
+    WIDTH: 19px;
+    HEIGHT: 19px
+}
+.AffiliateCell
+{
+    VERTICAL-ALIGN: middle;
+    WIDTH: 19px;
+    HEIGHT: 19px
+}
+.AffiliateElmTitle
+{
+    PADDING-RIGHT: 1px;
+    PADDING-LEFT: 1px;
+    FONT-WEIGHT: bold;
+    PADDING-BOTTOM: 1px;
+    PADDING-TOP: 1px;
+    BACKGROUND-COLOR: #ffd44c;
+    TEXT-ALIGN: center
+}
+.AffiliateElmIconBox
+{
+    VERTICAL-ALIGN: middle;
+    WIDTH: 70px;
+    TEXT-ALIGN: center
+}
+.AffiliateElmsBox
+{
+    VERTICAL-ALIGN: top;
+    HEIGHT: 100%;
+    BACKGROUND-COLOR: #ffffff;
+    TEXT-ALIGN: center
+}
+.MediaElementProperties
+{
+    FONT-SIZE: 10px;
+    COLOR: #666666
+}
+.SurveyStatLabel
+{
+    PADDING-LEFT: 10px;
+    WHITE-SPACE: nowrap
+}
+TD.SurveyAnswerComment
+{
+    PADDING-LEFT: 20px
+}
+DIV.SurveyAnswerComment
+{
+    BORDER-RIGHT: #dddddd 1px solid;
+    PADDING-RIGHT: 0px;
+    BORDER-TOP: #dddddd 1px solid;
+    PADDING-LEFT: 0px;
+    PADDING-BOTTOM: 0px;
+    MARGIN: 5px;
+    BORDER-LEFT: #dddddd 1px solid;
+    WIDTH: 80%;
+    PADDING-TOP: 0px;
+    BORDER-BOTTOM: #dddddd 1px solid;
+    BACKGROUND-COLOR: #eeeeee
+}
+.SurveyQuestion
+{
+    PADDING-RIGHT: 2px;
+    PADDING-LEFT: 2px;
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 12px;
+    PADDING-BOTTOM: 2px;
+    PADDING-TOP: 2px
+}
+.SurveyQuestionMenu
+{
+    PADDING-RIGHT: 0px;
+    PADDING-LEFT: 0px;
+    FONT-WEIGHT: bold;
+    PADDING-BOTTOM: 0px;
+    PADDING-TOP: 0px
+}
+.SurveyAnswerTextLine_1
+{
+    PADDING-RIGHT: 5px;
+    PADDING-LEFT: 5px;
+    PADDING-BOTTOM: 5px;
+    PADDING-TOP: 5px;
+    BACKGROUND-COLOR: #eeeeee
+}
+.SurveyAnswerTextLine_2
+{
+    PADDING-RIGHT: 5px;
+    PADDING-LEFT: 5px;
+    PADDING-BOTTOM: 5px;
+    PADDING-TOP: 5px;
+    BACKGROUND-COLOR: #c5d0e1
+}
+A.SurveyAnswerTextLine:link
+{
+    COLOR: #112536;
+    TEXT-DECORATION: none
+}
+A.SurveyAnswerTextLine:visited
+{
+    COLOR: #112536;
+    TEXT-DECORATION: none
+}
+A.SurveyAnswerTextLine:hover
+{
+    COLOR: #112536;
+    TEXT-DECORATION: underline
+}
+A.SurveyAnswerTextLine:active
+{
+    COLOR: #112536;
+    TEXT-DECORATION: none
+}
+TD.SurveyTab
+{
+    PADDING-RIGHT: 10px;
+    PADDING-LEFT: 10px;
+    FONT-SIZE: 12px;
+    PADDING-BOTTOM: 0px;
+    CURSOR: pointer;
+    COLOR: #953e0e;
+    PADDING-TOP: 0px;
+    WHITE-SPACE: nowrap;
+    HEIGHT: 26px;
+    TEXT-DECORATION: underline
+}
+TD.SurveyTabSelected
+{
+    PADDING-RIGHT: 10px;
+    PADDING-LEFT: 10px;
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 12px;
+    PADDING-BOTTOM: 0px;
+    COLOR: #953e0e;
+    PADDING-TOP: 0px;
+    WHITE-SPACE: nowrap;
+    HEIGHT: 26px;
+    BACKGROUND-COLOR: #eeeeee
+}
+TD.SurveyTabLine
+{
+    HEIGHT: 1px;
+    BACKGROUND-COLOR: #eeeeee
+}
+TD.SurveyTabLine IMG
+{
+    WIDTH: 100%;
+    HEIGHT: 1px
+}
+
+
+#left {
+	float: left;
+	margin: 5px 5px 5px 5px;
+}
+
+#center {
+	float: left;
+	margin: 5px 5px 5px 5px;
+}
+
+#right {
+	float: left;
+	margin: 5px 5px 5px 5px;
+}
+
+#tblWorkCount tfoot td
+{
+	font-weight: bold;
+	background-color: #eeeeee;
+}
+
+#tblWorkCount
+{
+	margin: 0 0 40px 0;
+	
+	border-collapse:separate; 
+	border-top: 2px solid grey;
+}
+
+
+#tblWorkCount td {
+    margin:0;
+    
+    border-top-width:0px;
+    white-space:nowrap;
+}
+
+#tblWorkCount .headcol 
+{
+	position:absolute;
+	width:200px;
+	left:200px;
+	top:auto;
+	border-right: 0px none black;
+	border-top-width:2px; /*only relevant for first row*/
+	margin-top:-2px; /*compensate for top border*/
+	padding-top: 8px;
+}
+#tblWorkCount.headcol:before {content: 'Row ';}
+
+
+#boxTblWorkCount
+{
+	width: 1050px;
+    overflow-x:scroll;  
+    margin-left:222px;
+    overflow-y:visible;
+    padding-bottom:1px;
+}

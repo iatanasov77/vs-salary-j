@@ -29,12 +29,12 @@ class DefaultController extends AbstractController
 //     }
     public function index( Request $request ): Response
     {
-        return $this->redirect( $this->generateUrl( 'salaryj_operators_index' ) );
+        return $this->redirect( $this->generateUrl( 'salaryj_operators_index', ['groupId' => 0] ) );
     }
     
     protected function getTemplate(): string
     {
-        $template   = 'salary-j/pages/Dashboard/index.html.twig';
+        $template   = 'pages/Dashboard/index.html.twig';
         
         $appSettings    = $this->applicationContext->getApplication()->getSettings();
         if ( ! $appSettings->isEmpty() && $appSettings[0]->getTheme() ) {

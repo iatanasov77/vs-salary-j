@@ -63,4 +63,5 @@ yarn-error.log
 /public/bundles/
 /public/salary-j/build/
 /public/salary-j/bundles/
+/public/shared_assets/build/
 ###< SalaryJ Files ###

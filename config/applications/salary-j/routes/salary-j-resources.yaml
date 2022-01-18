@@ -7,14 +7,14 @@ app_operatorsgroups_index:
             paginate: 10
             sorting:
                 score: desc
-            template: "salary-j/pages/OperatorsGroups/index.html.twig"
+            template: "pages/OperatorsGroups/index.html.twig"
 
 app_operatorsgroups:
     resource: |
         alias: salaryj.operatorsgroups
         except: ['show']
         path: /operators-groups
-        templates: "salary-j/pages/OperatorsGroups"
+        templates: "pages/OperatorsGroups"
     type: sylius.resource
 
 app_operators_index:
@@ -29,7 +29,7 @@ app_operators_index:
             filterable: true
             criteria:
                 group: $groupId
-            template: "salary-j/pages/Operators/index.html.twig"
+            template: "pages/Operators/index.html.twig"
     options:
         expose: true
               
@@ -38,7 +38,7 @@ app_operators:
         alias: salaryj.operators
         except: ['show']
         path: /operators/{groupId}
-        templates: "salary-j/pages/Operators"
+        templates: "pages/Operators"
     type: sylius.resource
     options:
         expose: true
@@ -52,7 +52,7 @@ app_models_index:
             paginate: 10
             sorting:
                 score: desc
-            template: "salary-j/pages/Models/index.html.twig"
+            template: "pages/Models/index.html.twig"
     options:
         expose: true
     
@@ -61,6 +61,6 @@ app_models:
         alias: salaryj.models
         except: ['show']
         path: /models
-        templates: "salary-j/pages/Models"
+        templates: "pages/Models"
     type: sylius.resource
 

@@ -69,90 +69,12 @@ adminPanelConfig.name = 'adminPanel';
 //=================================================================================================
 
 /**
- *  Application Default Theme
+ *  XCart Theme
  */
 Encore.reset();
-Encore
-    .setOutputPath( 'public/salary-j/build/default/' )
-    .setPublicPath( '/build/default' )
-    
-    .autoProvidejQuery()
-    .enableSassLoader(function(sassOptions) {}, {
-        resolveUrlLoader: true
-    })
-    .configureFilenames({
-        js: '[name].js?[contenthash]',
-        css: '[name].css?[contenthash]',
-        assets: '[name].[ext]?[hash:8]'
-    })
-    .enableSingleRuntimeChunk()
-    .enableVersioning(Encore.isProduction())
-    .enableSourceMaps( !Encore.isProduction() )
-    
-    .copyFiles({
-         from: './assets/salary-j/images',
-         to: 'images/[path][name].[ext]',
-     })
-    
-    // Add Entries
-    .addStyleEntry( 'css/login', './assets/salary-j/css/login.css' )
-    .addStyleEntry( 'css/app', './assets/salary-j/css/main.scss' )
-    .addEntry( 'js/app', './assets/salary-j/js/app.js' )
-    
-    .addEntry( 'js/pages/operators', './assets/salary-j/js/pages/operators.js' )
-    .addEntry( 'js/pages/models', './assets/salary-j/js/pages/models.js' )
-    .addEntry( 'js/pages/operations', './assets/salary-j/js/pages/operations.js' )
-    .addEntry( 'js/pages/operators_work', './assets/salary-j/js/pages/operators_work.js' )
-    .addEntry( 'js/pages/operators_work_new', './assets/salary-j/js/pages/operators_work_new.js' )
-    .addEntry( 'js/pages/users', './assets/salary-j/js/pages/users.js' )
-    .addEntry( 'js/pages/operators_work_browse_totals', './assets/salary-j/js/pages/operators_work_browse_totals.js' )
-;
-
-const applicationConfig = Encore.getWebpackConfig();
-applicationConfig.name = 'salary-j';
-
-//=================================================================================================
-
-/**
- *  Test Theme
- */
- Encore.reset();
-Encore
-    .setOutputPath( 'public/salary-j/build/test-theme/' )
-    .setPublicPath( '/build/test-theme' )
-    
-    .autoProvidejQuery()
-    .enableSassLoader(function(sassOptions) {}, {
-        resolveUrlLoader: true
-    })
-    .configureFilenames({
-        js: '[name].js?[contenthash]',
-        css: '[name].css?[contenthash]',
-        assets: '[name].[ext]?[hash:8]'
-    })
-    .enableSingleRuntimeChunk()
-    .enableVersioning(Encore.isProduction())
-    .enableSourceMaps( !Encore.isProduction() )
-    
-    .copyFiles({
-         from: './assets/test-theme/images',
-         to: 'images/[path][name].[ext]',
-     })
-    
-    // Add Entries
-    .addStyleEntry( 'css/login', './assets/test-theme/css/login.scss' )
-    .addEntry( 'js/login', './assets/test-theme/js/pages/login.js' )
-    
-    .addStyleEntry( 'css/app', './assets/test-theme/css/main.scss' )
-    .addEntry( 'js/app', './assets/test-theme/js/app.js' )
-    
-    .addEntry( 'js/home', './assets/test-theme/js/pages/home.js' )
-;
-
-const testThemeConfig = Encore.getWebpackConfig();
-testThemeConfig.name = 'test-theme';
+const xcartThemeConfig          = require('./themes/XCartTheme/webpack.config');
 
 //=================================================================================================
 
 
-module.exports = [adminPanelConfig, applicationConfig, testThemeConfig];
+module.exports = [adminPanelConfig, xcartThemeConfig];
