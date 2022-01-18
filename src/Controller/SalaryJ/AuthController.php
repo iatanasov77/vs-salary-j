@@ -58,7 +58,7 @@ class AuthController extends AbstractController
     
     protected function getTemplate(): string
     {
-        $template   = 'salary-j/pages/login.html.twig';
+        $template   = 'pages/login.html.twig';
         
         $appSettings    = $this->applicationContext->getApplication()->getSettings();
         if ( ! $appSettings->isEmpty() && $appSettings[0]->getTheme() ) {

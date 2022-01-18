@@ -56,7 +56,7 @@ class PrintController extends AbstractController
             'dateRange' => $dateRange,
         ];
         
-        return $this->render( 'salary-j/pages/Print/operators_work_operations.html.twig', $tplVars );
+        return $this->render( 'pages/Print/operators_work_operations.html.twig', $tplVars );
     }
     
     public function printOperationsGrouped( int $operatorId, $startDate, $endDate, Request $request ): Response
@@ -76,7 +76,7 @@ class PrintController extends AbstractController
             'dateRange' => $dateRange,
         ];
         
-        return $this->render( 'salary-j/pages/Print/operators_work_operations_grouped.html.twig', $tplVars );
+        return $this->render( 'pages/Print/operators_work_operations_grouped.html.twig', $tplVars );
     }
     
     public function printOperatorsTotals( int $groupId, $startDate, $endDate, Request $request ): Response
@@ -98,7 +98,7 @@ class PrintController extends AbstractController
             'dateRange' => $dateRange,
         ];
         
-        return $this->render( 'salary-j/pages/Print/operators_work_totals.html.twig', $tplVars );
+        return $this->render( 'pages/Print/operators_work_totals.html.twig', $tplVars );
     }
     
     private function resolveDateRange( $queryStartDate, $queryEndDate ) : array

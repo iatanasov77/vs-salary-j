@@ -1,0 +1,96 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+	<h1 align="center">{{ 'salary-j.menu.users' | trans( {},'SalaryJ' ) }}</h1>
+	<br /><br /><br />
+
+    {{ form_start(form, { 'action': path('salaryj_settings_update'), 'method': 'POST' }) }}
+    	{{ form_widget( form._token ) }}
+
+        	<table cellspacing="0" width="100%">
+        		<tr>
+        			<td class="DialogTitle">{{ 'salary-j.menu.users' | trans( {},'SalaryJ' ) }}</td>
+        		</tr>
+        		<tr>
+        			<td class="DialogBorder">
+        				<table cellspacing="1" class="DialogBox">
+        					<tr>
+        						<td class="DialogBox" valign="top"><br />
+        							<script src="{$wwwDir}js/change_all_checkboxes.js" language="JavaScript" type="text/javascript"></script>
+									<div style="line-height: 170%;">
+									    <a href="javascript:void(0);" id="checkAll">{{ 'salary-j.pages.all' | trans( {},'SalaryJ' ) }}</a> / 
+                                        <a href="javascript:void(0);" id="uncheckAll">{{ 'salary-j.pages.nothing' | trans( {},'SalaryJ' ) }}</a>
+									</div>
+									
+									<form action="process_user.php" method="post" name="processuserform">
+										<input type="hidden" name="_formid" value="8606400bbcddbcf4c29514b2256bdb39" />
+										<input type="hidden" name="mode" value="" />
+										<input type="hidden" name="pagestr" value="" />
+										<table cellpadding="2" cellspacing="1" width="100%">
+    										<tr class="TableHead">
+    											<td>&nbsp;</td>
+    											<td><a href="users.php?mode=search&amp;sort=username">{{ 'salary-j.form.username' | trans( {},'SalaryJ' ) }}</a></td>
+    											<td>
+    											     <a href="users.php?mode=search&amp;sort=name">{{ 'salary-j.form.name' | trans( {},'SalaryJ' ) }}</a> / 
+    											     <a href="users.php?mode=search&amp;sort=email">{{ 'salary-j.form.email' | trans( {},'SalaryJ' ) }}</a>
+    											</td>
+												<td><a href="users.php?mode=search&amp;sort=usertype">{{ 'salary-j.form.user_roles' | trans( {},'SalaryJ' ) }}</a></td>
+												<td><a href="users.php?mode=search&amp;sort=usertype">{{ 'salary-j.form.allowed_applications' | trans( {},'SalaryJ' ) }}</a></td>
+												<td>
+												    <img src="/demo/skin7/images/r_bottom.gif" width="7" height="6" alt="" />
+												        &nbsp;<a href="users.php?mode=search&amp;sort=last_login">{{ 'salary-j.form.last_logged_in' | trans( {},'SalaryJ' ) }}</a>
+												</td>
+											</tr>
+												    
+										{% for user in users %}
+											<tr {cycle values=",class='TableSubHead'"}>
+												<td width="5">
+													<input type="checkbox" name="user[{{ user.id }}]" {% if app.user.id == user.id %}disabled="disabled"{% endif %} />
+												</td>
+												<td>
+													<a href="{{ path( 'salaryj_users_update', {'userId': user.id} ) }}" title="{{ 'salary-j.form.modify_profile' | trans( {},'SalaryJ' ) }}">
+													   {{ user.username }}
+													</a>
+												</td>
+												<td>
+													<a href="{{ path( 'salaryj_users_update', {'userId': user.id} ) }}" title="{{ 'salary-j.form.modify_profile' | trans( {},'SalaryJ' ) }}">
+													    <font class="ItemsList">{{ user.info.fullName }}</font> / {{ user.email }}
+													</a>
+												</td>
+												<td>
+											         {{ user.roles | join(' , ')  }}
+												</td>
+												<td>
+												    {% for userApp in user.applications %}
+												        {{ userApp.title  }}{% if not loop.last %}, {% endif %}
+												    {% endfor %}
+                                                </td>
+												<td nowrap="nowrap">{{ user.lastLogin | date( 'd.m.Y H:i:s' ) }}</td>
+											</tr>
+										{% endfor %}
+											<tr>
+												<td colspan="5" class="SubmitBox">
+													<input type="button" value="{{ 'salary-j.form.add_new_user' | trans( {},'SalaryJ' ) }}"
+													   onclick="document.location='{{ path( 'salaryj_users_update', {'userId': 0} ) }}';"
+													/>&nbsp;&nbsp;&nbsp;
+													<input type="button" value="{{ 'salary-j.form.delete_selected' | trans( {},'SalaryJ' ) }}"
+													   onclick="javascript: if (checkMarks(this.form, new RegExp('^user\\[.+\\]', 'gi'))) submitForm(this, 'delete');"
+													/>
+												</td>
+											</tr>
+										</table>
+									</form>
+									<br />
+							     </td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+    {{ form_end(form, {'render_rest': false}) }}
+	<br /><br /><br />
+{% endblock %}
+
+{% block body_javascripts %}
+    {{ encore_entry_script_tags( 'js/pages/users', null, 'xcartThemeConfig' ) }}
+{% endblock %}

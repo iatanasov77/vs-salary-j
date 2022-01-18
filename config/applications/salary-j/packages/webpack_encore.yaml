@@ -10,5 +10,4 @@ webpack_encore:
     output_path: '%kernel.project_dir%/public/salary-j/build/default'
     builds:
         defaultConfig: '%kernel.project_dir%/public/salary-j/build/default'
-        testThemeConfig: '%kernel.project_dir%/public/salary-j/build/test-theme'
-
+        xcartThemeConfig: '%kernel.project_dir%/public/shared_assets/build/xcart-theme'

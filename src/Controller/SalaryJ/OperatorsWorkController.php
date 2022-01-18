@@ -86,11 +86,11 @@ class OperatorsWorkController extends AbstractController
         if ( $request->isMethod( 'POST' ) && $dateRangeChanged ) {
             return new JsonResponse([
                 'groupName' => $group ? $group->getName() : $this->translator->trans( 'salary-j.form.common_group', [], 'SalaryJ' ),
-                'workTable' => $this->templatingEngine->render( 'salary-j/pages/Operations/Partial/operators_totals.html.twig', $tplVars )
+                'workTable' => $this->templatingEngine->render( 'pages/Operations/Partial/operators_totals.html.twig', $tplVars )
             ]);
         }
         
-        return $this->render( 'salary-j/pages/Operations/operators_work_browse_totals.html.twig', $tplVars );
+        return $this->render( 'pages/Operations/operators_work_browse_totals.html.twig', $tplVars );
     }
     
     public function browseOperations( int $operatorId, Request $request ) : Response
@@ -112,9 +112,9 @@ class OperatorsWorkController extends AbstractController
         ];
         
         if ( $request->isMethod( 'POST' ) && $dateRangeChanged ) {
-            return $this->render( 'salary-j/pages/Operations/Partial/operations.html.twig', $tplVars );
+            return $this->render( 'pages/Operations/Partial/operations.html.twig', $tplVars );
         }
-        return $this->render( 'salary-j/pages/Operations/operators_work_browse_operations.html.twig', $tplVars );
+        return $this->render( 'pages/Operations/operators_work_browse_operations.html.twig', $tplVars );
     }
     
     public function browseOperationsGrouped( int $operatorId, Request $request ) : Response
@@ -136,9 +136,9 @@ class OperatorsWorkController extends AbstractController
         ];
         
         if ( $request->isMethod( 'POST' ) && $dateRangeChanged ) {
-            return $this->render( 'salary-j/pages/Operations/Partial/operations_grouped.html.twig', $tplVars );
+            return $this->render( 'pages/Operations/Partial/operations_grouped.html.twig', $tplVars );
         }
-        return $this->render( 'salary-j/pages/Operations/operators_work_browse_operations_grouped.html.twig', $tplVars );
+        return $this->render( 'pages/Operations/operators_work_browse_operations_grouped.html.twig', $tplVars );
     }
     
     public function addOperations( int $operatorId, Request $request ) : Response
@@ -151,7 +151,7 @@ class OperatorsWorkController extends AbstractController
             'listModels'    => $listModels,
         ];
         
-        return $this->render( 'salary-j/pages/Operations/operators_work_add_operations.html.twig', $tplVars );
+        return $this->render( 'pages/Operations/operators_work_add_operations.html.twig', $tplVars );
     }
     
     public function submitWork( Request $request )

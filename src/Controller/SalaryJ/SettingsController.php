@@ -40,7 +40,7 @@ class SettingsController extends AbstractController
         $application    = $this->applicationContext->getApplication();
         $settings       = $this->repository ->getSettings( $application->getId() );
         
-        return $this->render( 'salary-j/pages/Settings/index.html.twig', [
+        return $this->render( 'pages/Settings/index.html.twig', [
             'settings'  => $settings,
             'form'      => $this->createSettingsForm( $settings )->createView(),
         ]);

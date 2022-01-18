@@ -40,7 +40,7 @@ class UsersController extends AbstractController
     
     public function index( Request $request ) : Response
     {
-        return $this->render( 'salary-j/pages/Users/index.html.twig', [
+        return $this->render( 'pages/Users/index.html.twig', [
             'users' => $this->getDisplayUsers(),
             'form'  => $this->createUsersForm()->createView(),
         ]);
@@ -65,7 +65,7 @@ class UsersController extends AbstractController
             return $this->redirect( $this->generateUrl( 'salaryj_users_index' ) );
         }
         
-        return $this->render( 'salary-j/pages/Users/update.html.twig', [
+        return $this->render( 'pages/Users/update.html.twig', [
             'form'  => $form->createView(),
             'user'  => $user,
         ]);

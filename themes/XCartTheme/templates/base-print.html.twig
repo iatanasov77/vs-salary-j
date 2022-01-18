@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="{{ app.request.locale|slice(0, 2) }}">
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}{{ applicationTitle }}{% endblock %}</title>
+        <link rel="icon" type="image/png" href="{{ asset( 'build/xcart-theme/images/vankosoft-thumb.png' ) }}" />
+        
+        {# Run `composer require symfony/webpack-encore-bundle`
+           and uncomment the following Encore helpers to start using Symfony UX #}
+        {% block stylesheets %}
+            {{ encore_entry_link_tags( 'css/app', null, 'xcartThemeConfig' ) }}
+        {% endblock %}
+    </head>
+    <body>
+       <table cellpadding="0" cellspacing="0" width="100%">
+        	<tr>
+        		<!-- central space -->
+        		<td align="center">
+        		    {% block content %}{% endblock %}
+        		</td>
+        		<!-- /central space -->
+        	</tr>
+        	<tr>
+        		<td align="center">
+        			<input type="button" value="{{ 'salary-j.pages.print' | trans( {},'SalaryJ' ) }}" onclick="javascript:print();" />
+        		</td>
+        	</tr>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,39 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+	<h1 align="center">{{ 'salary-j.menu.settings' | trans( {},'SalaryJ' ) }}</h1>
+	<br /><br /><br />
+
+    {{ form_start(form, { 'action': path('salaryj_settings_update'), 'method': 'POST' }) }}
+    	{{ form_widget( form._token ) }}
+    	
+		<table cellspacing="0" cellpadding="2">
+			{% for key, set in settings %}
+			<tr>
+				<td>{{ form_label( form[key] ) }}</td>
+				<td>{{ form_widget( form[key], {'attr': {'size': '60'}, 'value': set.value} ) }}</td>
+			</tr>
+			{% endfor %}
+			{#
+			<tr>
+				<td><label>Минутен Бонус (%)</label></td>
+				<td><input type="text" size="60" name="settings[minuteBonus]" value="{if isset($settings.minuteBonus)}{$settings.minuteBonus}{/if}" /></td>
+			</tr>
+			<tr>
+				<td><label>Минутна Ставка (лв.)</label></td>
+				<td><input type="text" size="60" name="settings[minutePrice]" value="{if isset($settings.minutePrice)}{$settings.minutePrice}{/if}" /></td>
+			</tr>
+			#}
+			
+			<tr>
+				<td colspan="2">&nbsp;</td>
+				
+			</tr>
+			<tr>
+				<td></td>
+				<td align="right"><input type="submit" name="sub_settings" value="{{ 'salary-j.form.save' | trans( {},'SalaryJ' ) }}" /></td>
+			</tr>
+		</table>
+	{{ form_end(form, {'render_rest': false}) }}
+	<br /><br /><br />
+{% endblock %}
