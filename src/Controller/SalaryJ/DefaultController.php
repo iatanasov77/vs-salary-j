@@ -1,46 +1,8 @@
 <?php namespace App\Controller\SalaryJ;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Twig\Environment;
+use App\Controller\Application\DefaultController as ApplicationDefaultController;
 
-use Vankosoft\ApplicationBundle\Component\Context\ApplicationContextInterface;
-
-class DefaultController extends AbstractController
+class DefaultController extends ApplicationDefaultController
 {
-    /** @var ApplicationContextInterface */
-    private $applicationContext;
-    
-    /** @var Environment */
-    private $templatingEngine;
-    
-    public function __construct(
-        ApplicationContextInterface $applicationContext,
-        Environment $templatingEngine
-    ) {
-        $this->applicationContext   = $applicationContext;
-        $this->templatingEngine     = $templatingEngine;
-    }
-    
-//     public function index( Request $request ): Response
-//     {
-//         return new Response( $this->templatingEngine->render( $this->getTemplate(), [] ) );
-//     }
-    public function index( Request $request ): Response
-    {
-        return $this->redirect( $this->generateUrl( 'salaryj_operators_index', ['groupId' => 0] ) );
-    }
-    
-    protected function getTemplate(): string
-    {
-        $template   = 'pages/Dashboard/index.html.twig';
-        
-        $appSettings    = $this->applicationContext->getApplication()->getSettings();
-        if ( ! $appSettings->isEmpty() && $appSettings[0]->getTheme() ) {
-            $template   = 'pages/Dashboard/index.html.twig';
-        }
-        
-        return $template;
-    }
+
 }

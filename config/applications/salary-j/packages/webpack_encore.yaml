@@ -3,8 +3,8 @@ framework:
         packages:
             default:
                 json_manifest_path: '%kernel.project_dir%/public/salary-j/build/default/manifest.json'
-            test-theme:
-                json_manifest_path: '%kernel.project_dir%/public/salary-j/build/test-theme/manifest.json'
+            xcart-theme:
+                json_manifest_path: '%kernel.project_dir%/public/shared_assets/build/xcart-theme/manifest.json'
 
 webpack_encore:
     output_path: '%kernel.project_dir%/public/salary-j/build/default'
