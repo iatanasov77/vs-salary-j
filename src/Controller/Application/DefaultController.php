@@ -29,7 +29,7 @@ class DefaultController extends AbstractController
 //     }
     public function index( Request $request ): Response
     {
-        return $this->redirect( $this->generateUrl( 'salaryj_operators_index', ['groupId' => 0] ) );
+        return $this->redirect( $this->generateUrl( 'salaryj_operators_index', ['groupId' => 1] ) );
     }
     
     protected function getTemplate(): string
