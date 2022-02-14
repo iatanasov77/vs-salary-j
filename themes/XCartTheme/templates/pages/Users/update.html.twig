@@ -1,4 +1,5 @@
 {% extends "base.html.twig" %}
+{% import "@VSApplication/Macros/tree.html.twig" as vs_tree %}
 
 {% block content %}
     <h1 align="center">{{ 'salary-j.form.users.edit_user' | trans( {},'SalaryJ' ) }}</h1>
@@ -13,7 +14,9 @@
                 <table cellspacing="1" class="DialogBox">
                     <tr>
                         <td class="DialogBox" valign="top">
-                            {{ form_start(form, { 'action': path('salaryj_operators_create'), 'method': 'POST' }) }}
+                            
+                            <span id="user-id" style="display: none;">{{ user.id }}</span>
+                            {{ form_start(form, { 'method': 'POST' }) }}
                                 <table cellspacing="1" cellpadding="2" width="100%">
                                     <tbody>
                                         <tr>
@@ -24,17 +27,20 @@
                                         <tr>
                                             <td align="right">{{ form_label( form.title ) }}</td>
                                             <td class="Star">{% if form.title.vars.required %}*{% endif %}</td>
-                                            <td nowrap="nowrap">{{ form_widget( form.title ) }}</td>
+                                            {% if ( user.info ) %}{% set title = user.info.title %}{% else %}{% set title = null %}{% endif %}
+                                            <td nowrap="nowrap">{{ form_widget( form.title, {'value': title} ) }}</td>
                                         </tr>
                                         <tr>
                                             <td align="right">{{ form_label( form.firstName ) }}</td>
                                             <td class="Star">{% if form.firstName.vars.required %}*{% endif %}</td>
-                                            <td nowrap="nowrap">{{ form_widget( form.firstName, {'attr': {'size': '32'}} ) }}</td>
+                                            {% if ( user.info ) %}{% set firstName = user.info.firstName %}{% else %}{% set firstName = '' %}{% endif %}
+                                            <td nowrap="nowrap">{{ form_widget( form.firstName, {'attr': {'size': '32'}, 'value': firstName} ) }}</td>
                                         </tr>
                                         <tr>
                                             <td align="right">{{ form_label( form.lastName ) }}</td>
                                             <td class="Star">{% if form.lastName.vars.required %}*{% endif %}</td>
-                                            <td nowrap="nowrap">{{ form_widget( form.lastName, {'attr': {'size': '32'}} ) }}</td>
+                                            {% if ( user.info ) %}{% set lastName = user.info.lastName %}{% else %}{% set lastName = '' %}{% endif %}
+                                            <td nowrap="nowrap">{{ form_widget( form.lastName, {'attr': {'size': '32'}, 'value': lastName} ) }}</td>
                                         </tr>
                                         <tr>
                                             <td height="20" colspan="3"><font class="RegSectionTitle">{{ 'salary-j.form.users.contact_information' | trans( {},'SalaryJ' ) }}</font>
@@ -44,7 +50,8 @@
                                         <tr>
                                             <td align="right">{{ form_label( form.mobile ) }}</td>
                                             <td class="Star">{% if form.mobile.vars.required %}*{% endif %}</td>
-                                            <td nowrap="nowrap">{{ form_widget( form.mobile, {'attr': {'size': '32'}} ) }}</td>
+                                            {% if ( user.info ) %}{% set mobile = user.info.mobile %}{% else %}{% set mobile = '' %}{% endif %}
+                                            <td nowrap="nowrap">{{ form_widget( form.mobile, {'attr': {'size': '32'}, 'value': mobile} ) }}</td>
                                         </tr>
                                         <tr>
                                             <td align="right">{{ form_label( form.email ) }}</td>
@@ -75,19 +82,35 @@
                                         </tr>
                                         <tr>
                                             <td align="right">{{ form_label( form.plain_password.first ) }}</td>
-                                            <td class="Star">{% if form.plain_password.first.vars.required %}*{% endif %}</td>
-                                            <td nowrap="nowrap">{{ form_widget( form.plain_password.first, {'attr': {'size': '32'}} ) }}</td>
+                                            
+                                            {% if user.id %}
+                                                <td class="Star"></td>
+                                                <td nowrap="nowrap">{{ form_widget( form.plain_password.first, {'attr': {'size': '32','novalidate': 'novalidate'}} ) }}</td>
+                                            {% else %}
+                                                <td class="Star">{% if form.plain_password.first.vars.required %}*{% endif %}</td>
+                                                <td nowrap="nowrap">{{ form_widget( form.plain_password.first, {'attr': {'size': '32'}} ) }}</td>
+                                            {% endif %}
                                         </tr>
                                         <tr>
                                             <td align="right">{{ form_label( form.plain_password.second ) }}</td>
-                                            <td class="Star">{% if form.plain_password.second.vars.required %}*{% endif %}</td>
-                                            <td nowrap="nowrap">{{ form_widget( form.plain_password.second, {'attr': {'size': '32'}} ) }}</td>
+                                            {% if user.id %}
+                                                <td class="Star"></td>
+                                                <td nowrap="nowrap">{{ form_widget( form.plain_password.second, {'attr': {'size': '32','novalidate': 'novalidate'}} ) }}</td>
+                                            {% else %}
+                                                <td class="Star">{% if form.plain_password.second.vars.required %}*{% endif %}</td>
+                                                <td nowrap="nowrap">{{ form_widget( form.plain_password.second, {'attr': {'size': '32'}} ) }}</td>
+                                            {% endif %}
                                         </tr>
+                                    {% if is_granted( 'ROLE_APPLICATION_ADMIN' ) %}
                                         <tr>
-                                            <td align="right">{{ form_label( form.roles_options ) }}</td>
-                                            <td class="Star">{% if form.roles_options.vars.required %}*{% endif %}</td>
-                                            <td nowrap="nowrap">{{ form_widget( form.roles_options ) }}</td>
+                                            <td align="right">{{ form_label( form.applications ) }}</td>
+                                            <td class="Star">{% if form.applications.vars.required %}*{% endif %}</td>
+                                            
+                                            <td nowrap="nowrap">
+                                                {{ form_widget( form.applications, {'attr': {'class': 'easyui-combo-form-control'}} ) }}
+                                            </td>
                                         </tr>
+                                    {% endif %}
                                         <tr>
                                             <td colspan="3" class="RegSectionTitle"><hr size="1" noshade="noshade" /></td>
                                         </tr>
@@ -107,4 +130,13 @@
             </td>
         </tr>
     </table>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags( 'js/pages/users_edit', null, 'SalaryjXcartThemeConfig' ) }}
+{% endblock %}
+        
+{% block body_javascripts %}
+    {{ encore_entry_script_tags( 'js/pages/users_edit', null, 'SalaryjXcartThemeConfig' ) }}
 {% endblock %}

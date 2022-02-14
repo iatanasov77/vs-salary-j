@@ -1,19 +1,7 @@
+import { checkAll } from '../includes/change_all_checkboxes.js';
 import { VsPath } from '../includes/fos_js_routes.js';
 import { VsGetSubmitButton } from '../includes/vs_form.js';
 import { VsFormDlete } from '../includes/resource-delete.js';
-
-function checkAll( flag, form, prefix )
-{
-	if ( ! form )
-		return;
-
-	if ( prefix )
-		var reg = new RegExp( "^"+prefix, "" );
-	for ( var i = 0; i < form.elements.length; i++ ) {
-		if ( form.elements[i].type == "checkbox" && ( ! prefix || form.elements[i].name.search( reg ) == 0 ) && !form.elements[i].disabled )
-			form.elements[i].checked = flag;
-	}
-}
 
 function submitForm( formData, submitUrl, redirectUrl )
 {
@@ -43,12 +31,12 @@ $( function()
 	
 	$( '#checkAll' ).on( 'click', function( e )
 	{
-		checkAll( true, document.operatorsform, 'op_ids' );
+		checkAll( true, document.operators_index_form, 'submitedOperators' );
 	});
 	
 	$( '#uncheckAll' ).on( 'click', function( e )
 	{
-		checkAll( false, document.operatorsform, 'op_ids' );
+		checkAll( false, document.operators_index_form, 'submitedOperators' );
 	});
 	
 	$( '.browseOperations' ).on( 'click', function( e )

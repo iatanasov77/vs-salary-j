@@ -25,8 +25,19 @@ services:
     App\Controller\SalaryJ\UsersController:
         arguments:
             - '@vs_application.context.application'
+            - '@vs_application.repository.application'
+            - '@vs_users.manager.user'
             - '@vs_users.repository.users'
             - '@vs_users.factory.users'
+            - '@vs_users.factory.user_info'
+            - '@vs_users.repository.user_roles'
+        tags: ['controller.service_arguments']
+    
+    App\Controller\JunonaDimitrovgrad\OperatorsGroupsExtController:
+        arguments:
+            - "@vs_application.context.application"
+            - '@salaryj.repository.operatorsgroups'
+            - '@vs_application.slug_generator'
         tags: ['controller.service_arguments']
     
     App\Controller\SalaryJ\OperatorsExtController:
@@ -37,6 +48,8 @@ services:
         
     App\Controller\SalaryJ\ModelsExtController:
         arguments:
+            - '@twig'
+            - '@translator'
             - "@vs_application.context.application"
             - "@salaryj.repository.models"
             - "@salaryj.repository.operations"
@@ -79,4 +92,5 @@ services:
             - '@salaryj.repository.operators'
             - '@salaryj.repository.operators_work'
             - '@salaryj.repository.operatorsgroups'
+            - '@salaryj.repository.models'
         tags: ['controller.service_arguments']

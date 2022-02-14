@@ -3,6 +3,7 @@
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
@@ -24,9 +25,10 @@ class UserForm extends UserFormType
         RequestStack $requestStack,
         string $dataClass,
         string $applicationClass,
+        AuthorizationCheckerInterface $auth,
         Orm $ormComponent
     ) {
-        parent::__construct( $requestStack, $dataClass, $applicationClass );
+        parent::__construct( $requestStack, $dataClass, $applicationClass, $auth );
         
         $this->ormComponent = $ormComponent;
     }
@@ -40,7 +42,6 @@ class UserForm extends UserFormType
         $builder->setMethod( 'POST' );
         
         $builder->remove( 'verified' );
-        $builder->remove( 'applications' );
         
         /**
          * Custom Fields
@@ -73,6 +74,8 @@ class UserForm extends UserFormType
             ->setAllowedTypes( 'users', UserInterface::class )
             
             ->setDefaults([
+                'csrf_protection'       => false,
+                
                 'profilePictureMapped'  => false,
                 'firstNameMapped'       => false,
                 'lastNameMapped'        => false,

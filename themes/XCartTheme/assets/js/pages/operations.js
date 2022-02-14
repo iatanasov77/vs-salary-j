@@ -1,3 +1,4 @@
+import { checkAll } from '../includes/change_all_checkboxes.js';
 
 /*
 var minuteBonus = {$settings.minuteBonus};
@@ -31,4 +32,24 @@ $( function()
 			$( this ).attr( 'data-currentValue', newValue );
 		}
 	});
+	
+	$( '#checkAll' ).on( 'click', function( e )
+    {
+        checkAll( true, document.operations_index_form, 'opids' );
+    });
+    
+    $( '#uncheckAll' ).on( 'click', function( e )
+    {
+        checkAll( false, document.operations_index_form, 'opids' );
+    });
+	
+	$( '#btnWorked' ).on( 'click', function( e )
+    {
+        document.location   = $( this ).attr( 'data-url' );
+    });
+    
+	$( '#btnWorkedNew' ).on( 'click', function( e )
+    {
+        document.location   = $( this ).attr( 'data-url' );
+    });
 });	

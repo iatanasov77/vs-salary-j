@@ -5,7 +5,6 @@
 	<br /><br /><br />
 
     {{ form_start(form, { 'action': path('salaryj_settings_update'), 'method': 'POST' }) }}
-    	{{ form_widget( form._token ) }}
     	
 		<table cellspacing="0" cellpadding="2">
 			{% for key, set in settings %}

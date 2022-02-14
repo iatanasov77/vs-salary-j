@@ -1,0 +1,48 @@
+{% extends "base-print.html.twig" %}
+
+{% block content %}
+    <!-- BEGIN Operation Work Count Print -->
+    <div class="print">
+        <h1 align="center">{{ 'salary-j.pages.worked_for_model' | trans( {},'SalaryJ' ) }}:</h1>
+        <h2 align="center">{{ model.number }}. {{ model.name }}</h2>
+        <p align="center">
+            {{ 'salary-j.pages.period_for' | trans( {},'SalaryJ' ) }}: 
+            {{ startDate | date( 'd.m.Y' ) }}   {{ 'salary-j.pages.to' | trans( {},'SalaryJ' ) }} {{ endDate | date( 'd.m.Y' ) }}
+        </p>
+        <br /><br />
+        <table cellpadding="2" cellspacing="1" width="100%">
+            <tr class="TableHead">
+                <td>Операция</td>
+                <td width="5%">{{ 'salary-j.pages.unit_price' | trans( {},'SalaryJ' ) }}</td>
+                <td width="5%">{{ 'salary-j.pages.pieces' | trans( {},'SalaryJ' ) }}</td>
+                <td width="5%">{{ 'salary-j.pages.total' | trans( {},'SalaryJ' ) }}</td>
+            </tr>
+
+        {% for op in model.operations %}
+            <tr {cycle values=",class='TableSubHead'"}>
+                <td align="left">
+                    {{ op.operationId }}.&nbsp;&nbsp;{{ op.operationName }}
+                </td>
+                <td width="7%">
+                    {% if workCount[op.id] is defined %}{{ workCount[op.id].max_price }}{% endif %}
+                </td>
+                <td width="7%">
+                    {% if workCount[op.id] is defined %}{{ workCount[op.id].sum_count }}{% endif %}
+                </td>
+                <td width="7%">
+                    <div id="total_view_{$op->id}">{% if workCount[op.id] is defined %}{{ workCount[op.id].sum_total | number_format( 2, '.' ) }}{% endif %}</div>
+                </td>
+            </tr>
+        {% endfor %}
+        
+            <tr><td colspan="4">&nbsp;</td></tr>
+            <tr>
+                <td colspan="2">&nbsp;</td>
+                <td align="left"><b>{{ 'salary-j.pages.total_price' | trans( {},'SalaryJ' ) }}:</b></td>
+                <td align="right">{{ work.grandTotal }}</td>
+            </tr>
+        </table>
+        <br /><br />
+    </div>
+    <!-- END Operation Work Count Print -->
+{% endblock %}

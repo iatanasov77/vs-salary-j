@@ -45,3 +45,8 @@
 .singleDatePicker {
 	width: 150px !important;
 }
+
+.easyui-combo-form-control {
+	width: 217px;
+	height: 15px;
+}

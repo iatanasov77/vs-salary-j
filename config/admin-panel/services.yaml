@@ -1,5 +1,4 @@
 imports:
-    - { resource: services/services.yaml }
     - { resource: services/menu.yaml }
 
 # This file is the entry point to configure your own services.
@@ -45,7 +44,19 @@ services:
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
-            
+    
+    App\:
+        resource: '../../src/*'
+        exclude:
+            - '../../src/DataFixtures/'
+            - '../../src/DependencyInjection/'
+            - '../../src/Entity/'
+            - '../../src/Form/'
+            - '../../src/Tests/'
+            - '../../src/Controller/'
+            - '../../src/SalaryJKernel.php'
+        autowire: true
+    
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 

@@ -1,3 +1,4 @@
+import { checkAll } from '../includes/change_all_checkboxes.js';
 import {  VsPath } from '../includes/fos_js_routes.js';
 import {  vsOpenPrintPreview } from '../includes/vs_print.js';
 
@@ -39,6 +40,16 @@ function changePeriod( startDate, endDate, postUrl = null )
 
 $( function()
 {
+    $( '#checkAll' ).on( 'click', function( e )
+    {
+        checkAll( true, document.operators_work_browse_totals, 'op_ids' );
+    });
+    
+    $( '#uncheckAll' ).on( 'click', function( e )
+    {
+        checkAll( false, document.operators_work_browse_totals, 'op_ids' );
+    });
+    
     // Because Twig Not Sett This
     $( "#operator_filter_form_filter_groups" ).val( $( "#operator_filter_form_filter_groups" ).attr( 'data-currentGroupId' ) );
     

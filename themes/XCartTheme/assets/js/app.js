@@ -10,4 +10,3 @@ require( '@fortawesome/fontawesome-free/js/all.js' );
 
 /* SalaryJ Layout */
 require( './salary-j.js' );
-require( './change_all_checkboxes.js' );

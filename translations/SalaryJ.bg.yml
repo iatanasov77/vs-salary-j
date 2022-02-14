@@ -12,9 +12,9 @@ salary-j:
         settings: Настройки
         logout: Изход
     pagination:
-        previous: Previous
-        next: Next
-        go_to_page: 'Go to page '
+        previous: Предишни
+        next: Следващи
+        go_to_page: 'Иди на страница '
     pages:
         operators_groups: Групи Оператори
         add_new_group: Добавяне на нова Група

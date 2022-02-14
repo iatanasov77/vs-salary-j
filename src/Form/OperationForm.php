@@ -1,15 +1,14 @@
 <?php namespace App\Form;
 
 use Vankosoft\ApplicationBundle\Form\AbstractForm;
-use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\FormBuilderInterface;
 
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 use Vankosoft\ApplicationBundle\Component\I18N;
+use App\Form\Type\OperationType;
+use App\Entity\Operation;
 
 class OperationForm extends AbstractForm
 {
@@ -30,24 +29,12 @@ class OperationForm extends AbstractForm
                 'mapped'                => false,
             ])
             
-            
-            ->add( 'operationId', TextType::class, [
-                'label'                 => 'salary-j.form.number',
-                'translation_domain'    => 'SalaryJ',
-            ])
-            
-            ->add( 'operationName', TextType::class, [
-                'label'                 => 'salary-j.form.name',
-                'translation_domain'    => 'SalaryJ',
-            ])
-            
-            ->add( 'minutes', NumberType::class, [
-                'label'                 => 'salary-j.form.operations.minutes',
-                'translation_domain'    => 'SalaryJ',
-                'scale'                 => 2,
-            ])
-            
             ->add( 'price', HiddenType::class )
+            
+            ->add( 'operation', OperationType::class, [
+                'mapped'        => false,
+                'data_class'    => Operation::class,
+            ])
         ;
     }
 }

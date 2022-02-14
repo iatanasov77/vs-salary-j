@@ -13,13 +13,14 @@ use Vankosoft\ApplicationBundle\Model\Traits\UserAwareEntity;
 
 /**
  * OperatorsWork
+ * --------------
+ * With Doctrine ORM you can use composite primary keys, using '@Id' on more then one column. 
+ * Some restrictions exist opposed to using a single identifier in this case: 
+ *  The use of the '@GeneratedValue' annotation is not supported, which means you can only use composite keys 
+ *  if you generate the primary key values yourself before calling EntityManager#persist() on the entity.
+ * 
  *
- * @ORM\Table(name="JUN_OperatorsWork", 
- *    uniqueConstraints={
- *        @ORM\UniqueConstraint(name="opertors_work_unique", 
- *            columns={"operator_id", "operation_id", "date"})
- *    }
- * )
+ * @ORM\Table(name="JUN_OperatorsWork")
  * @ORM\Entity
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false, hardDelete=false)
  */
@@ -34,7 +35,6 @@ class OperatorsWork implements ResourceInterface, ApplicationRelationInterface, 
      * @var int
      *
      * @ORM\Id
-     * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
     private $id;
@@ -42,6 +42,7 @@ class OperatorsWork implements ResourceInterface, ApplicationRelationInterface, 
     /**
      * @var Operator
      * 
+     * @ORM\Id
      * @ORM\ManyToOne(targetEntity="App\Entity\Operator", inversedBy="work")
      * @ORM\JoinColumn(name="operator_id", referencedColumnName="id", nullable=false)
      */
@@ -50,6 +51,7 @@ class OperatorsWork implements ResourceInterface, ApplicationRelationInterface, 
     /**
      * @var Operation
      * 
+     * @ORM\Id
      * @ORM\ManyToOne(targetEntity="App\Entity\Operation", inversedBy="work")
      * @ORM\JoinColumn(name="operation_id", referencedColumnName="id", nullable=false)
      */
@@ -60,6 +62,7 @@ class OperatorsWork implements ResourceInterface, ApplicationRelationInterface, 
      * 
      * @var \DateTime
      *
+     * @ORM\Id
      * @ORM\Column(name="date", type="date", nullable=false)
      */
     private $date;

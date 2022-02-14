@@ -7,7 +7,6 @@
 	The category tree can be used to divide the store into several sections so the products of the same brand, type, etc could be put together. Each category can be split into smaller subcategories. Click on a category to get a list of its subcategories. <br />
 	-->
     {{ form_start(form, { 'attr': {'class': 'form-horizontal', 'id': 'form-post'}, 'action': path('salaryj_operatorsgroups_create'), 'method': 'POST' }) }}
-        {{ form_widget( form._token ) }}
         {{ form_widget( form.application_code, {'value' : application.code} ) }}
     
     	<table cellspacing="0" cellpadding="2">
@@ -21,11 +20,11 @@
     			<td colspan="2"><h3><b>{{ 'salary-j.pages.add_new_group' | trans( {},'SalaryJ' ) }}</h3></b></td>
     		</tr>
     		<tr>
-    			<td>{{ form_label(form.name ) }}</td>
+    			<td>{{ form_label(form.operator_group.name ) }}</td>
     			<td>&nbsp;</td>
     		</tr>
     		<tr>
-				<td>{{ form_widget(form.name, {'attr': {'size': '40'}} ) }}</td>
+				<td>{{ form_widget(form.operator_group.name, {'attr': {'size': '40'}} ) }}</td>
 				<td>{{ form_widget(form.btnSave ) }}</td>
 			</tr>
 		</table>
@@ -41,35 +40,61 @@
 				<table cellspacing="1" class="DialogBox">
 					<tr>
 						<td class="DialogBox" valign="top"><br />
-							<form action="{$smarty.server.PHP_SELF}" method="post" name="processcategoryform">
+							{{ form_start( index_form, { attr: { id: 'operators_groups_index_form'} } ) }}
+                                
+                                <div style="line-height: 170%;">
+                                    <a id="checkAll" href="javascript:void(0);">{{ 'salary-j.pages.all' | trans( {},'SalaryJ' ) }}</a> / 
+                                    <a id="uncheckAll" href="javascript:void(0);">{{ 'salary-j.pages.nothing' | trans( {},'SalaryJ' ) }}</a>
+                                </div>
 
 								<table cellpadding="2" cellspacing="1" width="100%">
 									<tr class="TableHead">
+									    <td width="2%"></td>
 										<td align="left">{{ 'salary-j.form.name' | trans( {},'SalaryJ' ) }}</td>
-										<td width="40%">&nbsp;</td>
 									</tr>
 								
-								{% for gr in taxonomy.rootTaxon.children %}
-									<tr {cycle values=",class='TableSubHead'"}>
-										<td><font class="ItemsList">{{ gr.name }}</font></td>
-										<td>&nbsp;</td>
+								{% for grId, grWidget in index_form.operators_groups %}
+								    <tr {{ cycle(['', 'class="TableSubHead"'], loop.index0) }}>
+								        <td><input type="checkbox" name="grids[{{ grId }}]" /></td>
+										<td>
+    								        <font class="ItemsList">
+                                                {{ form_widget( grWidget.name, {'attr': {'size': '60'}} ) }}
+    								        </font>
+										</td>
 									</tr>
 								{% endfor %}
 
-
+                                    <tr>
+                                        <td colspan="7"><hr /></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="7">
+                                            {{ form_widget( index_form.change_names ) }}
+                                            {{ form_widget( index_form.del_groups ) }}
+                                        </td>
+                                    </tr>
 								</table>
-								<input type="hidden" name="mode" value="apply" />
-							</form>
+								
+							{{ form_end( index_form ) }}
 							<br />&nbsp;
 						</td>
 					</tr>
 					<tr>
 						<td>
-						  {% if resources.haveToPaginate() %} {{ pagerfanta( resources ) }}{% endif %}
+						  {% if resources.haveToPaginate() %} {{ pagerfanta( resources, null, { 'proximity': 10 } ) }}{% endif %}
 						</td>
 					</tr>
 				</table>
 			</td>
 		</tr>
 	</table>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags( 'js/pages/operators_groups', null, 'SalaryjXcartThemeConfig' ) }}
+{% endblock %}
+
+{% block body_javascripts %}
+    {{ encore_entry_script_tags( 'js/pages/operators_groups', null, 'SalaryjXcartThemeConfig' ) }}
 {% endblock %}

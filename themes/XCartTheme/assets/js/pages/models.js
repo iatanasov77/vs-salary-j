@@ -1,21 +1,9 @@
+import { checkAll } from '../includes/change_all_checkboxes.js';
 import { VsPath } from '../includes/fos_js_routes.js';
 import { VsGetSubmitButton } from '../includes/vs_form.js';
 import { VsFormDlete } from '../includes/resource-delete.js';
 require( 'jquery-ui-dist/jquery-ui.css' );
 require( 'jquery-ui-dist/jquery-ui.js' );
-
-function checkAll( flag, form, prefix )
-{
-	if ( ! form )
-		return;
-
-	if ( prefix )
-		var reg = new RegExp( "^"+prefix, "" );
-	for ( var i = 0; i < form.elements.length; i++ ) {
-		if ( form.elements[i].type == "checkbox" && ( ! prefix || form.elements[i].name.search( reg ) == 0 ) && ! form.elements[i].disabled )
-			form.elements[i].checked = flag;
-	}
-}
 
 function submitForm( formData, submitUrl, redirectUrl )
 {
@@ -41,20 +29,19 @@ $( function()
 		$( "#filterModel" ).autocomplete({
 			source: json.data,
 			select: function( event, data ) {
-				document.location = $( '#filterModel' ).attr( 'data-url-operations' ) + '?modid=' + data.item.value;
-		        //alert("User selected: " + data.item.label);
+			    document.location = VsPath( 'app_operations_index', {modelId: data.item.value} );
 		    }
 		});
 	});
 	
 	$( '#checkAll' ).on( 'click', function( e )
 	{
-		checkAll( true, document.operatorsform, 'op_ids' );
+		checkAll( true, document.models_index_form, 'submitedModels' );
 	});
 	
 	$( '#uncheckAll' ).on( 'click', function( e )
 	{
-		checkAll( false, document.operatorsform, 'op_ids' );
+		checkAll( false, document.models_index_form, 'submitedModels' );
 	});
 	
 	$( '.browseOperations' ).on( 'click', function( e )
@@ -82,7 +69,7 @@ $( function()
         
         var submitName  = VsGetSubmitButton();
         var formData    = new FormData( this );
-        var redirectUrl = VsPath( 'salaryj_models_index', {} );
+        var redirectUrl = VsPath( 'app_models_index', {} );
         switch ( true ) {
           case ( submitName == 'models_index_form[change_names]' ):
             submitForm ( formData, VsPath( 'app_models_ext_update', {} ), redirectUrl );

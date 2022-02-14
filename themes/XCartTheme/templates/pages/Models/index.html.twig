@@ -4,7 +4,6 @@
     <h1 align="center">{{ 'salary-j.pages.models' | trans( {},'SalaryJ' ) }}</h1>
 
     {{ form_start(form, { 'attr': {'class': 'form-horizontal', 'id': 'form-post'}, 'action': path('salaryj_models_create'), 'method': 'POST' }) }}
-        {{ form_widget( form._token ) }}
         {{ form_widget( form.application_code, {'value' : application.code} ) }}
     
     	<table cellspacing="0" cellpadding="2">
@@ -17,8 +16,8 @@
     			<td>&nbsp;</td>
     		</tr>
     		<tr>
-    			<td>{{ form_widget( form.model.number, {'attr': {'size': '6'}} ) }}</td>
-				<td>{{ form_widget( form.model.name, {'attr': {'size': '60'}} ) }}</td>
+    			<td>{{ form_widget( form.model.number, {'attr': {'size': '8'}} ) }}</td>
+				<td>{{ form_widget( form.model.name, {'attr': {'size': '100'}} ) }}</td>
 				<td>{{ form_widget( form.btnSave ) }}</td>
 			</tr>
 		</table>
@@ -36,10 +35,7 @@
 		
 		<tr>
 			<td>
-				<input id="filterModel" type="text" name="filterModel"
-					data-url-json-models = "{{ path( 'app_json_models' ) }}"
-					data-url-operations = "{{ path( 'app_model_browse_operations_get' ) }}"
-				/>
+				<input id="filterModel" type="text" name="filterModel" data-url-json-models = "{{ path( 'app_json_models' ) }}" />
 			</td>
 			<td></td>
 			<td></td>
@@ -75,22 +71,23 @@
 									<tr {cycle values=",class='TableSubHead'"}>
 										<td ><input type="checkbox" name="submitedModels[{{ modId }}]" /></td>
 										<td >
-											{{ form_widget( modWidget.number ) }}
+											{{ form_widget( modWidget.number, {'attr': {'size': '8'}} ) }}
 										</td>
 										<td>
 											<font class="ItemsList">
-												{{ form_widget( modWidget.name ) }}
+												{{ form_widget( modWidget.name, {'attr': {'size': '100'}} ) }}
 											</font>
 										</td>
 										<td>
 											<input type="button" value="{{ 'salary-j.pages.operations' | trans( {},'SalaryJ' ) }}" class="browseOperations"
-												data-url="{{ path( 'app_model_browse_operations', {'modelId': modId} ) }}"
+											    data-url="{{ path( 'app_operations_index', {'modelId': modId} ) }}"
+												{# data-url="{{ path( 'app_model_browse_operations', {'modelId': modId} ) }}" #}
 											/>
 											<input type="button" value="{{ 'salary-j.pages.worked_operations' | trans( {},'SalaryJ' ) }}" class="workedOperations"
-												data-url="{{ path( 'app_model_add_operations', {'modelId': modId} ) }}"
+												data-url="{{ path( 'app_model_work_count', {'modelId': modId} ) }}"
 											/>
 											<input type="button" value="{{ 'salary-j.pages.worked_operations_new' | trans( {},'SalaryJ' ) }}" class="workedOperationsNew"
-												data-url="{{ path( 'app_model_add_operations_new', {'modelId': modId} ) }}"
+												data-url="{{ path( 'app_model_work_count_new', {'modelId': modId} ) }}"
 											/>
 										</td>
 									</tr>
@@ -105,14 +102,13 @@
 									</tr>
 								
 								</table>
-								<input type="hidden" name="mode" value="apply" />
 							{{ form_end( index_form ) }}
 							<br />&nbsp;
 						</td>
 					</tr>
 					<tr>
 						<td>
-    						{% if resources.haveToPaginate() %} {{ pagerfanta( resources ) }}{% endif %}
+    						{% if resources.haveToPaginate() %}{{ pagerfanta( resources, null, { 'proximity': 10 } ) }}{% endif %}
 						</td>
 					</tr>
 				</table>
@@ -123,9 +119,9 @@
 
 {% block stylesheets %}
 	{{ parent() }}
-    {{ encore_entry_link_tags( 'js/pages/models', null, 'xcartThemeConfig' ) }}
+    {{ encore_entry_link_tags( 'js/pages/models', null, 'SalaryjXcartThemeConfig' ) }}
 {% endblock %}
         
 {% block body_javascripts %}
-    {{ encore_entry_script_tags( 'js/pages/models', null, 'xcartThemeConfig' ) }}
+    {{ encore_entry_script_tags( 'js/pages/models', null, 'SalaryjXcartThemeConfig' ) }}
 {% endblock %}
