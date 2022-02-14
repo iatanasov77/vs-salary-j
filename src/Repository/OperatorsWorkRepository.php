@@ -11,7 +11,22 @@ use Doctrine\ORM\AbstractQuery;
  */
 class OperatorsWorkRepository extends EntityRepository
 {
-    public function getWorkForOperator( $operator, $startDate, $endDate, $groupOperations = false ) : array
+    public function getOperatorWorkMaxId( $operator, $operation, $date ): ?int
+    {
+        $entityManager  = $this->getEntityManager();
+        $qb             = $entityManager->createQueryBuilder( 'ow' )
+                                        ->select(['MAX(ow.id) AS maxId'])
+                                        ->from( 'App\Entity\OperatorsWork', 'ow' )
+                                        ->andWhere( 'ow.operator = :operator' )->setParameter( 'operator', $operator )
+                                        ->andWhere( 'ow.operation = :operation' )->setParameter( 'operation', $operation )
+                                        ->andWhere( 'ow.date = :date' )->setParameter( 'date', $date );
+        
+        $result         = $qb->getQuery()->getResult();
+
+        return intval ( $result[0]['maxId'] );
+    }
+    
+    public function getWorkForOperator( $operator, $startDate, $endDate, $groupOperations = false ): array
     {
         $entityManager  = $this->getEntityManager();
         $qb             = $entityManager->createQueryBuilder( 'owt' )
@@ -115,12 +130,23 @@ class OperatorsWorkRepository extends EntityRepository
     
     /**
      * @NOTE Need Optimization and Refactoring
-     * Got from JunObjectsFactory::makeOperationsWorkCount
+     * 
+     * GOT FROM: JunObjectsFactory::makeOperationsWorkCount
+     * ============================================================
+     * GroupOperations Query:
+     * ------------------------------------------------------
+     * SELECT *, SUM(count) AS sum_count, SUM(total) AS sum_total 
+     * FROM `operators_work_totals` 
+     * WHERE models_id=".$modelId." AND `date`>='".$minDate."' AND `date`<='".$maxDate."'
+     * GROUP BY operations_id
+     * ORDER BY CAST(operation_id AS UNSIGNED)
+     * 
      * 
      * @param unknown $modelId
      * @param unknown $minDate
      * @param unknown $maxDate
      * @param boolean $groupOperations
+     * 
      * @return unknown[]|number[][]|NULL[][]
      */
     public function getOperationsWorkCount( $modelId, $minDate, $maxDate, $groupOperations = false )
@@ -173,7 +199,7 @@ class OperatorsWorkRepository extends EntityRepository
         ];
     }
     
-    private function groupOperationsSelect() : array
+    private function groupOperationsSelect(): array
     {
         return [
             'owt.modelNumber AS modelNumber',

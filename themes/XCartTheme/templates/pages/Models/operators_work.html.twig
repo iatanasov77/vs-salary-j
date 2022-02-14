@@ -9,7 +9,7 @@
     		<div id="work_date"
     			class="date-range-picker-widget singleDatePicker lang_{{ app.request.locale|slice(0, 2) }}"
     			data-workDate="{{ date | date( 'Y-m-d' ) }}"
-    			data-pageUrl="{{ path( 'app_model_add_operations_new', {'modelId': model.id} ) }}"
+    			data-pageUrl="{{ path( 'app_model_work_count_new', {'modelId': model.id} ) }}"
     		>
                 <i class="fa fa-calendar"></i>&nbsp;
                 <span></span> <i class="fa fa-caret-down"></i>
@@ -17,29 +17,26 @@
         </div>
 	</div>
 
-	<form name="formModel" action="{$smarty.server.PHP_SELF}" method="post">
-		<table cellspacing="0" cellpadding="2">
-			<tr>
-				<td colspan="3"><h3><b>{{ 'salary-j.form.add_new_operator' | trans( {},'SalaryJ' ) }}</h3></b></td>
-			</tr>
-			<tr>
-				<td>{{ 'salary-j.pages.operators' | trans( {},'SalaryJ' ) }}</td>
-				
-				<td>&nbsp;</td>
-			</tr>
-			<tr>
-				<td>
-					<select id="selOperator" name="selOperator" >
-						<option value="0">{{ 'salary-j.form.select' | trans( {},'SalaryJ' ) }}</option>
-					{% for op in operators %}
-						<option id="selOp{{ op.id }}" value="{{ op.id }}">{{ op.name }}</option>
-					{% endfor %}
-					</select>
-				</td>
-				<td><input id="btnAddOperator" type="button" name="sub_model" value="{{ 'salary-j.form.add' | trans( {},'SalaryJ' ) }}" /></td>
-			</tr>
-		</table>
-	</form>
+	<table cellspacing="0" cellpadding="2">
+		<tr>
+			<td colspan="3"><h3><b>{{ 'salary-j.form.add_new_operator' | trans( {},'SalaryJ' ) }}</h3></b></td>
+		</tr>
+		<tr>
+			<td>{{ 'salary-j.pages.operators' | trans( {},'SalaryJ' ) }}</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>
+				<select id="selOperator" name="selOperator" >
+					<option value="0">{{ 'salary-j.form.select' | trans( {},'SalaryJ' ) }}</option>
+				{% for op in operators %}
+					<option id="selOp{{ op.id }}" value="{{ op.id }}">{{ op.name }}</option>
+				{% endfor %}
+				</select>
+			</td>
+			<td><input id="btnAddOperator" type="button" name="sub_model" value="{{ 'salary-j.form.add' | trans( {},'SalaryJ' ) }}" /></td>
+		</tr>
+	</table>
 	<br /><br /><br />
 
 	<table cellspacing="0" width="100%">
@@ -62,10 +59,9 @@
 									<thead>
 										<tr>
 											<th class="headcol">&nbsp;</th>
-										
-									{% for operation in model.operations %}
-											<th><a href="javascript:void(0);" title="{{ operation.operationName }}">{{ loop.index }}</a></th>
-									{% endfor %}
+									    {% for operation in model.operations %}
+											<th title="{{ operation.operationName }}">{{ loop.index }}</th>
+									    {% endfor %}
 										</tr>
 									</thead>
 
@@ -121,7 +117,7 @@
 
 									<tfoot>
 										<tr>
-											<td class="headcol">Общо</td>
+											<td class="headcol">{{ 'salary-j.pages.total' | trans( {},'SalaryJ' ) }}</td>
 										{% for operation in model.operations %}
 											<td id="total{{ operation.id }}">&nbsp;
 											{% if operatorsWork['operationsTotalCount'] is not empty and operatorsWork['operationsTotalCount'][operation.id] is defined %}
@@ -150,9 +146,9 @@
 
 {% block stylesheets %}
 	{{ parent() }}
-    {{ encore_entry_link_tags( 'js/pages/operators_work_new', null, 'xcartThemeConfig' ) }}
+    {{ encore_entry_link_tags( 'js/pages/operators_work_new', null, 'SalaryjXcartThemeConfig' ) }}
 {% endblock %}
         
 {% block body_javascripts %}
-    {{ encore_entry_script_tags( 'js/pages/operators_work_new', null, 'xcartThemeConfig' ) }}
+    {{ encore_entry_script_tags( 'js/pages/operators_work_new', null, 'SalaryjXcartThemeConfig' ) }}
 {% endblock %}

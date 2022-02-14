@@ -16,7 +16,7 @@ use App\Entity\Operator;
 
 class OperatorType extends AbstractType
 {
-    public function buildForm( FormBuilderInterface $builder, array $options ) : void
+    public function buildForm( FormBuilderInterface $builder, array $options ): void
     {
         $builder            
             ->add( 'group', EntityType::class, [

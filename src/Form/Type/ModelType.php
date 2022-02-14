@@ -14,7 +14,7 @@ use App\Entity\Model;
 
 class ModelType extends AbstractType
 {
-    public function buildForm( FormBuilderInterface $builder, array $options ) : void
+    public function buildForm( FormBuilderInterface $builder, array $options ): void
     {
         $builder
             ->add( 'number', TextType::class, [

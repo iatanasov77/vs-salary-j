@@ -6,7 +6,7 @@
 	checkboxes_form		- form name with these checkboxes
 */
 
-function change_all(flag, formname, arr)
+export function change_all(flag, formname, arr)
 {
 	if (!formname)
 		formname = checkboxes_form;
@@ -23,7 +23,7 @@ function change_all(flag, formname, arr)
 	}
 }
 
-function checkAll(flag, form, prefix)
+export function checkAll(flag, form, prefix)
 {
 	if (!form)
 		return;

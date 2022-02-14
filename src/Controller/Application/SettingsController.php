@@ -83,13 +83,13 @@ class SettingsController extends AbstractController
         foreach ( $settings as $key => $val ) {
             $fb->add( $key, TextType::class, [
                 'label'                 => $val['label'],
-                'translation_domain'    => 'Application',
+                'translation_domain'    => 'SalaryJ',
             ]);
         }
         
         return $fb->add( 'save', SubmitType::class, [
             'label' => 'salary-j.form.save',
-            'translation_domain' => 'Application'
+            'translation_domain' => 'SalaryJ'
         ])->getForm();
     }
 }

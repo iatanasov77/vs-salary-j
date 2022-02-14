@@ -4,7 +4,6 @@
     <h1 align="center">{{ 'salary-j.pages.operators' | trans( {},'SalaryJ' ) }}</h1>
     
     {{ form_start(form, { 'action': path('salaryj_operators_create', {groupId: 0}), 'method': 'POST' }) }}
-        {{ form_widget( form._token ) }}
         {{ form_widget( form.application_code, {'value' : application.code} ) }}
     
     	<table cellspacing="0" cellpadding="2">
@@ -96,7 +95,7 @@
     				</tr>
     				<tr>
                         <td>
-                            {% if resources.haveToPaginate() %} {{ pagerfanta( resources ) }}{% endif %}
+                            {% if resources.haveToPaginate() %} {{ pagerfanta( resources, null, { 'proximity': 10 } ) }}{% endif %}
                         </td>
                     </tr>
     			</table>
@@ -107,9 +106,9 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    {{ encore_entry_link_tags( 'js/pages/operators', null, 'xcartThemeConfig' ) }}
+    {{ encore_entry_link_tags( 'js/pages/operators', null, 'SalaryjXcartThemeConfig' ) }}
 {% endblock %}
 
 {% block body_javascripts %}
-    {{ encore_entry_script_tags( 'js/pages/operators', null, 'xcartThemeConfig' ) }}
+    {{ encore_entry_script_tags( 'js/pages/operators', null, 'SalaryjXcartThemeConfig' ) }}
 {% endblock %}

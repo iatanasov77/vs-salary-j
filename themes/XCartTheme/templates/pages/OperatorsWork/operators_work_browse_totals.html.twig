@@ -40,7 +40,7 @@
                             <br /><br />
                             
                             <div  id="OperatorsContainer">
-                                {% include 'salary-j/pages/Operations/Partial/operators_totals.html.twig' %}
+                                {% include 'pages/OperatorsWork/Partial/operators_totals.html.twig' %}
                             </div>
                             
                         </td>
@@ -56,9 +56,9 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    {{ encore_entry_link_tags( 'js/pages/operators_work_browse_totals', null, 'xcartThemeConfig' ) }}
+    {{ encore_entry_link_tags( 'js/pages/operators_work_browse_totals', null, 'SalaryjXcartThemeConfig' ) }}
 {% endblock %}
 
 {% block body_javascripts %}
-    {{ encore_entry_script_tags( 'js/pages/operators_work_browse_totals', null, 'xcartThemeConfig' ) }}
+    {{ encore_entry_script_tags( 'js/pages/operators_work_browse_totals', null, 'SalaryjXcartThemeConfig' ) }}
 {% endblock %}

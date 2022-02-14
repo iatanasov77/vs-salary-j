@@ -6,10 +6,11 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 use Vankosoft\ApplicationBundle\Component\I18N;
+use App\Form\Type\OperatorGroupType;
+use App\Entity\OperatorsGroup;
 
 class OperatorsGroupForm extends AbstractForm
 {
@@ -40,12 +41,8 @@ class OperatorsGroupForm extends AbstractForm
                 'label'                 => 'salary-j.form.locale',
                 'translation_domain'    => 'SalaryJ',
                 'choices'               => \array_flip( I18N::LanguagesAvailable() ),
+                'data'                  => \Locale::getDefault(),
                 'mapped'                => false,
-            ])
-            
-            ->add( 'name', TextType::class, [
-                'label'                 => 'salary-j.form.name',
-                'translation_domain'    => 'SalaryJ',
             ])
             
             ->add( 'parent', EntityType::class, [
@@ -65,6 +62,11 @@ class OperatorsGroupForm extends AbstractForm
         
                 'required'      => false,
                 'placeholder'   => 'salary-j.form.operators_group.parent_operators_group_placeholder',
+            ])
+            
+            ->add( 'operator_group', OperatorGroupType::class, [
+                'mapped'        => false,
+                'data_class'    => OperatorsGroup::class,
             ])
         ;
     }

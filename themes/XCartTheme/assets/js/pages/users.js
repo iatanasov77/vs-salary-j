@@ -1,26 +1,14 @@
-
-function checkAll( flag, form, prefix )
-{
-    if ( ! form )
-        return;
-
-    if ( prefix )
-        var reg = new RegExp( "^"+prefix, "" );
-    for ( var i = 0; i < form.elements.length; i++ ) {
-        if ( form.elements[i].type == "checkbox" && ( ! prefix || form.elements[i].name.search( reg ) == 0 ) && ! form.elements[i].disabled )
-            form.elements[i].checked = flag;
-    }
-}
+import { checkAll } from '../includes/change_all_checkboxes.js';
 
 $( function()
 {
     $( '#checkAll' ).on( 'click', function( e )
     {
-        checkAll( true, document.operatorsform, 'op_ids' );
+        checkAll( true, document.processuserform, 'user' );
     });
     
     $( '#uncheckAll' ).on( 'click', function( e )
     {
-        checkAll( false, document.operatorsform, 'op_ids' );
+        checkAll( false, document.processuserform, 'user' );
     });
 });

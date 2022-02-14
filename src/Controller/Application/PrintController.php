@@ -26,18 +26,23 @@ class PrintController extends AbstractController
     /** @var EntityRepository */
     private $groupsRepository;
     
+    /** @var EntityRepository */
+    private $modelsRepository;
+    
     public function __construct(
         TranslatorInterface $translator,
         ApplicationContext $applicationContext,
         EntityRepository $operatorsRepository,
         OperatorsWorkRepository $operatorsWorkRepository,
-        EntityRepository $groupsRepository
+        EntityRepository $groupsRepository,
+        EntityRepository $modelsRepository
     ) {
             $this->translator               = $translator;
             $this->applicationContext       = $applicationContext;
             $this->operatorsRepository      = $operatorsRepository;
             $this->operatorsWorkRepository  = $operatorsWorkRepository;
             $this->groupsRepository         = $groupsRepository;
+            $this->modelsRepository         = $modelsRepository;
     }
     
     public function printOperations( int $operatorId, $startDate, $endDate, Request $request ): Response
@@ -101,6 +106,28 @@ class PrintController extends AbstractController
         return $this->render( 'pages/Print/operators_work_totals.html.twig', $tplVars );
     }
     
+    public function printModelWork( int $modelId, $startDate, $endDate, Request $request ): Response
+    {
+        $model              = $this->modelsRepository->find( $modelId );
+        $dateRange          = $this->resolveDateRange( $startDate, $endDate );
+        $work               = $this->operatorsWorkRepository->getOperationsWorkCount(
+            $modelId,
+            $dateRange['startDate'],
+            $dateRange['endDate'],
+            true
+        );
+        
+        $tplVars = [
+            'model'     => $model,
+            'startDate' => new \DateTime( $startDate ),
+            'endDate'   => new \DateTime( $endDate ),
+            'work'      => $work,
+            'workCount' => $this->getOperationsWorkCount( $work['listOperations'] ),
+        ];
+        
+        return $this->render( 'pages/Print/operations_work.html.twig', $tplVars );
+    }
+    
     private function resolveDateRange( $queryStartDate, $queryEndDate ) : array
     {
         $startDate          = \DateTime::createFromFormat( 'Y-m-d', $queryStartDate );
@@ -112,5 +139,15 @@ class PrintController extends AbstractController
             'startDate' => $startDate,
             'endDate'   => $endDate
         ];
+    }
+    
+    private function getOperationsWorkCount( $operations )
+    {
+        $workCount  = [];
+        foreach( $operations as $op )  {
+            $workCount[$op['operationId']]  = $op;
+        }
+        
+        return $workCount;
     }
 }

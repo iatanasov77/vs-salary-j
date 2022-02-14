@@ -4,6 +4,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Contracts\Translation\TranslatorInterface;
+use Twig\Environment;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 use Vankosoft\ApplicationBundle\Component\Context\ApplicationContext;
 use Vankosoft\ApplicationBundle\Component\Status;
@@ -16,6 +18,12 @@ use App\Form\ModelsIndexForm;
 
 class ModelsExtController extends AbstractController
 {
+    /** @var Environment */
+    private $templatingEngine;
+    
+    /** @var TranslatorInterface */
+    private $translator;
+    
     /** @var ApplicationContext */
     private $applicationContext;
     
@@ -35,6 +43,8 @@ class ModelsExtController extends AbstractController
     private $operatorsWorkRepository;
     
     public function __construct(
+        Environment $templatingEngine,
+        TranslatorInterface $translator,
         ApplicationContext $applicationContext,
         EntityRepository $modelsRepository,
         OperationsRepository $operationsRepository,
@@ -42,6 +52,8 @@ class ModelsExtController extends AbstractController
         SettingsRepository $settingsRepository,
         OperatorsWorkRepository $operatorsWorkRepository
     ) {
+        $this->templatingEngine         = $templatingEngine;
+        $this->translator               = $translator;
         $this->applicationContext       = $applicationContext;
         $this->modelsRepository         = $modelsRepository;
         $this->operationsRepository     = $operationsRepository;
@@ -117,39 +129,40 @@ class ModelsExtController extends AbstractController
         ]);
     }
     
-    public function browseOperations( int $modelId, Request $request ): Response
+    public function workCount( int $modelId, Request $request ): Response
     {
-        $model          = $this->modelsRepository->find( $modelId );
-        $operationForm  = $this->createForm( OperationForm::class );
-        $settings       = $this->settingsRepository->getSettings( $this->applicationContext->getApplication()->getId() );
-        $totals         = $this->operationsRepository->getTotals( $model );
-        //var_dump($settings); die;
+        $model              = $this->modelsRepository->find( $modelId );
+        
+        $dateRange          = $this->resolveDateRange( $request );
+        $dateRangeChanged   = $request->request->get( 'dateRangeChanged' ) ? true : false;
+        
+        
+        $operatorsWork  = $this->operatorsWorkRepository->getOperationsWorkCount(
+            $modelId,
+            $dateRange['startDate'],
+            $dateRange['endDate'],
+            true
+        );
         
         $tplVars = [
             'model'         => $model,
-            'operationForm' => $operationForm->createView(),
-            'settings'      => $settings,
-            'totals'        => $totals,
-        ];
-        
-        return $this->render( 'pages/Operations/model_browse_operations.html.twig', $tplVars );
-    }
-    
-    public function browseOperationsGet( Request $request ): Response
-    {
-        return $this->browseOperations( $request->query->get( 'modid' ), $request );
-    }
-    
-    public function addOperations( int $modelId, Request $request ): Response
-    {
-        $tplVars = [
+            'dateRange'     => $dateRange,
             
+            'operatorsWork' => $operatorsWork,
+            'workCount'     => $this->getOperationsWorkCount( $operatorsWork['listOperations'] ),
         ];
         
-        return $this->render( 'pages/Operations/model_add_operations.html.twig', $tplVars );
+        if ( $request->isMethod( 'POST' ) && $dateRangeChanged ) {
+            return new JsonResponse([
+                'modelName' => $model ? $model->getName() : $this->translator->trans( 'salary-j.form.common_group', [], 'Application' ),
+                'workTable' => $this->templatingEngine->render( 'pages/Models/Partial/operations_work.html.twig', $tplVars )
+            ]);
+        }
+        
+        return $this->render( 'pages/Models/operations_work.html.twig', $tplVars );
     }
     
-    public function addOperationsNew( int $modelId, Request $request ): Response
+    public function workCountNew( int $modelId, Request $request ): Response
     {
         $model          = $this->modelsRepository->find( $modelId );
         $operators      = $this->operatorsRepository->findBy( ['application' => $this->applicationContext->getApplication()] );
@@ -171,13 +184,23 @@ class ModelsExtController extends AbstractController
             'settings'          => $settings,
             'date'              => $date,
             'operatorsWork'     => $operatorsWork,
-            'workCount'         => $this->getWorkCount( $operatorsWork['listOperations'], $date )
+            'workCount'         => $this->getOperatorsWorkCount( $operatorsWork['listOperations'], $date )
         ];
         
         return $this->render( 'pages/Models/operators_work.html.twig', $tplVars );
     }
     
-    private function getWorkCount( $workedOperations, $date )
+    private function getOperationsWorkCount( $operations )
+    {
+        $workCount  = [];
+        foreach( $operations as $op )  {
+            $workCount[$op['operationId']]  = $op;
+        }
+        
+        return $workCount;
+    }
+    
+    private function getOperatorsWorkCount( $workedOperations, $date )
     {
         $workCount  = [];
         foreach( $workedOperations as $op )  {
@@ -209,5 +232,28 @@ class ModelsExtController extends AbstractController
         }
         
         return $modelsIndexed;
+    }
+    
+    private function resolveDateRange( Request $request ) : array
+    {
+        $queryStartDate     = $request->request->get( 'startDate' );
+        $queryEndDate       = $request->request->get( 'endDate' );
+        
+        if ( $queryStartDate && $queryEndDate ) {
+            $startDate          = \DateTime::createFromFormat( 'Y-m-d', $queryStartDate );
+            $endDate            = \DateTime::createFromFormat( 'Y-m-d', $queryEndDate );
+            $startDate->setTime( 0, 0 );
+        } else {
+            $endDate            = new \DateTime();
+            $startDate          = new \DateTime();
+            $startDate->modify( '-7 day' );
+            $startDate->setTime( 0, 0 );
+        }
+        //echo "<pre>"; var_dump( \DateTime::getLastErrors() ); die;
+        
+        return [
+            'startDate' => $startDate,
+            'endDate'   => $endDate
+        ];
     }
 }

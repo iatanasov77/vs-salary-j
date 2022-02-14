@@ -27,7 +27,7 @@ final class Version20220119152243 extends AbstractMigration
         $this->addSql('ALTER TABLE JUN_OperatorsWork ADD PRIMARY KEY (id, operator_id, operation_id, date)');
         
         $this->addSql('ALTER TABLE JUN_OperatorsWork MODIFY id INT NOT NULL AUTO_INCREMENT');
-
+        
         $this->addSql('ALTER TABLE VSAPP_Settings DROP FOREIGN KEY FK_4A491FD507FAB6A');
         $this->addSql('DROP INDEX IDX_4A491FD507FAB6A ON VSAPP_Settings');
         $this->addSql('ALTER TABLE VSAPP_Settings CHANGE maintenance_page_id maintenance_page_id  INT DEFAULT NULL');

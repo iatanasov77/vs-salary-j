@@ -25,7 +25,6 @@ final class Version20220103090841 extends AbstractMigration
         $this->addSql('ALTER TABLE VSAPP_Settings CHANGE maintenance_page_id maintenance_page_id  INT DEFAULT NULL');
         $this->addSql('ALTER TABLE VSAPP_Settings ADD CONSTRAINT FK_4A491FD507FAB6A FOREIGN KEY (maintenance_page_id ) REFERENCES VSCMS_Pages (id) ON DELETE CASCADE');
         $this->addSql('CREATE INDEX IDX_4A491FD507FAB6A ON VSAPP_Settings (maintenance_page_id )');
-        $this->addSql('ALTER TABLE VSUM_UserRoles DROP INDEX IDX_7F8AAD7EDE13F470, ADD UNIQUE INDEX UNIQ_7F8AAD7EDE13F470 (taxon_id)');
         $this->addSql('ALTER TABLE VSUM_UsersInfo ADD title ENUM(\'mister\', \'mrs\', \'miss\')');
     }
 
@@ -37,7 +36,6 @@ final class Version20220103090841 extends AbstractMigration
         $this->addSql('ALTER TABLE VSAPP_Settings CHANGE maintenance_page_id  maintenance_page_id INT DEFAULT NULL');
         $this->addSql('ALTER TABLE VSAPP_Settings ADD CONSTRAINT FK_4A491FD507FAB6A FOREIGN KEY (maintenance_page_id) REFERENCES VSCMS_Pages (id) ON UPDATE NO ACTION ON DELETE CASCADE');
         $this->addSql('CREATE INDEX IDX_4A491FD507FAB6A ON VSAPP_Settings (maintenance_page_id)');
-        $this->addSql('ALTER TABLE VSUM_UserRoles DROP INDEX UNIQ_7F8AAD7EDE13F470, ADD INDEX IDX_7F8AAD7EDE13F470 (taxon_id)');
         $this->addSql('ALTER TABLE VSUM_UsersInfo DROP title');
     }
 }

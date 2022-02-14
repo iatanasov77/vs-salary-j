@@ -4,30 +4,33 @@ use Symfony\Component\HttpFoundation\Request;
 use Vankosoft\ApplicationBundle\Controller\AbstractCrudController;
 use Vankosoft\ApplicationBundle\Controller\TaxonomyHelperTrait;
 
+use App\Form\OperatorsGroupsIndexForm;
+
 class OperatorsGroupsController extends AbstractCrudController
 {
     use TaxonomyHelperTrait;
     
     protected function customData( Request $request, $entity = NULL ): array
-    {
-        $taxonomy   = $this->get( 'vs_application.repository.taxonomy' )->findByCode(
-            $this->getParameter( 'salary_j.operators_groups.taxonomy_code' )
-        );
-        
+    {        
         $configuration  = $this->requestConfigurationFactory->create( $this->metadata, $this->currentRequest );
         $form           = $this->resourceFormFactory->create( $configuration, $this->getFactory()->createNew() );
+        
+        $groupsIndexed = [];
+        foreach ( $this->resources as $gr ) {
+            $groupsIndexed[$gr->getId()] = $gr;
+        }
         
         return [
             'application'   => $this->get( 'vs_application.context.application' )->getApplication(),
             'form'          => $form->createView(),
-            'taxonomy'      => $taxonomy,
+            'index_form'    => $this->createForm( OperatorsGroupsIndexForm::class, ['operators_groups' => $groupsIndexed] )->createView(),
         ];
     }
     
     protected function prepareEntity( &$entity, &$form, Request $request )
     {
         $translatableLocale = $form['currentLocale']->getData();
-        $categoryName       = $form['name']->getData();
+        $categoryName       = $form['operator_group']['name']->getData();
         /*
         $parentGroup        = $this->get( 'salaryj.repository.operatorsgroups' )
                                     ->findByTaxonId( $_POST['operators_group_form']['parent'] );
@@ -35,30 +38,31 @@ class OperatorsGroupsController extends AbstractCrudController
         $parentGroup        = null;
         
         $entity->setApplication( $this->get( 'vs_application.context.application' )->getApplication() );
+        $entity->setName( $categoryName );
+        
         if ( $entity->getTaxon() ) {
-            $entity->getTaxon()->setCurrentLocale( $translatableLocale );
-            $entity->getTaxon()->setName( $categoryName );
-            if ( $parentGroup ) {
-                $entity->getTaxon()->setParent( $parentGroup->getTaxon() );
-            }
+            $entityTaxon    = $entity->getTaxon();
             
-            $entity->setParent( $parentGroup );
+            $entityTaxon->setCurrentLocale( $translatableLocale );
+            $entityTaxon->setName( $categoryName );
+            $entityTaxon->setCode( $this->get( 'vs_application.slug_generator' )->generate( $categoryName ) );
+            
+            if ( $parentGroup ) {
+                $entityTaxon->setParent( $parentGroup->getTaxon() );
+            }
         } else {
-            /*
-             * @WORKAROUND Create Taxon If not exists
-             */
             $taxonomy   = $this->get( 'vs_application.repository.taxonomy' )->findByCode(
                 $this->getParameter( 'salary_j.operators_groups.taxonomy_code' )
             );
-            $newTaxon   = $this->createTaxon(
+            $entityTaxon    = $this->createTaxon(
                 $categoryName,
                 $translatableLocale,
                 $parentGroup ? $parentGroup->getTaxon() : null,
                 $taxonomy->getId()
             );
-            
-            $entity->setTaxon( $newTaxon );
-            $entity->setParent( $parentGroup );
         }
+        
+        $entity->setTaxon( $entityTaxon );
+        $entity->setParent( $parentGroup );
     }
 }

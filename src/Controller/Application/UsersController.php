@@ -13,7 +13,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
 use Vankosoft\ApplicationBundle\Component\Context\ApplicationContextInterface;
+use Vankosoft\ApplicationBundle\Repository\ApplicationRepositoryInterface;
+use Vankosoft\UsersBundle\Security\UserManager;
 use Vankosoft\UsersBundle\Repository\UsersRepository;
+use Vankosoft\UsersBundle\Repository\UserRolesRepository;
 use App\Entity\UserManagement\User;
 use App\Form\UserForm;
 
@@ -22,20 +25,40 @@ class UsersController extends AbstractController
     /** @var ApplicationContextInterface */
     private $applicationContext;
     
-    /** @var SettingsRepository */
+    /** @var ApplicationRepositoryInterface */
+    private $applicationRepository;
+    
+    /** @var UserManager */
+    private $userManager;
+    
+    /** @var UsersRepository */
     private $repository;
     
     /** @var Factory */
     private $factory;
     
+    /** @var Factory */
+    private $factoryInfo;
+    
+    /** @var UserRolesRepository */
+    private $repositoryRoles;
+    
     public function __construct(
         ApplicationContextInterface $applicationContext,
+        ApplicationRepositoryInterface $applicationRepository,
+        UserManager $userManager,
         UsersRepository $repository,
-        Factory $factory
+        Factory $factory,
+        Factory $factoryInfo,
+        UserRolesRepository $repositoryRoles
     ) {
-        $this->applicationContext   = $applicationContext;
-        $this->repository           = $repository;
-        $this->factory              = $factory;
+        $this->applicationContext       = $applicationContext;
+        $this->applicationRepository    = $applicationRepository;
+        $this->userManager              = $userManager;
+        $this->repository               = $repository;
+        $this->factory                  = $factory;
+        $this->factoryInfo              = $factoryInfo;
+        $this->repositoryRoles          = $repositoryRoles;
     }
     
     public function index( Request $request ) : Response
@@ -56,8 +79,16 @@ class UsersController extends AbstractController
             $em     = $this->getDoctrine()->getManager();
             $entity = $form->getData();
             
+            $entity->setPreferedLocale( $request->getLocale() );
+            $entity->setVerified( true );
             
+            $plainPassword  = $form->get( "plain_password" )->getData();
+            if ( $plainPassword ) {
+                $this->userManager->encodePassword( $entity, $plainPassword );
+            }
             
+            $this->buildInfo( $entity, $form );
+            $this->buildPermissions( $entity, $form );
             
             $em->persist( $entity );
             $em->flush();
@@ -85,17 +116,21 @@ class UsersController extends AbstractController
     {
         $application    = $this->applicationContext->getApplication();
         $users          = $this->repository->findAll();
-        
+       
         $displayUsers   = [];
         $displayUsers[$this->getUser()->getUsername()] = $this->getUser();
         
         $rolesAncestors = new ArrayCollection();
         foreach ( $users as $u ) {
-            $rolesAncestors = $u->getRolesAncestors();
-            foreach ( $this->getUser()->getRolesCollection() as $ur ) {
-                if ( $u->getApplications()->contains( $application ) || $rolesAncestors->contains( $ur ) ) {
-                    $displayUsers[$u->getUsername()] = $u;
-                    break;
+            if ( $this->isGranted( 'ROLE_SUPER_ADMIN' ) ) {
+                $displayUsers[$u->getUsername()] = $u;
+            } else {
+                $rolesAncestors = $u->getRolesAncestors();
+                foreach ( $this->getUser()->getRolesCollection() as $ur ) {
+                    if ( $u->getApplications()->contains( $application ) || $rolesAncestors->contains( $ur ) ) {
+                        $displayUsers[$u->getUsername()] = $u;
+                        break;
+                    }
                 }
             }
         }
@@ -104,14 +139,55 @@ class UsersController extends AbstractController
         return $displayUsers;
     }
     
-    private function getRolesAncestors( $r ): Collection
+    private function buildInfo( &$entity, $form  )
     {
-        $ancestors = [];
-        
-        for ( $ancestor = $r->getParent(); null !== $ancestor; $ancestor = $ancestor->getParent() ) {
-            array_push( $ancestors, $ancestor );
+        $infoEntity = $entity->getInfo();
+        if ( ! $infoEntity ) {
+            $infoEntity = $this->factoryInfo->createNew();
         }
-
-        return new ArrayCollection( $ancestors );
+        
+        $infoEntity->setTitle( $form->get( "title" )->getData() );
+        $infoEntity->setFirstName( $form->get( "firstName" )->getData() );
+        $infoEntity->setLastName( $form->get( "lastName" )->getData() );
+        $infoEntity->setMobile( $form->get( "mobile" )->getData() );
+        
+        $entity->setInfo( $infoEntity );
+    }
+    
+    private function buildPermissions( &$entity, $form )
+    {
+        $entity->setRolesCollection( new ArrayCollection() );
+        
+        if ( $this->isGranted( 'ROLE_APPLICATION_ADMIN' ) ) {
+            $role                   = $this->repositoryRoles->findByTaxonCode( 'role-application-admin' );
+            $allowedApplications    = $form->get( "applications" )->getData();
+        } else {
+            $application            = $this->applicationContext->getApplication();
+            $role                   = $this->repositoryRoles->findByTaxonCode( 'role-junona-dimitrovgrad' );
+            
+            $allowedApplications    = [$application];
+        }
+        
+        $entity->addRole( $role );
+        
+        $this->clearApplications( $entity );
+        $entity->setApplications( $allowedApplications );
+    }
+    
+    /**
+     * Used before setApplications method to fix when removing an application
+     * MANUAL: https://stackoverflow.com/questions/38955114/symfony-doctrine-remove-manytomany-association/38955917
+     */
+    private function clearApplications( &$entity )
+    {
+        $userApps   = $entity->getApplications();
+        
+        foreach ( $this->applicationRepository->findAll() as $app ) {
+            if ( ! $userApps->contains( $app ) ) {
+                $app->removeUser( $entity );
+            }
+        }
+        
+        return $this;
     }
 }

@@ -1,0 +1,60 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+    <h1 align="center">{{ 'salary-j.pages.operations' | trans( {},'SalaryJ' ) }}</h1>
+    <h2 align="center">{{ 'salary-j.pages.model' | trans( {},'SalaryJ' ) }}: {{ model.number }}. {{ model.name }}</h2>
+    
+    <div class="date-range-picker-container">
+        <div class="date-range-picker-subcontainer">
+            <span class="date-range-picker-label">{{ 'salary-j.pages.period_for' | trans( {},'SalaryJ' ) }}: </span>
+            <div id="operations_work_period"
+                class="date-range-picker-widget lang_{{ app.request.locale|slice(0, 2) }}"
+                data-workStartDate="{{ dateRange['startDate'] | date( 'Y-m-d' ) }}"
+                data-workEndDate="{{ dateRange['endDate'] | date( 'Y-m-d' ) }}"
+                data-url="{{ path( 'app_model_work_count', {'modelId': model.id} ) }}"
+            >
+                <i class="fa fa-calendar"></i>&nbsp;
+                <span></span> <i class="fa fa-caret-down"></i>
+            </div>
+        </div>
+    </div>
+    
+    <br /><br />
+    <input type="button" value="{{ 'salary-j.pages.edit' | trans( {},'SalaryJ' ) }}"
+        id="btnModelEdit"
+        data-url="{{ path( 'app_model_print_work_count', {'modelId': model.id, 'startDate': dateRange['startDate'] | date( 'Y-m-d' ), 'endDate': dateRange['endDate'] | date( 'Y-m-d' )}) }}"
+    />
+    <br /><br />
+    
+    <table cellspacing="0" width="100%">
+        <tr>
+            <td class="DialogTitle">{{ 'salary-j.pages.operations' | trans( {},'SalaryJ' ) }}</td>
+        </tr>
+        <tr>
+            <td class="DialogBorder">
+    
+                <table cellspacing="1" class="DialogBox">
+                    <tr>
+                        <td class="DialogBox" valign="top"><br />
+                            <div  id="OperationsContainer">
+                                {% include 'pages/Models/Partial/operations_work.html.twig' %}
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{# $pager #}</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+    {{ encore_entry_link_tags( 'js/pages/operations_work', null, 'SalaryjXcartThemeConfig' ) }}
+{% endblock %}
+        
+{% block body_javascripts %}
+    {{ encore_entry_script_tags( 'js/pages/operations_work', null, 'SalaryjXcartThemeConfig' ) }}
+{% endblock %}

@@ -14,7 +14,9 @@ class UserInfo extends BaseUserInfo
     const TITLE_MISS    = 'miss';
     
     /**
-     * @ORM\Column(type="string", columnDefinition="ENUM('mister', 'mrs', 'miss')", nullable=false)
+     * @var string
+     * 
+     * @ORM\Column(type="string", columnDefinition="ENUM('mister', 'mrs', 'miss')", nullable=true)
      */
     private $title;
     
@@ -25,9 +27,6 @@ class UserInfo extends BaseUserInfo
     
     public function setTitle( $title ): self
     {
-        if ( ! in_array( $title, [self::TITLE_MISTER, self::TITLE_MRS, self::TITLE_MISS] ) ) {
-            throw new \InvalidArgumentException( "Invalid title" );
-        }
         $this->title    = $title;
         
         return $this;

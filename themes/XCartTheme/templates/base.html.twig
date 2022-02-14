@@ -3,16 +3,16 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}{{ applicationTitle }}{% endblock %}</title>
-        <link rel="icon" type="image/png" href="{{ asset( 'build/xcart-theme/images/vankosoft-thumb.png' ) }}" />
+        <link rel="icon" type="image/png" href="{{ asset( 'build/salaryj-xcart-theme/images/vankosoft-thumb.png' ) }}" />
         
         {# Run `composer require symfony/webpack-encore-bundle`
            and uncomment the following Encore helpers to start using Symfony UX #}
         {% block stylesheets %}
-            {{ encore_entry_link_tags( 'css/app', null, 'xcartThemeConfig' ) }}
+            {{ encore_entry_link_tags( 'css/app', null, 'SalaryjXcartThemeConfig' ) }}
         {% endblock %}
 
         {% block javascripts %}
-            {{ encore_entry_script_tags( 'js/app', null, 'xcartThemeConfig' ) }}
+            {{ encore_entry_script_tags( 'js/app', null, 'SalaryjXcartThemeConfig' ) }}
         {% endblock %}
     </head>
     <body>
@@ -37,7 +37,7 @@
         						<!-- /central space -->
         						&nbsp;
         					</td>
-        					<td><img src="{{ asset( 'build/xcart-theme/images/spacer.gif' ) }}" width="20" height="1" border="0" /> </td>
+        					<td><img src="{{ asset( 'build/salaryj-xcart-theme/images/spacer.gif' ) }}" width="20" height="1" border="0" /> </td>
         				</tr>
         			</table>
         			<!-- /main area -->
@@ -45,7 +45,7 @@
         		</td>
         	</tr>
         	<tr>
-        		<td><img src="{{ asset( 'build/xcart-theme/images/spacer.gif' ) }}" class="Spc" alt="" /></td>
+        		<td><img src="{{ asset( 'build/salaryj-xcart-theme/images/spacer.gif' ) }}" class="Spc" alt="" /></td>
         	</tr>
         	<tr>
         		<td class="BottomRow">

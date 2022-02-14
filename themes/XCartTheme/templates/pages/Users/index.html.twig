@@ -5,7 +5,6 @@
 	<br /><br /><br />
 
     {{ form_start(form, { 'action': path('salaryj_settings_update'), 'method': 'POST' }) }}
-    	{{ form_widget( form._token ) }}
 
         	<table cellspacing="0" width="100%">
         		<tr>
@@ -16,7 +15,6 @@
         				<table cellspacing="1" class="DialogBox">
         					<tr>
         						<td class="DialogBox" valign="top"><br />
-        							<script src="{$wwwDir}js/change_all_checkboxes.js" language="JavaScript" type="text/javascript"></script>
 									<div style="line-height: 170%;">
 									    <a href="javascript:void(0);" id="checkAll">{{ 'salary-j.pages.all' | trans( {},'SalaryJ' ) }}</a> / 
                                         <a href="javascript:void(0);" id="uncheckAll">{{ 'salary-j.pages.nothing' | trans( {},'SalaryJ' ) }}</a>
@@ -37,7 +35,7 @@
 												<td><a href="users.php?mode=search&amp;sort=usertype">{{ 'salary-j.form.user_roles' | trans( {},'SalaryJ' ) }}</a></td>
 												<td><a href="users.php?mode=search&amp;sort=usertype">{{ 'salary-j.form.allowed_applications' | trans( {},'SalaryJ' ) }}</a></td>
 												<td>
-												    <img src="/demo/skin7/images/r_bottom.gif" width="7" height="6" alt="" />
+												    <img src="{{ asset( 'build/salaryj-xcart-theme/images/r_bottom.gif' ) }}" width="7" height="6" alt="" />
 												        &nbsp;<a href="users.php?mode=search&amp;sort=last_login">{{ 'salary-j.form.last_logged_in' | trans( {},'SalaryJ' ) }}</a>
 												</td>
 											</tr>
@@ -92,5 +90,5 @@
 {% endblock %}
 
 {% block body_javascripts %}
-    {{ encore_entry_script_tags( 'js/pages/users', null, 'xcartThemeConfig' ) }}
+    {{ encore_entry_script_tags( 'js/pages/users', null, 'SalaryjXcartThemeConfig' ) }}
 {% endblock %}
