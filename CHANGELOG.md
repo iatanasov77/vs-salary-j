@@ -1,3 +1,11 @@
+1.4.0	|	Release date: **14.02.2022**
+============================================
+* New Features and Improvements:
+  - Create Shared Application Controllers.
+  - Delete Frontend Assests , Because Already Used From Themes.
+  - Sync with Junona Salary.
+
+
 1.3.2	|	Release date: **18.01.2022**
 ============================================
 * New Features:
