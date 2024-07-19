@@ -9,7 +9,7 @@ sylius_resource:
             classes:
                 model:      App\Entity\OperatorsGroup
                 interface:  Sylius\Component\Resource\Model\ResourceInterface
-                controller: App\Controller\JunonaTestApplication\OperatorsGroupsController
+                controller: App\Controller\SalaryJ\OperatorsGroupsController
                 repository: Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository
                 form:       App\Form\OperatorsGroupForm
                 factory: Sylius\Component\Resource\Factory\Factory
@@ -19,7 +19,7 @@ sylius_resource:
             classes:
                 model:      App\Entity\Operator
                 interface:  Sylius\Component\Resource\Model\ResourceInterface
-                controller: App\Controller\JunonaTestApplication\OperatorsController
+                controller: App\Controller\SalaryJ\OperatorsController
                 repository: Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository
                 form:       App\Form\OperatorForm
                 factory: Sylius\Component\Resource\Factory\Factory
@@ -29,7 +29,7 @@ sylius_resource:
             classes:
                 model:      App\Entity\Model
                 interface:  Sylius\Component\Resource\Model\ResourceInterface
-                controller: App\Controller\JunonaTestApplication\ModelsController
+                controller: App\Controller\SalaryJ\ModelsController
                 repository: App\Repository\ModelsRepository
                 form:       App\Form\ModelForm
                 factory: Sylius\Component\Resource\Factory\Factory
@@ -39,7 +39,7 @@ sylius_resource:
             classes:
                 model:      App\Entity\Operation
                 interface:  Sylius\Component\Resource\Model\ResourceInterface
-                controller: App\Controller\JunonaTestApplication\OperationsController
+                controller: App\Controller\SalaryJ\OperationsController
                 repository: App\Repository\OperationsRepository
                 form:       App\Form\OperationForm
                 factory: Sylius\Component\Resource\Factory\Factory

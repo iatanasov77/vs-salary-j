@@ -14,12 +14,12 @@ parameters:
 
     vankosoft_host: '%env(HOST)%'
     applicationCompany: VankoSoft
-    applicationTitle: salary-j.applications.junona_test_application
+    applicationTitle: salary-j.applications.salaryj
     hasTopSearch: false
     applicationCode: 'salary-j'
     
     vs_agent.enabled: false
-    vs_application.version: !php/const App\JunonaTestApplicationKernel::VERSION
+    vs_application.version: !php/const App\SalaryJKernel::VERSION
     vs_application.public_dir: "%kernel.project_dir%/public/salary-j"
     
     vs_users.login_route: 'app_login'
@@ -58,7 +58,7 @@ services:
             - '../../../src/Controller/'
             - '../../../src/Widgets/'
             - '../../../src/Command/'
-            - '../../../src/JunonaTestApplicationKernel.php'
+            - '../../../src/SalaryJKernel.php'
         autowire: true
 
     # add more service definitions when explicit configuration is needed

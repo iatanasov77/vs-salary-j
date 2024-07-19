@@ -1,4 +1,4 @@
-<?php namespace App\Controller\JunonaDimitrovgrad;
+<?php namespace App\Controller\SalaryJ;
 
 use App\Controller\Application\ModelsController as BaseModelsController;
 

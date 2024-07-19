@@ -1,4 +1,4 @@
-<?php namespace App\Controller\JunonaTestApplication;
+<?php namespace App\Controller\SalaryJ;
 
 use App\Controller\Application\DefaultController as ApplicationDefaultController;
 

@@ -1,4 +1,4 @@
-<?php namespace App\Controller\JunonaDimitrovgrad;
+<?php namespace App\Controller\SalaryJ;
 
 use App\Controller\Application\AuthController as ApplicationAuthController;
 use Twig\Environment;
@@ -12,7 +12,7 @@ class AuthController extends ApplicationAuthController
     ) {
         parent::__construct( $applicationContext, $templatingEngine );
         
-        $this->applicationRole  = 'ROLE_JUNONA_DIMITROVGRAD_ADMIN';
+        $this->applicationRole  = 'ROLE_JUNONA_STARA_ZAGORA_ADMIN';
     }
     
 }

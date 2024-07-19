@@ -1,6 +1,6 @@
 app_home:
     path: /
-    controller: App\Controller\JunonaTestApplication\DefaultController::index
+    controller: App\Controller\SalaryJ\DefaultController::index
 
 admin_panel:
     path: /admin
@@ -8,8 +8,8 @@ admin_panel:
 
 app_set_lang:
     path: /set_lang/{lang}
-    controller: App\Controller\JunonaTestApplication\DefaultController::setLanguage
+    controller: App\Controller\SalaryJ\DefaultController::setLanguage
 
 app_set_locale:
     path: /set_locale/{locale}
-    controller: App\Controller\JunonaTestApplication\DefaultController::setLocale
+    controller: App\Controller\SalaryJ\DefaultController::setLocale

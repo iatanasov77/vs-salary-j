@@ -1,8 +1,6 @@
 salary-j:
     applications:
-        junona_test_application: Юнона Тестово Приложение
-        junona_dimitrovgrad: Юнона Димитровград
-        junona_stara_zagora: Юнона Стара Загора
+        salaryj: SalaryJ
 
     layout:
         logedin_as: Вие влезнахте като

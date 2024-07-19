@@ -1,6 +1,6 @@
 vs_application:
     template:
-        vankosoft_application: Junona
+        vankosoft_application: SalaryJ
     
     menu:
         main_menu_title: Main Menu

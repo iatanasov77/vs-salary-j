@@ -1,8 +1,6 @@
 salary-j:
     applications:
-        junona_test_application: Junona Test Application
-        junona_dimitrovgrad: Junona Dimitrovgrad
-        junona_stara_zagora: Junona Stara Zagora
+        salaryj: SalaryJ
         
     layout:
         logedin_as: You are logged in as
