@@ -1,0 +1,86 @@
+<form name="formOperatorWorks" action="" method="post">
+	<input type="hidden" name="fromVsdeDate" id="fromVsdeDate" value="{{ dateRange['startDate'] | date( 'Y-m-d' ) }}" />
+	<input type="hidden" name="toVsdeDate" id="toVsdeDate" value="{{ dateRange['endDate'] | date( 'Y-m-d' ) }}" />
+
+	<table cellpadding="2" cellspacing="1" width="100%" class="table">
+		<thead class="table-dark">
+    		<tr class="TableHead">
+    			<th width="3%">&nbsp;</th>
+    			<th>{{ 'salary-j.pages.date' | trans( {},'SalaryJ' ) }}</th>
+    			{#
+    			<th width="3%" align="center">&sect;</th>
+    			#}
+    			<th>{{ 'salary-j.pages.model' | trans( {},'SalaryJ' ) }}</th>
+    			<th>{{ 'salary-j.pages.operation' | trans( {},'SalaryJ' ) }}</th>
+    			<th width="10%">{{ 'salary-j.pages.unit_price' | trans( {},'SalaryJ' ) }}</th>
+    			<th width="5%">{{ 'salary-j.pages.pieces' | trans( {},'SalaryJ' ) }}</th>
+    			<th width="5%">{{ 'salary-j.pages.total' | trans( {},'SalaryJ' ) }}</th>
+    		</tr>
+    	</thead>
+    	
+    	<tbody>
+        	{% for w in work.listOperations %}
+        		<tr class="bottomborder {cycle values=",TableSubHead"}">
+        			<td>
+        				<input type="checkbox" name="work_ids[{{ w.id }}]" id="chk_{{ w.id }}" onclick="chkClicked('{{ w.id }}');" />
+        			</td>
+        			<td width="15%">
+        	            {# {{ w.date | date( 'F j, Y' ) | format_datetime( locale='bg' ) }} #}
+        	            {{ w.date | date( 'd.m.Y' ) }}
+        			</td>
+        			{#
+        			<td>{{ w.operationNumber }}</td>
+        			#}
+        			<td>
+        				<div style="display:none;" id="dfl_model_{{ w.id }}">{{ w.modelId }}</div>
+        
+        				<input type="hidden" name="posted_data[{{ w.id }}][model]" value="{{ w.total }}" />
+        				{{ w.modelNumber }}.&nbsp;&nbsp;{{ w.modelName }}
+        			</td>
+        			<td>
+        				<div style="display:none;" id="dfl_operation_{{ w.id }}">{{ w.operationId }}</div>
+        
+        				<input type="hidden" name="posted_data[{{ w.id }}][operation]" value="{{ w.operationId }}" />
+        				{{ w.operationNumber }}.&nbsp;&nbsp;{{ w.operationName }}
+        			</td>
+        			<td width="5%">
+        				<div style="display:none;" id="dfl_price_{{ w.id }}">{{ w.price }}</div>
+        				<input type="hidden" name="posted_data[{{ w.id }}][price]" id="price_{{ w.id }}" value="{{ w.price }}" />
+        				<div id="price_view_{{ w.id }}">{{ w.price }}</div>
+        			</td>
+        			<td width="5%">
+        				<div style="display:none;" id="dfl_count_{{ w.id }}">{{ w.count }}</div>
+        				<input type="text" size="3" id="count_{{ w.id }}" name="posted_data[{{ w.id }}][count]" value="{{ w.count }}" onchange="countChanged('{{ w.id }}', this.value);" />
+        			</td>
+        			<td width="5%">
+        				<div id="total_view_{{ w.id }}">{{ w.total }}</div>
+        			</td>
+        		</tr>
+        	{% endfor %}
+    		<tr>
+    			<td colspan="7">&nbsp;</td>
+    		</tr>
+    		<tr>
+    			<td colspan="5">&nbsp;</td>
+    			<td align="left"><b>{{ 'salary-j.pages.total' | trans( {},'SalaryJ' ) }}:</b></td>
+    			<td align="right">{{ work.grandTotal }}</td>
+    		</tr>
+    	</tbody>
+    	<tfoot>
+    		<tr>
+    			<td colspan="7">
+    				<input type="submit" name="sub_works"
+    					value="{{ 'salary-j.form.save' | trans( {},'SalaryJ' ) }}"
+    					class="btn btn-secondary"
+    				/>
+    				<input type="button" name="open_print"
+    				    id="btnPrint"
+    				    class="btn btn-secondary"
+    				    value="{{ 'salary-j.pages.print' | trans( {},'SalaryJ' ) }}"
+    					data-url="{{ path( 'app_operators_work_print_operations', {'operatorId': operator.id, 'startDate': dateRange['startDate'] | date( 'Y-m-d' ), 'endDate': dateRange['endDate'] | date( 'Y-m-d' )}) }}"
+    				/>
+    			</td>
+    		</tr>
+    	</tfoot>
+	</table>
+</form>

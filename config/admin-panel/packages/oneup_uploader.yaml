@@ -1,0 +1,6 @@
+oneup_uploader:
+    mappings:
+        videos_local:
+            frontend: blueimp
+
+    

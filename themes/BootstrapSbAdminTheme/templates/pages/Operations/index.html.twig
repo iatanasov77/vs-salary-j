@@ -1,0 +1,145 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+	<h1 class="text-center mt-4">{{ 'salary-j.pages.operations' | trans( {},'SalaryJ' ) }}</h1>
+	<h4 class="text-center mt-4">{{ 'salary-j.pages.model' | trans( {},'SalaryJ' ) }}: {{ model.number }} - {{ model.name }}</h4>
+	
+	{{ form_start( operationForm, { 'attr': {'class': 'form-horizontal mb-5 mt-2', 'id': 'form-post'}, 'action': path('app_model_operations_save_operation', {'modelId': model.id}), 'method': 'POST' } ) }}
+		{{ form_widget( operationForm.price, {'value' : 1} ) }} {# Fake Value #}
+        
+		<table cellspacing="0" cellpadding="2">
+			<tr>
+				<td colspan="4" class="pb-2"><b>{{ 'salary-j.form.operations.add_new_operation' | trans( {},'SalaryJ' ) }}</b></td>
+			</tr>
+			<tr>
+				<td>{{ form_label( operationForm.operation.operationId ) }}</td>
+				<td>{{ form_label( operationForm.operation.operationName ) }}</td>
+				<td>{{ form_label( operationForm.operation.minutes ) }}</td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td>{{ form_widget( operationForm.operation.operationId, {'attr': {'class': 'form-control', 'size': '6'}} ) }}</td>
+				<td>{{ form_widget( operationForm.operation.operationName, {'attr': {'class': 'form-control', 'size': '60'}} ) }}</td>
+				<td>{{ form_widget( operationForm.operation.minutes, {'attr': {'class': 'form-control', 'size': '6'}} ) }}</td>
+				<!-- <td><input type="text" size="6" name="price" /></td> -->
+
+				<td>{{ form_widget( operationForm.btnSave, {'attr': {'class': 'btn btn-secondary'}} ) }}</td>
+			</tr>
+		</table>
+	{{ form_end(operationForm, {'render_rest': false}) }}
+    
+    <div class="mb-3">
+        <input type="button" value="{{ 'salary-j.pages.worked_operations' | trans( {},'SalaryJ' ) }}"
+        	class="btn btn-secondary"
+    		id="btnWorked"
+            data-url="{{ path( 'app_model_work_count', {'modelId': model.id} ) }}"
+    	/>
+    	<input type="button" value="{{ 'salary-j.pages.worked_operations_new' | trans( {},'SalaryJ' ) }}"
+    		class="btn btn-secondary"
+    		id="btnWorkedNew"
+    		data-url="{{ path( 'app_model_work_count_new', {'modelId': model.id} ) }}"
+    	/>
+    </div>
+    
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            {{ 'salary-j.pages.operations' | trans( {},'SalaryJ' ) }}
+        </div>
+        <div class="card-body">
+        	{% if ( index_form.operations.children | length ) %}
+        		<div style="line-height: 170%;" class="mb-2">
+					<a id="checkAll" href="javascript:void(0);">{{ 'salary-j.pages.all' | trans( {},'SalaryJ' ) }}</a> / 
+					<a id="uncheckAll" href="javascript:void(0);">{{ 'salary-j.pages.nothing' | trans( {},'SalaryJ' ) }}</a>
+				</div>
+        	
+			    {{ form_start( index_form, { attr: { id: 'operations_index_form'} } ) }}
+					{{ form_widget( index_form.model_id, {'value' : model.id} ) }}
+
+					<table cellpadding="2" cellspacing="1" width="70%" class="table">
+						<thead class="table-dark">
+    						<tr class="TableHead">
+    							<th></th>
+    							<th class="align-middle" width="5%">{{ 'salary-j.form.number' | trans( {},'SalaryJ' ) }}</th>
+    							<th class="align-middle">{{ 'salary-j.form.name' | trans( {},'SalaryJ' ) }}</th>
+    							<th class="align-middle" width="5%">{{ 'salary-j.form.operations.minutes' | trans( {},'SalaryJ' ) }}</th>
+    							<th class="align-middle" width="10%">{{ 'salary-j.form.operations.minutes' | trans( {},'SalaryJ' ) }} + {{ settings.minuteBonus.value }}%</th>
+    							<th class="align-middle" width="10%">{{ 'salary-j.form.operations.minutes' | trans( {},'SalaryJ' ) }} * {{ settings.minuteRate.value }} лв.</th>
+    							<!-- 
+    							<td width="5%">Цена (старо)</td>
+    							 -->
+    						</tr>
+    					</thead>
+
+						<tbody>
+                            {% for opId, opWidget in index_form.operations %}
+        						<tr>
+        							<td class="align-middle">
+        								<input type="checkbox" name="opids[{{ opId }}]" class="form-check-input" />
+        							</td>
+        							<td class="align-middle">
+        								{{ form_widget( opWidget.operationId, {'attr': {'class': 'form-control', 'size': '4'}} ) }}
+        							</td>
+        							<td class="align-middle">
+        								<font class="ItemsList">
+        									{{ form_widget( opWidget.operationName, {'attr': {'class': 'form-control', 'size': '60'}} ) }}
+        								</font>
+        							</td>
+        							
+        							<td class="align-middle">
+        							    {{ form_widget( opWidget.minutes, {'attr': {'class': 'form-control', 'size': '6', 'data-currentValue': '', 'data-operationId': ''}} ) }}
+        							</td>
+        							
+        							<td class="align-middle" id="bonus{{ opId }}">
+        							    {{ ( operations[opId].minutes * ( 1 + ( settings.minuteBonus.value / 100 ) ) ) | number_format( 2 ) }}
+        							</td>
+        							<td class="align-middle" id="price{{ opId }}">
+        							    {{ ( operations[opId].minutes * ( 1 + ( settings.minuteBonus.value / 100 ) ) * settings.minuteRate.value ) | number_format( 4 ) }}
+        							</td>
+        						</tr>
+        					{% endfor %}
+        				
+            				<tr>
+    							<td colspan="3" align="right">{{ 'salary-j.pages.total' | trans( {},'SalaryJ' ) }}:</td>
+    							<td id="totalMinutes">{{ totals.totalMinutes }}</td>
+    							<td id="totalBonus">{{ ( totals.totalMinutes * ( 1 + ( settings.minuteBonus.value / 100 ) ) ) | number_format( 2 ) }}</td>
+    							<td id="totalPrice">{{ ( totals.totalMinutes * ( 1 + ( settings.minuteBonus.value / 100 ) ) * settings.minuteRate.value ) | number_format( 4 ) }}</td>
+    						</tr>
+    					</tbody>
+
+						<tfoot>
+    						<tr>
+    							<td colspan="7">
+    							    {{ form_widget( index_form.change_names, {'attr': {'class': 'btn btn-secondary'}} ) }}
+                                    {{ form_widget( index_form.del_operations, {'attr': {'class': 'btn btn-secondary'}} ) }}
+                                    
+                                    <button type="button" class="btn btn-secondary btnDeleteResource"
+                                        href="{{ path('salaryj_models_delete', {'id': model.id}) }}"
+                                        data-csrfToken="{{ csrf_token( model.id ) }}"
+                                        data-redirectUrl="{{ path( 'salaryj_models_index' ) }}"
+                                    >
+                                        {{ 'salary-j.form.operations.remove_model' | trans( {},'SalaryJ' ) }}
+                                    </button>
+    							</td>
+    						</tr>
+    					</tfoot>
+					</table>
+                {{ form_end( index_form, {'render_rest': false} ) }}
+			{% endif %}
+        							
+            {% if resources.haveToPaginate() %}{{ pagerfanta( resources, null, { 'proximity': 10 } ) }}{% endif %}
+        </div>
+    </div>
+    
+    {% include '@VSApplication/Partial/resource-delete.html.twig' %}
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+    {{ encore_entry_link_tags( 'js/pages/operations', null, 'SalaryjSbadminThemeConfig' ) }}
+{% endblock %}
+        
+{% block body_javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags( 'js/pages/operations', null, 'SalaryjSbadminThemeConfig' ) }}
+{% endblock %}

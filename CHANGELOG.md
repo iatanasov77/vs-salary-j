@@ -1,3 +1,9 @@
+2.0.0	|	Release date: **19.07.2024**
+============================================
+* New Features:
+  - Update To New Versions of VankoSoft Bundles.
+
+
 1.4.0	|	Release date: **14.02.2022**
 ============================================
 * New Features and Improvements:

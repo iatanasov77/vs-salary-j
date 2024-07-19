@@ -1,3 +1,6 @@
+parameters:
+    vs_users.registration_form_required_fields: []
+
 services:
     _defaults:
         autowire: true
@@ -7,6 +10,8 @@ services:
         class: App\Form\OperatorsGroupForm
         arguments:
             - "%salaryj.model.operatorsgroups.class%"
+            - '@vs_application.repository.locale'
+            - '@request_stack'
             - "@salaryj.repository.operatorsgroups"
         tags:
             - { name: form.type }
@@ -15,6 +20,8 @@ services:
         class: App\Form\OperatorForm
         arguments:
             - "%salaryj.model.operators.class%"
+            - '@vs_application.repository.locale'
+            - '@request_stack'
         tags:
             - { name: form.type }
     
@@ -22,6 +29,8 @@ services:
         class: App\Form\ModelForm
         arguments:
             - "%salaryj.model.models.class%"
+            - '@vs_application.repository.locale'
+            - '@request_stack'
         tags:
             - { name: form.type }
             
@@ -29,6 +38,8 @@ services:
         class: App\Form\OperationForm
         arguments:
             - "%salaryj.model.operations.class%"
+            - '@vs_application.repository.locale'
+            - '@request_stack'
         tags:
             - { name: form.type }
     
@@ -37,8 +48,24 @@ services:
         tags:
             - { name: form.type }
         arguments:
-            - "@request_stack"
             - '%vs_users.model.users.class%'
+            - '@vs_application.repository.locale'
+            - "@request_stack"
             - '%vs_application.model.application.class%'
+            - '@security.helper'
+            - '%vs_users.registration_form_required_fields%'
             - '@salaryj.component.orm'
+            
+    App\Form\Type\OperatorType:
+        tags:
+            - { name: form.type }
+        arguments:
+            - '@vs_application.context.application'
+            
+    App\Form\OperatorFilterForm:
+        tags:
+            - { name: form.type }
+        arguments:
+            - '@vs_application.context.application'
 
+    

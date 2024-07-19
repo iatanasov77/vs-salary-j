@@ -6,6 +6,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 use App\Entity\Operation;
 
@@ -14,9 +15,10 @@ class OperationType extends AbstractType
     public function buildForm( FormBuilderInterface $builder, array $options ): void
     {
         $builder
-            ->add( 'operationId', TextType::class, [
+            ->add( 'operationId', NumberType::class, [
                 'label'                 => 'salary-j.form.number',
                 'translation_domain'    => 'SalaryJ',
+                'html5'                 => true,
             ])
             
             ->add( 'operationName', TextType::class, [
@@ -29,6 +31,14 @@ class OperationType extends AbstractType
                 'translation_domain'    => 'SalaryJ',
                 'scale'                 => 2,
             ])
+            
+            ->add( 'workCount', CollectionType::class, [
+                'allow_add'             => true,
+                'allow_extra_fields'    => true,
+                'entry_type'            => OperatorWorkType::class,
+                'entry_options'         => ['label' => false],
+                'mapped'                => false,
+            ])
         ;
     }
     
@@ -36,8 +46,8 @@ class OperationType extends AbstractType
     {
         //parent::configureOptions( $resolver );
         $resolver->setDefaults([
-            'data_class' => Operation::class,
-            'allow_extra_fields' => true,
+            'data_class'            => Operation::class,
+            'allow_extra_fields'    => true,
         ]);
     }
 }

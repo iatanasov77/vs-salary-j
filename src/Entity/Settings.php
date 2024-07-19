@@ -3,44 +3,31 @@
 use Doctrine\ORM\Mapping as ORM;
 use Sylius\Component\Resource\Model\ResourceInterface;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Vankosoft\ApplicationBundle\Model\Interfaces\ApplicationRelationInterface;
+use Vankosoft\ApplicationBundle\Model\Traits\ApplicationRelationEntity;
+use Vankosoft\ApplicationBundle\Model\Interfaces\UserAwareInterface;
 use Vankosoft\ApplicationBundle\Model\Traits\UserAwareEntity;
-use Vankosoft\ApplicationBundle\Model\Traits\ApplicationRelationTrait;
 
-use App\Repository\SettingsRepository;
-
-/**
- * Models
- *
- * @ORM\Table(name="JUN_Settings")
- * @ORM\Entity(repositoryClass=SettingsRepository::class)
- */
-class Settings implements ResourceInterface
+#[ORM\Entity]
+#[ORM\Table(name: "JUN_Settings")]
+class Settings implements ResourceInterface, ApplicationRelationInterface, UserAwareInterface
 {
-    use ApplicationRelationTrait;
+    use ApplicationRelationEntity;
     use UserAwareEntity;
     use TimestampableEntity;
     
-    /**
-     * @var \Vankosoft\ApplicationBundle\Model\Interfaces\ApplicationInterface
-     *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Application\Application")
-     * @ORM\Id
-     */
+    /** @var \Vankosoft\ApplicationBundle\Model\Interfaces\ApplicationInterface */
+    #[ORM\Id]
+    #[ORM\ManyToOne(targetEntity: "App\Entity\Application\Application")]
     protected $application;
     
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="var_name", type="string", length=64, nullable=false)
-     * @ORM\Id
-     */
+    /** @var string */
+    #[ORM\Id]
+    #[ORM\Column(name: "var_name", type: "string", length: 64, nullable: false)]
     private $varName;
     
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="var_value", type="string", length=255)
-     */
+    /** @var string */
+    #[ORM\Column(name: "var_value", type: "string", length: 255, nullable: false)]
     private $varValue;
     
     public function getId()

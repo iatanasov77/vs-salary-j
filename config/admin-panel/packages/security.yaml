@@ -1,8 +1,4 @@
 security:
-    # https://symfony.com/doc/current/security/experimental_authenticators.html
-    enable_authenticator_manager: true
-    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
-    
     password_hashers:
         # use your user class name here
         App\Entity\UserManagement\User:
@@ -53,7 +49,7 @@ security:
 
             custom_authenticators:
                 - vs_users.security.login_form_authenticator
-                - vs_users.security.api_key_authenticator
+                #- vs_users.security.api_key_authenticator
             entry_point: vs_users.security.login_form_authenticator
 
     role_hierarchy:

@@ -3,11 +3,15 @@ framework:
         packages:
             default:
                 json_manifest_path: '%kernel.project_dir%/public/salary-j/build/default/manifest.json'
-            xcart-theme:
-                json_manifest_path: '%kernel.project_dir%/public/shared_assets/build/xcart-theme/manifest.json'
+            salaryj-xcart-theme:
+                json_manifest_path: '%kernel.project_dir%/public/shared_assets/build/salaryj-xcart-theme/manifest.json'
+            salaryj-sbadmin-theme:
+                json_manifest_path: '%kernel.project_dir%/public/shared_assets/build/salaryj-sbadmin-theme/manifest.json'
 
 webpack_encore:
     output_path: '%kernel.project_dir%/public/salary-j/build/default'
     builds:
         defaultConfig: '%kernel.project_dir%/public/salary-j/build/default'
-        xcartThemeConfig: '%kernel.project_dir%/public/shared_assets/build/xcart-theme'
+        SalaryjXcartThemeConfig: '%kernel.project_dir%/public/shared_assets/build/salaryj-xcart-theme'
+        SalaryjSbadminThemeConfig: '%kernel.project_dir%/public/shared_assets/build/salaryj-sbadmin-theme'
+

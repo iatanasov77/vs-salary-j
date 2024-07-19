@@ -3,7 +3,7 @@
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
-
+use Doctrine\Persistence\ManagerRegistry;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 use Vankosoft\ApplicationBundle\Component\Context\ApplicationContext;
 use Vankosoft\ApplicationBundle\Component\SlugGenerator;
@@ -12,6 +12,9 @@ use App\Form\OperatorsGroupsIndexForm;
 
 class OperatorsGroupsExtController extends AbstractController
 {
+    /** @var ManagerRegistry */
+    private $doctrine;
+    
     /** @var ApplicationContext */
     private $applicationContext;
     
@@ -22,10 +25,12 @@ class OperatorsGroupsExtController extends AbstractController
     private $slugGenerator;
     
     public function __construct(
+        ManagerRegistry $doctrine,
         ApplicationContext $applicationContext,
         EntityRepository $groupsRepository,
         SlugGenerator $slugGenerator
     ) {
+        $this->doctrine                 = $doctrine;
         $this->applicationContext       = $applicationContext;
         $this->groupsRepository         = $groupsRepository;
         $this->slugGenerator            = $slugGenerator;
@@ -33,7 +38,7 @@ class OperatorsGroupsExtController extends AbstractController
     
     public function updateGroups( Request $request ): JsonResponse
     {
-        $em     = $this->getDoctrine()->getManager();
+        $em     = $this->doctrine->getManager();
         $form   = $this->createForm( OperatorsGroupsIndexForm::class, ['operators_groups' => $this->getGroups()] );
         
         $form->handleRequest( $request );
@@ -59,7 +64,7 @@ class OperatorsGroupsExtController extends AbstractController
     
     public function deleteGroups( Request $request ): JsonResponse
     {
-        $em     = $this->getDoctrine()->getManager();
+        $em     = $this->doctrine->getManager();
         $form   = $this->createForm( OperatorsGroupsIndexForm::class, ['operators_groups' => $this->getGroups()] );
         
         $form->handleRequest( $request );

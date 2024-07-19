@@ -1,0 +1,84 @@
+{%- block pager -%}
+    {% if pageCount > 1 %}
+        <!-- VsPager BEGIN -->
+        <div id="pager" class="menu_navigation">
+        
+            {# Previous Page Link #}
+            <div id="left">
+        	    {% if previous is defined %}
+                    {%- set path = path(route, query|merge({(pageParameterName): previous})) -%}
+                    
+        	        <div class="right">
+                        <a href='{{ path }}'>
+                            {{ 'salary-j.pagination.previous' | trans( {},'SalaryJ' ) }}
+                        </a>
+                    </div>
+        	    {% else %}
+        	        <div class="right">
+        	           <span class="current">
+        	               {{ 'salary-j.pagination.previous' | trans( {},'SalaryJ' ) }}
+        	           </span>
+        	       </div>
+        	    {% endif %}
+        	</div>
+    
+            <div id="center">
+        	    {% if startPage > 1 %}
+        	        {%- set page = 1 -%}
+                    {%- set path = path( route, query | merge( {(pageParameterName): page} ) ) -%}
+                    
+                    <a href="{{- path -}}" title="{{ 'salary-j.pagination.go_to_page' | trans( {},'SalaryJ' ) }}{{- page -}}">{{- page -}}</a>
+        	    {% endif %}
+                
+                {% for page in pagesInRange %}
+        	        {%- set path = path( route, query|merge({(pageParameterName): page}) ) -%}
+                    
+        	        {# {%- if page == current_page -%} #}
+        	        {% if page == current %}
+                        <span class="current">{{- page -}}</span>
+                    {%- else -%}
+                        <a href="{{- path -}}" title="{{ 'salary-j.pagination.go_to_page' | trans( {},'SalaryJ' ) }}{{- page -}}">{{- page -}}</a>
+                    {%- endif -%}
+        	    {% endfor %}
+        	    
+        	    {% if pageCount > endPage %}
+        	        {% if pageCount > (endPage + 1) %}
+        	            {% if pageCount > (endPage + 2) %}
+        	                <span>&hellip;</span>
+        	            {% else %}
+        	                <a href="{{ path(route, query|merge({(pageParameterName): (pageCount - 1)})) }}">{{ pageCount -1 }}</a>
+        	            {% endif %}
+        	        {% endif %}
+        	        
+        	        <a href="{{ path(route, query|merge({(pageParameterName): pageCount})) }}">{{ pageCount }}</a>
+        	    {% endif %}
+            </div>
+            
+            {# Next Page Link #}
+            <div id="right">
+        	    {% if next is defined %}
+                    {%- set path = path(route, query|merge({(pageParameterName): next})) -%}
+                    
+        	        <div class="right">
+                        <a href='{{ path }}'>
+                            {{ 'salary-j.pagination.next' | trans( {},'SalaryJ' ) }}
+                        </a>
+                    </div>
+        	    {% else %}
+        	        <div class="right">
+        	           <span class="current">
+        	               {{ 'salary-j.pagination.next' | trans( {},'SalaryJ' ) }}
+        	           </span>
+        	        </div>
+        	    {% endif %}
+        	</div>
+        </div>
+        <!-- VsPager END -->
+        
+    {% endif %}
+{%- endblock pager -%}
+
+{%- block ellipsis -%}
+    <span class="dots">...</span>
+{%- endblock ellipsis -%}
+

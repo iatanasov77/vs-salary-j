@@ -2,6 +2,8 @@
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -22,19 +24,26 @@ class OperationsIndexForm extends AbstractType
                 'entry_type'            => OperationType::class,
                 'entry_options'         => ['label' => false],
             ])
+            
             ->add( 'change_names', SubmitType::class, [
-                'label'                 => 'salary-j.form.change_names',
+                'label'                 => 'salary-j.form.save',
                 'translation_domain'    => 'SalaryJ',
             ])
-            ->add( 'change_prices', SubmitType::class, [
-                'label'                 => 'salary-j.form.change_prices',
-                'translation_domain'    => 'SalaryJ',
-            ])
+            
             ->add( 'del_operations', SubmitType::class, [
                 'label'                 => 'salary-j.form.operations.remove',
                 'translation_domain'    => 'SalaryJ',
             ])
         ;
+    }
+    
+    public function configureOptions( OptionsResolver $resolver ): void
+    {
+        parent::configureOptions( $resolver );
+        
+        $resolver->setDefaults([
+            'csrf_protection'   => false,
+        ]);
     }
     
     public function getName()

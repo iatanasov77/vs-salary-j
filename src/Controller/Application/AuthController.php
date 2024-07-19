@@ -15,12 +15,17 @@ class AuthController extends AbstractController
     /** @var Environment */
     private $templatingEngine;
     
+    /** @var string */
+    protected $applicationRole;
+    
     public function __construct(
         ApplicationContextInterface $applicationContext,
         Environment $templatingEngine
     ) {
-            $this->applicationContext   = $applicationContext;
-            $this->templatingEngine     = $templatingEngine;
+        $this->applicationContext   = $applicationContext;
+        $this->templatingEngine     = $templatingEngine;
+        
+        $this->applicationRole      = 'ROLE_APPLICATION_ADMIN';
     }
     
     public function login( AuthenticationUtils $authenticationUtils ): Response
@@ -29,7 +34,7 @@ class AuthController extends AbstractController
             $this->getUser() &&
             (
                 $this->getUser()->getApplications()->contains( $this->applicationContext->getApplication() ) ||
-                $this->isGranted( 'ROLE_APPLICATION_ADMIN', $this->getUser() )
+                $this->isGranted( $this->applicationRole, $this->getUser() )
             )
         ) {
             return $this->redirectToRoute( 'app_home' );

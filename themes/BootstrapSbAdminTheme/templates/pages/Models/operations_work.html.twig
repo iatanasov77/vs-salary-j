@@ -1,0 +1,53 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+    <h1 class="text-center mt-4">{{ 'salary-j.pages.operations' | trans( {},'SalaryJ' ) }}</h1>
+    <h4 class="text-center mt-4">{{ 'salary-j.pages.model' | trans( {},'SalaryJ' ) }}: {{ model.number }}. {{ model.name }}</h4>
+    
+    <div class="date-range-picker-container text-center mt-4">
+        <div class="date-range-picker-subcontainer text-center row">
+        	<div class="col-5"></div>
+    		{#
+            <span class="date-range-picker-label text-center">{{ 'salary-j.pages.period_for' | trans( {},'SalaryJ' ) }}: </span>
+            #}
+            <div id="operations_work_period"
+                class="col-2 date-range-picker-widget lang_{{ app.request.locale|slice(0, 2) }}"
+                data-workStartDate="{{ dateRange['startDate'] | date( 'Y-m-d' ) }}"
+                data-workEndDate="{{ dateRange['endDate'] | date( 'Y-m-d' ) }}"
+                data-url="{{ path( 'app_model_work_count', {'modelId': model.id} ) }}"
+            >
+                <i class="fa fa-calendar"></i>
+                <span></span> <i class="fa fa-caret-down"></i>
+            </div>
+            <div class="col-5"></div>
+        </div>
+    </div>
+    
+    <input type="button" value="{{ 'salary-j.pages.edit' | trans( {},'SalaryJ' ) }}"
+    	class="btn btn-secondary mt-3 mb-3"
+        id="btnModelEdit"
+        data-url="{{ path( 'app_model_print_work_count', {'modelId': model.id, 'startDate': dateRange['startDate'] | date( 'Y-m-d' ), 'endDate': dateRange['endDate'] | date( 'Y-m-d' )}) }}"
+    />
+    
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            {{ 'salary-j.pages.operations' | trans( {},'SalaryJ' ) }}
+        </div>
+        <div class="card-body">
+            <div  id="OperationsContainer">
+                {% include 'pages/Models/Partial/operations_work.html.twig' %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+    {{ encore_entry_link_tags( 'js/pages/operations_work', null, 'SalaryjSbadminThemeConfig' ) }}
+{% endblock %}
+        
+{% block body_javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags( 'js/pages/operations_work', null, 'SalaryjSbadminThemeConfig' ) }}
+{% endblock %}

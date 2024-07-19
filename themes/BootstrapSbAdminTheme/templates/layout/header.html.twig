@@ -1,0 +1,32 @@
+<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+    <!-- Navbar Brand-->
+    <a class="navbar-brand ps-3" href="{{ path( 'app_home' ) }}">{{ applicationTitle | trans( {},'SalaryJ' ) }}</a>
+    <!-- Sidebar Toggle-->
+    <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+    
+    <!-- Navbar Search-->
+    <form class="d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+        <div class="input-group">
+        	{% if hasTopSearch %}
+                <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+        	{% endif %}
+        </div>
+    </form>
+    
+    <div class="dropdown ms-1 topbar-head-dropdown header-item">
+        {% set currentLang = ( app.request.locale | split( '_' ) )[1] | lower %}
+        {% set currentFlag = 'build/salaryj-sbadmin-theme/images/flags/' ~ currentLang ~ '.svg' %}
+        <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {#
+            <i class="flag flag-{{ currentLang }} rounded" style="height: 12px; margin-left: 8px;"></i>
+            #}
+            <img src="{{ asset( currentFlag ) }}" alt="Header Language" height="20" class="rounded">
+        </button>
+        
+        {{ vs_widget_render( 'junona-layout', ['application-menu-locales'] ) }}
+    </div>
+    
+    <!-- Navbar-->
+    {{ knp_menu_render( 'profile', { 'template': 'menu/profile-menu.html.twig' } ) }}
+</nav>

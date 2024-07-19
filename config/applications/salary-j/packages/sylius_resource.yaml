@@ -1,4 +1,8 @@
 sylius_resource:
+    #translation:
+        #default_locale: '%locale%'
+        #locale_provider: sylius.translation.locale_provider.contextual
+        #available_locales_provider: sylius.translation.locales_provider
     resources:
         salaryj.operatorsgroups:
             driver: doctrine/orm
@@ -8,6 +12,8 @@ sylius_resource:
                 controller: App\Controller\SalaryJ\OperatorsGroupsController
                 repository: Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository
                 form:       App\Form\OperatorsGroupForm
+                factory: Sylius\Component\Resource\Factory\Factory
+                
         salaryj.operators:
             driver: doctrine/orm
             classes:
@@ -16,6 +22,7 @@ sylius_resource:
                 controller: App\Controller\SalaryJ\OperatorsController
                 repository: Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository
                 form:       App\Form\OperatorForm
+                factory: Sylius\Component\Resource\Factory\Factory
  
         salaryj.models:
             driver: doctrine/orm
@@ -23,8 +30,9 @@ sylius_resource:
                 model:      App\Entity\Model
                 interface:  Sylius\Component\Resource\Model\ResourceInterface
                 controller: App\Controller\SalaryJ\ModelsController
-                repository: Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository
+                repository: App\Repository\ModelsRepository
                 form:       App\Form\ModelForm
+                factory: Sylius\Component\Resource\Factory\Factory
   
         salaryj.operations:
             driver: doctrine/orm
@@ -34,6 +42,7 @@ sylius_resource:
                 controller: App\Controller\SalaryJ\OperationsController
                 repository: App\Repository\OperationsRepository
                 form:       App\Form\OperationForm
+                factory: Sylius\Component\Resource\Factory\Factory
                 
         salaryj.settings:
             driver: doctrine/orm
@@ -48,3 +57,7 @@ sylius_resource:
                 model:      App\Entity\OperatorsWork
                 repository: App\Repository\OperatorsWorkRepository
                 factory: Sylius\Component\Resource\Factory\Factory
+        
+
+        
+

@@ -1,0 +1,144 @@
+salary-j:
+    applications:
+        salaryj: SalaryJ
+        
+    layout:
+        logedin_as: You are logged in as
+        programming_and_design: Programming and Design
+        contact_info: Ivan Atanasov phone. 0876 764 428
+    pagination:
+        previous: Previous
+        next: Next
+        go_to_page: 'Go to page '
+    pages:
+        operators_groups: Operators Groups
+        add_new_group: Create new Group
+        operators: Operators
+        add_new_operator: Create new Operator
+        filter_by_gtoup: Filter by Group
+        all: Check All
+        nothing: Uncheck All
+        browse_operations: Browse Operations
+        add_operations: Add Operations
+        models: Models
+        model: Model
+        add_new_model: Create new Model
+        filter_model: Search
+        operations: Operations
+        operation: Operation
+        worked_by_model: Worked for Model
+        worked_operations: Worked
+        worked_operations_new: Worked (NEW)
+        total: Total
+        message_no_operations_for_model: No entered operations for the model.
+        worked_operations_by_group: Operations worked from a group
+        worked_operations_by: Operations worked from
+        period_for: Date Period
+        general_statement: General Statement
+        name: Name
+        worked: Worked
+        print: Print
+        to: to
+        unit_price: Unit Price
+        pieces: Pieces
+        date: Date
+        grouped: Grouped
+        grouped_by_operations: Grouped by Operations
+        separated: Separated
+        number: Number
+        price: Price
+        total_price: Total
+        edit: Edit
+        worked_for_model: Worked for Model
+        operators_work_add_operations: Add Operations for Operator
+        
+    print:
+        period: period
+        model: Model
+        operation: Operation
+        unit_price: Unit Price
+        count: Count
+        total: Total
+        
+    form:
+        locale: Locale
+        common_group: Common
+        group: Group
+        name: Name
+        username: Username
+        email: E-mail
+        user_roles: User Roles
+        allowed_applications: Allowed Applications
+        last_logged_in: Last logged in
+        description: Description
+        parent: Parent
+        number: Number
+        modify_profile: Modify profile
+        add_new_user: Add New User
+        add_new_operator: Add an Operator
+        delete_selected: Delete selected
+        select: Select
+        add: Add
+        apply: Apply
+        save: Save
+        remove: Delete
+        cancel: Cancel
+        
+        change_names: Change Names
+        change_prices: Change Prices
+        
+        count: Count
+        
+        vs_form_delete:
+            title: DELETE ITEM
+            message: Do you want to delete this Item?
+            btn_ok: Ok
+            btn_cancel: Cancel
+            
+        login:
+            username: User
+            password: Password
+            button_login: Login
+            
+        operators_group:
+            parent_operators_group: Parent Group
+            parent_operators_group_placeholder: '-- Parent Group --'
+            
+        operators:
+            edit_groups: Change Groups
+            edit_names: Change Names
+            remove: Delete
+            remove_confirm: Do you want to delete the checked Operators?
+            operators_group_placeholder: '-- Select Group --'
+
+        models:
+            edit_names: Change Names
+            remove: Delete
+            remove_confirm: Do you want to delete the checked Models?
+            
+        operations:
+            add_new_operation: Add New Operation
+            minutes: Minutes
+            remove: Delete Operations
+            remove_confirm: Do you want to delete the checked Operations?
+            remove_model: Delete Model
+            wrong_price: Wrong Price
+            
+        users:
+            create_user: Create New User
+            edit_user: Edit User
+            details: User Details
+            personal_information: Personal Information
+            contact_information: Contact Information
+            username_and_password: 'Username & Password'
+            
+            user_title: Title
+            mister: Mr.
+            mrs: Mrs.
+            miss: Miss
+            phone: Phone
+
+    settings:
+        minute_bonus: Minute Bonus (%)
+        minute_rate: Minute Rate (lv.)
+

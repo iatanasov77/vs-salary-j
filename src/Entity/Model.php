@@ -1,6 +1,7 @@
 <?php namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
@@ -12,13 +13,9 @@ use Vankosoft\ApplicationBundle\Model\Traits\ApplicationRelationEntity;
 use Vankosoft\ApplicationBundle\Model\Interfaces\UserAwareInterface;
 use Vankosoft\ApplicationBundle\Model\Traits\UserAwareEntity;
 
-/**
- * Models
- *
- * @ORM\Table(name="JUN_Models")
- * @ORM\Entity
- * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false, hardDelete=false)
- */
+#[ORM\Entity]
+#[ORM\Table(name: "JUN_Models")]
+#[Gedmo\SoftDeleteable(fieldName: "deletedAt", timeAware: false, hardDelete: false)]
 class Model implements ResourceInterface, ApplicationRelationInterface, UserAwareInterface
 {
     use ApplicationRelationEntity;
@@ -26,33 +23,27 @@ class Model implements ResourceInterface, ApplicationRelationInterface, UserAwar
     use TimestampableEntity;
     use SoftDeleteableEntity;
     
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
+    /** @var int */
+    #[ORM\Id, ORM\Column(type: "integer"), ORM\GeneratedValue(strategy: "IDENTITY")]
     private $id;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="number", type="string", length=8, nullable=false)
-     */
+    /** @var string */
+    #[ORM\Column(type: "string", length: 8, nullable: false)]
     private $number;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=64, nullable=false)
-     */
+    /** @var string */
+    #[ORM\Column(type: "string", length: 64, nullable: false)]
     private $name;
     
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Operation", mappedBy="model")
-     */
+    /** @var Collection|Operation[] */
+    #[ORM\OneToMany(targetEntity: "Operation", mappedBy: "model", cascade: ["persist", "remove"], orphanRemoval: true)]
+    #[ORM\OrderBy(['operationId' => 'ASC'])]
     private $operations;
+    
+    public function __construct()
+    {
+        $this->operations   = new ArrayCollection();
+    }
     
     public function getId(): ?int
     {
@@ -64,7 +55,7 @@ class Model implements ResourceInterface, ApplicationRelationInterface, UserAwar
         return $this->number;
     }
 
-    public function setNumber(string $number): self
+    public function setNumber(?string $number): self
     {
         $this->number = $number;
 
@@ -76,7 +67,7 @@ class Model implements ResourceInterface, ApplicationRelationInterface, UserAwar
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(?string $name): self
     {
         $this->name = $name;
 
@@ -84,10 +75,30 @@ class Model implements ResourceInterface, ApplicationRelationInterface, UserAwar
     }
     
     /**
-     * @return Collection|Operations[]
+     * @return Collection|Operation[]
      */
     public function getOperations(): Collection
     {
         return $this->operations;
+    }
+    
+    public function addOperation( Operation $operation ) : self
+    {
+        if ( ! $this->operations->contains( $operation ) ) {
+            $this->operations[] = $operation;
+            $operation->setModel( $this );
+        }
+        
+        return $this;
+    }
+    
+    public function removeOperation( Operation $operation ) : self
+    {
+        if ( $this->operations->contains( $operation ) ) {
+            $this->operations->removeElement( $operation );
+            //$operation->setModel( null );
+        }
+        
+        return $this;
     }
 }

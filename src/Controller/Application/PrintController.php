@@ -45,7 +45,7 @@ class PrintController extends AbstractController
             $this->modelsRepository         = $modelsRepository;
     }
     
-    public function printOperations( int $operatorId, $startDate, $endDate, Request $request ): Response
+    public function printOperations( int $operatorId, string $startDate, string $endDate, Request $request ): Response
     {
         $operator           = $this->operatorsRepository->find( $operatorId );
         $dateRange          = $this->resolveDateRange( $startDate, $endDate );
@@ -64,7 +64,7 @@ class PrintController extends AbstractController
         return $this->render( 'pages/Print/operators_work_operations.html.twig', $tplVars );
     }
     
-    public function printOperationsGrouped( int $operatorId, $startDate, $endDate, Request $request ): Response
+    public function printOperationsGrouped( int $operatorId, string $startDate, string $endDate, Request $request ): Response
     {
         $operator           = $this->operatorsRepository->find( $operatorId );
         $dateRange          = $this->resolveDateRange( $startDate, $endDate );
@@ -84,10 +84,12 @@ class PrintController extends AbstractController
         return $this->render( 'pages/Print/operators_work_operations_grouped.html.twig', $tplVars );
     }
     
-    public function printOperatorsTotals( int $groupId, $startDate, $endDate, Request $request ): Response
+    public function printOperatorsTotals( int $groupId, string $startDate, string $endDate, Request $request ): Response
     {
+        $startDate          = new \DateTime( $startDate );
+        $endDate            = new \DateTime( $endDate );
+        
         $group              = $this->groupsRepository->find( $groupId );
-        $dateRange          = $this->resolveDateRange( $startDate, $endDate );
         $work               = $this->operatorsWorkRepository->getOperatorsWork(
                                 $groupId,
                                 $startDate,
@@ -96,17 +98,16 @@ class PrintController extends AbstractController
         
         $tplVars = [
             'groupName' => $group ? $group->getName() : $this->translator->trans( 'salary-j.form.common_group', [], 'Application' ),
-            'startDate' => new \DateTime( $startDate ),
-            'endDate'   => new \DateTime( $endDate ),
+            'startDate' => $startDate ,
+            'endDate'   => $endDate,
             'group'     => $group,
             'work'      => $work,
-            'dateRange' => $dateRange,
         ];
         
         return $this->render( 'pages/Print/operators_work_totals.html.twig', $tplVars );
     }
     
-    public function printModelWork( int $modelId, $startDate, $endDate, Request $request ): Response
+    public function printModelWork( int $modelId, string $startDate, string $endDate, Request $request ): Response
     {
         $model              = $this->modelsRepository->find( $modelId );
         $dateRange          = $this->resolveDateRange( $startDate, $endDate );
@@ -128,7 +129,7 @@ class PrintController extends AbstractController
         return $this->render( 'pages/Print/operations_work.html.twig', $tplVars );
     }
     
-    private function resolveDateRange( $queryStartDate, $queryEndDate ) : array
+    private function resolveDateRange( string $queryStartDate, string $queryEndDate ) : array
     {
         $startDate          = \DateTime::createFromFormat( 'Y-m-d', $queryStartDate );
         $endDate            = \DateTime::createFromFormat( 'Y-m-d', $queryEndDate );
@@ -141,7 +142,7 @@ class PrintController extends AbstractController
         ];
     }
     
-    private function getOperationsWorkCount( $operations )
+    private function getOperationsWorkCount( array $operations )
     {
         $workCount  = [];
         foreach( $operations as $op )  {

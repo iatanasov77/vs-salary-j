@@ -1,3 +1,7 @@
+vs_user_proffile:
+    resource: "@VSUsersBundle/Resources/config/routing/profile.yml"
+    prefix:   /
+
 app_login:
     path: /login
     controller: App\Controller\SalaryJ\AuthController::login

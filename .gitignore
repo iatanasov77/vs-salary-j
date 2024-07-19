@@ -4,10 +4,13 @@
 /.env.local
 /.env.local.php
 /.env.*.local
-/config/secrets/prod/prod.decrypt.private.php
-/var/
 /vendor/
 /node_modules/
+/symfony.lock
+/migrations/
+/public/index.php
+/src/Kernel.php
+/templates/base.html.twig
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###
@@ -32,11 +35,6 @@
 /.settings
 ###< Eclipse project files ###
 
-
-###> lexik/jwt-authentication-bundle ###
-/config/jwt/*.pem
-###< lexik/jwt-authentication-bundle ###
-
 ###> symfony/webpack-encore-bundle ###
 /assets/controllers/
 /assets/styles/
@@ -52,16 +50,28 @@ yarn-error.log
 ###> liip/imagine-bundle ###
 /public/media/cache/
 /public/admin-panel/media/cache/
+/public/salary-j/media/cache/
 ###< liip/imagine-bundle ###
 
 ###> VankosoftApplication Files ###
+
+/config/*
+/VSAPP_VERSION
+
+# Public files ignores
+/public/bundles/
 /public/admin-panel/build/
 /public/admin-panel/bundles/
+/public/admin-panel/media/
+/public/shared_assets/build/
+
+# Except for the applications configs:
+!/config/admin-panel
+!/config/applications
+
 ###< VankosoftApplication Files ###
 
 ###> SalaryJ Files ###
-/public/bundles/
 /public/salary-j/build/
 /public/salary-j/bundles/
-/public/shared_assets/build/
 ###< SalaryJ Files ###

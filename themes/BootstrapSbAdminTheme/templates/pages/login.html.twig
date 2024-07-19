@@ -1,0 +1,61 @@
+{% extends "base-login.html.twig" %}
+
+{% block content %}
+	<div class="card shadow-lg border-0 rounded-lg mt-5">
+        <div class="card-header text-center">
+        	<h3 class="text-center font-weight-light my-4">{{ applicationTitle | trans( {},'SalaryJ' ) }}</h3>
+        	
+        	{% if error %}
+            	<div class="alert alert-danger mt-4 float-start text-left w-100" role="alert">
+                    <span>{{ error.messageKey|trans(error.messageData, 'security') }}</span>
+                </div>
+            {% endif %}
+        </div>
+        
+        <div class="card-body">
+            <form method="post">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token( 'authenticate' ) }}" />
+                
+                <div class="form-floating mb-3">
+                    <input type="text" size="15" maxlength="30" name="_username" value="{{ last_username }}" placeholder="Username"
+                        class="form-control{% if error %} is-invalid{% endif %}"
+                        id="validationServerUsername" aria-describedby="validationServerUsernameFeedback" required
+                    />
+                    <label for="inputEmail">{{ 'salary-j.form.login.username' | trans( {},'SalaryJ' ) }}</label>
+                    {#
+                    <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                        {% if error %}{{ error.messageKey|trans(error.messageData, 'security') }}{% endif %}"
+                    </div>
+                    #}
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="password" size="15" maxlength="30" name="_password" placeholder="Password"
+                        class="form-control{% if error %} is-invalid{% endif %}"
+                        id="validationServerPassword" aria-describedby="validationServerPasswordFeedback" required
+                    />
+                    <label for="inputPassword">{{ 'salary-j.form.login.password' | trans( {},'SalaryJ' ) }}</label>
+                    {#
+                    <div id="validationServerPasswordFeedback" class="invalid-feedback">
+                        {% if error %}{{ error.messageKey|trans(error.messageData, 'security') }}{% endif %}"
+                    </div>
+                    #}
+                </div>
+                {#
+                <div class="form-check mb-3">
+                    <input class="form-check-input" id="inputRememberPassword" type="checkbox" value="" />
+                    <label class="form-check-label" for="inputRememberPassword">Remember Password</label>
+                </div>
+                #}
+                <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                    <a class="small" href="password.html">{# Forgot Password? #}</a>
+                    <input type="submit" value="{{ 'salary-j.form.login.button_login' | trans( {},'SalaryJ' ) }}" id="Button" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+        <div class="card-footer text-center py-3">
+        {#
+            <div class="small"><a href="register.html">Need an account? Sign up!</a></div>
+        #}
+        </div>
+    </div>
+{% endblock %}

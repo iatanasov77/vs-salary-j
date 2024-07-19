@@ -13,13 +13,9 @@ use Vankosoft\ApplicationBundle\Model\Traits\ApplicationRelationEntity;
 use Vankosoft\ApplicationBundle\Model\Interfaces\UserAwareInterface;
 use Vankosoft\ApplicationBundle\Model\Traits\UserAwareEntity;
 
-/**
- * Operations
- *
- * @ORM\Table(name="JUN_Operations", indexes={@ORM\Index(name="model_id", columns={"model_id"})})
- * @ORM\Entity
- * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false, hardDelete=false)
- */
+#[ORM\Entity]
+#[ORM\Table(name: "JUN_Operations")]
+#[Gedmo\SoftDeleteable(fieldName: "deletedAt", timeAware: false, hardDelete: false)]
 class Operation implements ResourceInterface, ApplicationRelationInterface, UserAwareInterface
 {
     use ApplicationRelationEntity;
@@ -27,54 +23,35 @@ class Operation implements ResourceInterface, ApplicationRelationInterface, User
     use TimestampableEntity;
     use SoftDeleteableEntity;
     
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
+    /** @var int */
+    #[ORM\Id, ORM\Column(type: "integer"), ORM\GeneratedValue(strategy: "IDENTITY")]
     private $id;
     
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Model", inversedBy="operations")
-     * @ORM\JoinColumn(name="model_id", referencedColumnName="id", onDelete="CASCADE", nullable=false)
-     */
+    /** @var Model */
+    #[ORM\ManyToOne(targetEntity: "Model", inversedBy: "operations", cascade: ["persist"], fetch: "EAGER")]
+    #[ORM\JoinColumn(name: "model_id", referencedColumnName: "id", nullable: false)]
+    #[Gedmo\SortableGroup]
     private $model;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="operation_id", type="string", length=4, nullable=false)
-     */
+    /** @var int */
+    #[ORM\Column(name: "operation_id", type: "integer", options: ["default" => 0])]
+    #[Gedmo\SortablePosition]
     private $operationId;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="operation_name", type="string", length=255, nullable=false)
-     */
+    /** @var string */
+    #[ORM\Column(name: "operation_name", type: "string", length: 255, nullable: false)]
     private $operationName;
 
-    /**
-     * @var float
-     *
-     * @ORM\Column(name="minutes", type="float", precision=10, scale=0, nullable=false)
-     */
+    /** @var float */
+    #[ORM\Column(type: "float", precision: 10, scale: 0, nullable: false)]
     private $minutes;
     
-    /**
-     * @var float
-     *
-     * @ORM\Column(name="price", type="float", precision=10, scale=0, nullable=false)
-     */
+    /** @var float */
+    #[ORM\Column(type: "float", precision: 10, scale: 0, nullable: false)]
     private $price;
     
-    /**
-     * @var Collection|OperatorsWork[]
-     *
-     * @ORM\OneToMany(targetEntity="App\Entity\OperatorsWork", mappedBy="operation", orphanRemoval=true)
-     */
+    /** @var Collection|OperatorsWork[] */
+    #[ORM\OneToMany(targetEntity: "OperatorsWork", mappedBy: "operation", cascade: ["persist", "remove"], orphanRemoval: true)]
     private $work;
     
     public function __construct()
@@ -111,12 +88,12 @@ class Operation implements ResourceInterface, ApplicationRelationInterface, User
         return $this;
     }
 
-    public function getOperationId(): ?string
+    public function getOperationId(): ?int
     {
         return $this->operationId;
     }
 
-    public function setOperationId(string $operationId): self
+    public function setOperationId(int $operationId): self
     {
         $this->operationId = $operationId;
 

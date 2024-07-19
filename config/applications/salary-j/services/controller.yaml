@@ -21,9 +21,10 @@ services:
         arguments:
             - '@vs_application.context.application'
             - '@twig'
-        
+
     App\Controller\SalaryJ\UsersController:
         arguments:
+            - '@doctrine'
             - '@vs_application.context.application'
             - '@vs_application.repository.application'
             - '@vs_users.manager.user'
@@ -33,21 +34,24 @@ services:
             - '@vs_users.repository.user_roles'
         tags: ['controller.service_arguments']
     
-    App\Controller\JunonaDimitrovgrad\OperatorsGroupsExtController:
+    App\Controller\SalaryJ\OperatorsGroupsExtController:
         arguments:
+            - '@doctrine'
             - "@vs_application.context.application"
             - '@salaryj.repository.operatorsgroups'
             - '@vs_application.slug_generator'
         tags: ['controller.service_arguments']
-    
+        
     App\Controller\SalaryJ\OperatorsExtController:
         arguments:
+            - '@doctrine'
             - "@vs_application.context.application"
             - '@salaryj.repository.operators'
         tags: ['controller.service_arguments']
         
     App\Controller\SalaryJ\ModelsExtController:
         arguments:
+            - '@doctrine'
             - '@twig'
             - '@translator'
             - "@vs_application.context.application"
@@ -60,6 +64,7 @@ services:
         
     App\Controller\SalaryJ\SettingsController:
         arguments:
+            - '@doctrine'
             - '@vs_application.context.application'
             - '@salaryj.repository.settings'
             - '@salaryj.factory.settings'
@@ -67,22 +72,27 @@ services:
         
     App\Controller\SalaryJ\OperationsExtController:
         arguments:
+            - '@doctrine'
             - '@vs_application.context.application'
             - '@salaryj.repository.models'
+            - "@salaryj.repository.settings"
             - '@salaryj.repository.operations'
             - '@salaryj.factory.operations'
         tags: ['controller.service_arguments']
         
     App\Controller\SalaryJ\OperatorsWorkController:
         arguments:
+            - '@doctrine'
             - '@twig'
             - '@translator'
+            - '@knp_paginator'
             - '@vs_application.context.application'
             - '@salaryj.repository.operators'
             - '@salaryj.repository.operators_work'
             - '@salaryj.repository.models'
             - '@salaryj.repository.operations'
             - '@salaryj.repository.operatorsgroups'
+            - '@salaryj.repository.settings'
         tags: ['controller.service_arguments']
 
     App\Controller\SalaryJ\PrintController:
@@ -94,3 +104,5 @@ services:
             - '@salaryj.repository.operatorsgroups'
             - '@salaryj.repository.models'
         tags: ['controller.service_arguments']
+    
+    

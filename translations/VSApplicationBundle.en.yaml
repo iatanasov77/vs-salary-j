@@ -1,0 +1,21 @@
+vs_application:
+    template:
+        vankosoft_application: SalaryJ
+    
+    menu:
+        main_menu_title: Main Menu
+        operators_groups: Operators Groups
+        operators: Operators
+        models: Models
+        operations: Operations
+        work_count: Worked
+        work_count_new: Worked (NEW)
+        work_add_operations: Add Operations for Operator
+        work_add_model_operations: Add Operations for Model
+        work_browse_operations: Worked operations from Operator
+        work_browse_operations_grouped: Worked operations from Operator ( Grouped )
+        work_browse_totals: Worked operations from group
+        users: Users
+        users_update: User Details
+        settings: Settings
+        logout: Logout

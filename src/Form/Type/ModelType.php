@@ -4,10 +4,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-use Symfony\Component\Form\DataMapperInterface;
-use Symfony\Component\Form\Exception\UnexpectedTypeException;
-use Symfony\Component\Form\FormInterface;
-
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 use App\Entity\Model;
@@ -33,8 +29,8 @@ class ModelType extends AbstractType
     {
         //parent::configureOptions( $resolver );
         $resolver->setDefaults([
-            'data_class' => Model::class,
-            'allow_extra_fields' => true,
+            'data_class'            => Model::class,
+            'allow_extra_fields'    => true,
         ]);
     }
 }

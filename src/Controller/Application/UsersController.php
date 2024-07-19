@@ -7,13 +7,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
+use Doctrine\Persistence\ManagerRegistry;
 use Sylius\Component\Resource\Factory\Factory;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
 use Vankosoft\ApplicationBundle\Component\Context\ApplicationContextInterface;
-use Vankosoft\ApplicationBundle\Repository\ApplicationRepositoryInterface;
+use Vankosoft\ApplicationBundle\Repository\Interfaces\ApplicationRepositoryInterface;
 use Vankosoft\UsersBundle\Security\UserManager;
 use Vankosoft\UsersBundle\Repository\UsersRepository;
 use Vankosoft\UsersBundle\Repository\UserRolesRepository;
@@ -22,6 +23,9 @@ use App\Form\UserForm;
 
 class UsersController extends AbstractController
 {
+    /** @var ManagerRegistry */
+    private $doctrine;
+    
     /** @var ApplicationContextInterface */
     private $applicationContext;
     
@@ -44,6 +48,7 @@ class UsersController extends AbstractController
     private $repositoryRoles;
     
     public function __construct(
+        ManagerRegistry $doctrine,
         ApplicationContextInterface $applicationContext,
         ApplicationRepositoryInterface $applicationRepository,
         UserManager $userManager,
@@ -52,6 +57,7 @@ class UsersController extends AbstractController
         Factory $factoryInfo,
         UserRolesRepository $repositoryRoles
     ) {
+        $this->doctrine                 = $doctrine;
         $this->applicationContext       = $applicationContext;
         $this->applicationRepository    = $applicationRepository;
         $this->userManager              = $userManager;
@@ -76,7 +82,7 @@ class UsersController extends AbstractController
         
         $form->handleRequest( $request );
         if ( $form->isSubmitted() && $form->isValid() ) {
-            $em     = $this->getDoctrine()->getManager();
+            $em     = $$this->doctrine->getManager();
             $entity = $form->getData();
             
             $entity->setPreferedLocale( $request->getLocale() );

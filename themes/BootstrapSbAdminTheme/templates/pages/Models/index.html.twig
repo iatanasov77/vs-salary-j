@@ -1,0 +1,120 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+	<h1 class="text-center mt-4" id="PageTitle">{{ 'salary-j.pages.models' | trans( {},'SalaryJ' ) }}</h1>
+	
+    {{ form_start(form, { 'attr': {'class': 'form-horizontal mb-5', 'id': 'form-post'}, 'action': path('salaryj_models_create'), 'method': 'POST' }) }}
+        {{ form_widget( form.application_code, {'value' : application.code} ) }}
+    
+        <table cellspacing="20" cellpadding="2">
+            <tr>
+                <td colspan="3"><b>{{ 'salary-j.pages.add_new_model' | trans( {},'SalaryJ' ) }}</b></td>
+            </tr>
+            <tr>
+                <td>{{ form_label( form.model.number ) }}</td>
+                <td>{{ form_label( form.model.name ) }}</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>{{ form_widget( form.model.number, {'attr': {'class': 'form-control', 'size': '8'}} ) }}</td>
+                <td>{{ form_widget( form.model.name, {'attr': {'class': 'form-control', 'size': '100'}} ) }}</td>
+                <td>{{ form_widget( form.btnSave, {'attr': {'class': 'btn btn-secondary'}} ) }}</td>
+            </tr>
+        </table>
+    {{ form_end(form, {'render_rest': false}) }}
+            
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            {{ 'salary-j.pages.models' | trans( {},'SalaryJ' ) }}
+        </div>
+        <div class="card-body">
+        
+        	<table cellpadding="2" cellspacing="1" width="30%" class="mb-4">
+				<tr>
+					<td class="align-middle">
+                        {{ 'salary-j.pages.filter_model' | trans( {},'SalaryJ' ) }}:
+        			</td>
+        			<td class="align-middle">
+                        <input id="filterModel" class="form-control" type="text" name="filterModel" data-url-json-models = "{{ path( 'app_json_models' ) }}" />
+        			</td>
+    			</tr>
+    		</table>
+    		
+            {% if ( index_form.models.children | length ) %}
+        
+                <div style="line-height: 170%;" class="mb-2">
+                    <a href="javascript:void(0);" id="checkAll">{{ 'salary-j.pages.all' | trans( {},'SalaryJ' ) }}</a> / 
+                    <a href="javascript:void(0);" id="uncheckAll">{{ 'salary-j.pages.nothing' | trans( {},'SalaryJ' ) }}</a>
+                </div>
+
+                {{ form_start( index_form, { attr: { id: 'models_index_form'} } ) }}
+                    <table cellpadding="2" cellspacing="1" width="100%" class="table">
+                    	<thead class="table-dark">
+                            <tr class="TableHead">
+                                <th width="3%">&nbsp;</th>
+                                <th width="10%">{{ 'salary-j.form.number' | trans( {},'SalaryJ' ) }}</th>
+                                <th>{{ 'salary-j.form.name' | trans( {},'SalaryJ' ) }}</th>
+                                <th width="30%">&nbsp;</th>
+                            </tr>
+                        </thead>
+                        
+                        <tbody>
+                            {% for modId, modWidget in index_form.models %}
+                                <tr>
+                                    <td class="pt-3">
+                                    	<input type="checkbox" name="submitedModels[{{ modId }}]" class="form-check-input" />
+                                   	</td>
+                                    <td >
+                                        {{ form_widget( modWidget.number, {'attr': {'class': 'form-control'}} ) }}
+                                    </td>
+                                    <td>
+                                        {{ form_widget( modWidget.name, {'attr': {'class': 'form-control'}} ) }}
+                                    </td>
+                                    <td style="white-space: nowrap;">
+                                        <input type="button" value="{{ 'salary-j.pages.operations' | trans( {},'SalaryJ' ) }}"
+                                        	class="btn btn-secondary browseOperations"
+                                            data-url="{{ path( 'app_operations_index', {'modelId': modId} ) }}"
+                                            {# data-url="{{ path( 'app_model_browse_operations', {'modelId': modId} ) }}" #}
+                                        />
+                                        <input type="button" value="{{ 'salary-j.pages.worked_operations' | trans( {},'SalaryJ' ) }}"
+                                        	class="btn btn-secondary workedOperations"
+                                            data-url="{{ path( 'app_model_work_count', {'modelId': modId} ) }}"
+                                        />
+                                        <input type="button" value="{{ 'salary-j.pages.worked_operations_new' | trans( {},'SalaryJ' ) }}"
+                                            class="btn btn-secondary workedOperationsNew"
+                                            data-url="{{ path( 'app_model_work_count_new', {'modelId': modId} ) }}"
+                                        />
+                                    </td>
+                                </tr>
+                            {% endfor %}
+						</tbody>
+						
+						<tfoot class="mt-3 pt-3">
+                            <tr>
+                                <td colspan="6" class="SubmitBox">
+                                    {{ form_widget( index_form.change_names, {'attr': {'class': 'btn btn-secondary'}} ) }}
+                                    {{ form_widget( index_form.del_models, {'attr': {'class': 'btn btn-secondary'}} ) }}
+                                    <br />
+                                </td>
+                            </tr>
+                        </tfoot>
+                    
+                    </table>
+                {{ form_end( index_form ) }}
+            {% endif %}             
+                
+            {% if resources.haveToPaginate() %}{{ pagerfanta( resources, null, { 'proximity': 10 } ) }}{% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+    {{ encore_entry_link_tags( 'js/pages/models', null, 'SalaryjSbadminThemeConfig' ) }}
+{% endblock %}
+        
+{% block body_javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags( 'js/pages/models', null, 'SalaryjSbadminThemeConfig' ) }}
+{% endblock %}
