@@ -1,0 +1,44 @@
+{% extends "base-print.html.twig" %}
+
+{% block content %}
+    <!-- BEGIN Operators Work Summary Print -->
+    <div class="print">
+        <h1 align="center">{{ 'salary-j.pages.worked_operations_by_group' | trans( {},'SalaryJ' ) }}: <span id="grpName">{{ groupName }}</span></h1>
+        <p align="center">
+            {{ 'salary-j.pages.period_for' | trans( {},'SalaryJ' ) }}: 
+            {{ startDate | date( 'd.m.Y' ) }}   {{ 'salary-j.pages.to' | trans( {},'SalaryJ' ) }} {{ endDate | date( 'd.m.Y' ) }}
+        </p>
+    
+    	<div class="ms-3 me-3">
+            <table cellpadding="2" cellspacing="1" width="100%" class="table">
+            	<thead class="table-dark">
+                    <tr class="TableHead">
+                        <th >{{ 'salary-j.pages.name' | trans( {},'SalaryJ' ) }}</th>
+                        <th width="10%">{{ 'salary-j.pages.worked' | trans( {},'SalaryJ' ) }}</th>
+                        <th width="40%">&nbsp;</th>
+                    </tr>
+                </thead>
+                
+                <tbody>
+                    {% for w in work.work %}
+                        <tr class="bottomborder">
+                            <td align="left"><font class="ItemsList">{{ w.operatorName }}</font></td>
+                            <td>{{ w.subTotal }}</td>
+                            <td></td>
+                        </tr>
+                    {% endfor %}
+    
+                    <tr>
+                        <td colspan="3"><hr /></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><b>{{ 'salary-j.pages.total' | trans( {},'SalaryJ' ) }}:</b></td>
+                        <td align="left">{{ work.grandTotal }}</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                 </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- END Operators Work Summary Print -->
+{% endblock %}

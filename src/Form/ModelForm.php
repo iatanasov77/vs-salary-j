@@ -1,21 +1,33 @@
 <?php namespace App\Form;
 
 use Vankosoft\ApplicationBundle\Form\AbstractForm;
-use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
+use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-
-use Vankosoft\ApplicationBundle\Component\I18N;
 
 use App\Form\Type\ModelType;
 use App\Entity\Model;
 
 class ModelForm extends AbstractForm
 {
-    public function buildForm( FormBuilderInterface $builder, array $options )
+    public function __construct(
+        string $dataClass,
+        RepositoryInterface $localesRepository,
+        RequestStack $requestStack
+    ) {
+        parent::__construct( $dataClass );
+        
+        $this->localesRepository    = $localesRepository;
+        $this->requestStack         = $requestStack;
+    }
+    
+    public function buildForm( FormBuilderInterface $builder, array $options ): void
     {
         parent::buildForm( $builder, $options );
         
@@ -28,7 +40,7 @@ class ModelForm extends AbstractForm
             ->add( 'currentLocale', ChoiceType::class, [
                 'label'                 => 'salary-j.form.locale',
                 'translation_domain'    => 'SalaryJ',
-                'choices'               => \array_flip( I18N::LanguagesAvailable() ),
+                'choices'               => \array_flip( $this->fillLocaleChoices() ),
                 'mapped'                => false,
             ])
             
@@ -37,6 +49,15 @@ class ModelForm extends AbstractForm
                 'data_class'    => Model::class,
             ])
         ;
+    }
+    
+    public function configureOptions( OptionsResolver $resolver ): void
+    {
+        parent::configureOptions( $resolver );
+        
+        $resolver->setDefaults([
+            'csrf_protection'   => false,
+        ]);
     }
     
     public function getName()

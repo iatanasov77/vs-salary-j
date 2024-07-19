@@ -1,6 +1,7 @@
 <?php namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\DBAL\Types\Types;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
@@ -11,19 +12,9 @@ use Vankosoft\ApplicationBundle\Model\Traits\ApplicationRelationEntity;
 use Vankosoft\ApplicationBundle\Model\Interfaces\UserAwareInterface;
 use Vankosoft\ApplicationBundle\Model\Traits\UserAwareEntity;
 
-/**
- * OperatorsWork
- * --------------
- * With Doctrine ORM you can use composite primary keys, using '@Id' on more then one column. 
- * Some restrictions exist opposed to using a single identifier in this case: 
- *  The use of the '@GeneratedValue' annotation is not supported, which means you can only use composite keys 
- *  if you generate the primary key values yourself before calling EntityManager#persist() on the entity.
- * 
- *
- * @ORM\Table(name="JUN_OperatorsWork")
- * @ORM\Entity
- * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false, hardDelete=false)
- */
+#[ORM\Entity]
+#[ORM\Table(name: "JUN_OperatorsWork")]
+#[Gedmo\SoftDeleteable(fieldName: "deletedAt", timeAware: false, hardDelete: false)]
 class OperatorsWork implements ResourceInterface, ApplicationRelationInterface, UserAwareInterface
 {
     use ApplicationRelationEntity;
@@ -31,59 +22,48 @@ class OperatorsWork implements ResourceInterface, ApplicationRelationInterface, 
     use TimestampableEntity;
     use SoftDeleteableEntity;
     
-    /**
-     * @var int
-     *
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     */
+    /** @var int */
+    #[ORM\Id]
+    #[ORM\Column(type: "integer"), ORM\GeneratedValue(strategy: "IDENTITY")]
     private $id;
     
-    /**
-     * @var Operator
-     * 
-     * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="App\Entity\Operator", inversedBy="work")
-     * @ORM\JoinColumn(name="operator_id", referencedColumnName="id", nullable=false)
-     */
+    /** @var Operator */
+    #[ORM\ManyToOne(targetEntity: "Operator", inversedBy: "work")]
+    #[ORM\JoinColumn(name: "operator_id", referencedColumnName: "id", nullable: false)]
     private $operator;
 
-    /**
-     * @var Operation
-     * 
-     * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="App\Entity\Operation", inversedBy="work")
-     * @ORM\JoinColumn(name="operation_id", referencedColumnName="id", nullable=false)
-     */
+    /** @var Operation */
+    #[ORM\ManyToOne(targetEntity: "Operation", inversedBy: "work")]
+    #[ORM\JoinColumn(name: "operation_id", referencedColumnName: "id", nullable: false)]
     private $operation;
 
     /**
      * The Date when Work is Worked ( ! not the date when is created or updated :) )
      * 
-     * @var \DateTime
-     *
-     * @ORM\Id
-     * @ORM\Column(name="date", type="date", nullable=false)
+     * \DateTime Cannot be Added as Id - https://stackoverflow.com/questions/17125863/symfony-doctrine-datetime-as-primary-key
+     * @var \DateTimeInterface
      */
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: false)]
     private $date;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="count", type="integer", nullable=false)
-     */
+    /** @var int */
+    #[ORM\Column(type: "integer", nullable: false)]
     private $count;
 
-    /**
-     * @var float
-     *
-     * @ORM\Column(name="price", type="float", precision=10, scale=0, nullable=false)
-     */
+    /** @var float */
+    #[ORM\Column(name: "price", type: "decimal", precision: 10, scale: 4, nullable: false)]
     private $unitPrice;
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+    
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+        
+        return $this;
     }
 
     public function getOperator(): ?Operator
@@ -98,7 +78,14 @@ class OperatorsWork implements ResourceInterface, ApplicationRelationInterface, 
 
     public function getDate(): ?\DateTimeInterface
     {
-        return $this->date;
+        return \DateTime::createFromFormat( 'Y-m-d', $this->date );
+    }
+    
+    public function setDate(\DateTimeInterface $date): self
+    {
+        $this->date = $date;
+        
+        return $this;
     }
 
     public function getCount(): ?int
@@ -136,13 +123,6 @@ class OperatorsWork implements ResourceInterface, ApplicationRelationInterface, 
     {
         $this->operation = $operation;
 
-        return $this;
-    }
-    
-    public function setDate(\DateTimeInterface $date): self
-    {
-        $this->date = $date;
-        
         return $this;
     }
 }

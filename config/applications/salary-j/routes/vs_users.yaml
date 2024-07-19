@@ -1,8 +1,12 @@
+vs_user_proffile:
+    resource: "@VSUsersBundle/Resources/config/routing/profile.yml"
+    prefix:   /
+
 app_login:
     path: /login
-    controller: App\Controller\SalaryJ\AuthController::login
+    controller: App\Controller\JunonaTestApplication\AuthController::login
 
 app_logout:
     path: /logout
-    controller: App\Controller\SalaryJ\AuthController::logout
+    controller: App\Controller\JunonaTestApplication\AuthController::logout
 

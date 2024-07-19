@@ -1,102 +1,134 @@
 salaryj_users_index:
     path: /users
-    controller: App\Controller\SalaryJ\UsersController::index
+    controller: App\Controller\JunonaTestApplication\UsersController::index
     
 salaryj_users_update:
     path: /users/{userId}/update
-    controller: App\Controller\SalaryJ\UsersController::update
+    controller: App\Controller\JunonaTestApplication\UsersController::update
 
 app_operators_ext_update:
     path: /operators-ext/update
-    controller: App\Controller\SalaryJ\OperatorsExtController::updateOperators
+    controller: App\Controller\JunonaTestApplication\OperatorsExtController::updateOperators
     options:
         expose: true
     
 app_operators_ext_delete:
     path: /operators-ext/delete
-    controller: App\Controller\SalaryJ\OperatorsExtController::deleteOperators
+    controller: App\Controller\JunonaTestApplication\OperatorsExtController::deleteOperators
     options:
         expose: true
 
 app_models_ext_update:
     path: /models-ext/update
-    controller: App\Controller\SalaryJ\ModelsExtController::updateModels
+    controller: App\Controller\JunonaTestApplication\ModelsExtController::updateModels
     options:
         expose: true
     
 app_models_ext_delete:
     path: /models-ext/delete
-    controller: App\Controller\SalaryJ\ModelsExtController::deleteModels
+    controller: App\Controller\JunonaTestApplication\ModelsExtController::deleteModels
     options:
         expose: true
     
 app_json_models:
     path: /json/models
-    controller: App\Controller\SalaryJ\ModelsExtController::jsonListModels
+    controller: App\Controller\JunonaTestApplication\ModelsExtController::jsonListModels
 
-app_model_browse_operations_get:
-    path: /model-operations/browse-get
-    controller: App\Controller\SalaryJ\ModelsExtController::browseOperationsGet
-
-app_model_browse_operations:
-    path: /model-operations/{modelId}/browse
-    controller: App\Controller\SalaryJ\ModelsExtController::browseOperations
+app_model_work_count:
+    path: /model-operations/{modelId}/work_count
+    controller: App\Controller\JunonaTestApplication\OperatorsWorkController::workCount
     
-app_model_add_operations:
-    path: /model-operations/{modelId}/add
-    controller: App\Controller\SalaryJ\ModelsExtController::addOperations
-    
-app_model_add_operations_new:
-    path: /model-operations/{modelId}/add_new
-    controller: App\Controller\SalaryJ\ModelsExtController::addOperationsNew
+app_model_work_count_new:
+    path: /model-operations/{modelId}/work_count_new
+    controller: App\Controller\JunonaTestApplication\OperatorsWorkController::workCountNew
     defaults:   { operatorsGroupId: 0 }
+    options:
+        expose: true
 
 app_operators_work_browse_totals:
     path: /operators-work/{groupId}/browse-group
-    controller: App\Controller\SalaryJ\OperatorsWorkController::browseTotals
+    controller: App\Controller\JunonaTestApplication\OperatorsWorkController::browseTotals
     options:
         expose: true
 
 app_operators_work_browse_operations:
     path: /operators-work/{operatorId}/browse
-    controller: App\Controller\SalaryJ\OperatorsWorkController::browseOperations
+    controller: App\Controller\JunonaTestApplication\OperatorsWorkController::browseOperations
 
 app_operators_work_browse_operations_grouped:
     path: /operators-work/{operatorId}/browse-grouped
-    controller: App\Controller\SalaryJ\OperatorsWorkController::browseOperationsGrouped
+    controller: App\Controller\JunonaTestApplication\OperatorsWorkController::browseOperationsGrouped
 
 app_operators_work_add_operations:
     path: /operators-work/{operatorId}/add
-    controller: App\Controller\SalaryJ\OperatorsWorkController::addOperations
+    controller: App\Controller\JunonaTestApplication\OperatorsWorkController::addOperations
+    
+app_operators_work_add_model_operations:
+    path: /operators-work/{operatorId}/model/{modelId}
+    controller: App\Controller\JunonaTestApplication\OperatorsWorkController::addModelOperations
     
 app_operators_work_submit:
     path: /operators-work/submit
-    controller: App\Controller\SalaryJ\OperatorsWorkController::submitWork
-
+    controller: App\Controller\JunonaTestApplication\OperatorsWorkController::submitWork
+    options:
+        expose: true
+        
+app_operators_work_submit_operator:
+    path: /operators-work/submit-operator
+    controller: App\Controller\JunonaTestApplication\OperatorsWorkController::submitOperatorWork
+    options:
+        expose: true
 
 app_model_operations_save_operation:
-    path: /model-operations/{modelId}/save-opertion
-    controller: App\Controller\SalaryJ\OperationsExtController::save
+    path: /model-operations/{modelId}/save
+    controller: App\Controller\JunonaTestApplication\OperationsExtController::save
+    
+app_model_operations_ext_update:
+    path: /model-operations/{modelId}/update
+    controller: App\Controller\JunonaTestApplication\OperationsExtController::updateOperations
+    options:
+        expose: true
+
+app_model_operations_ext_delete:
+    path: /model-operations/{modelId}/delete
+    controller: App\Controller\JunonaTestApplication\OperationsExtController::deleteOperations
+    options:
+        expose: true
     
 salaryj_settings_index:
     path: /settings
-    controller: App\Controller\SalaryJ\SettingsController::index
+    controller: App\Controller\JunonaTestApplication\SettingsController::index
 
 salaryj_settings_update:
     path: /settings/update
-    controller: App\Controller\SalaryJ\SettingsController::update
+    controller: App\Controller\JunonaTestApplication\SettingsController::update
 
+app_groups_ext_update:
+    path: /groups-ext/update
+    controller: App\Controller\JunonaTestApplication\OperatorsGroupsExtController::updateGroups
+    options:
+        expose: true
+    
+app_groups_ext_delete:
+    path: /groups-ext/delete
+    controller: App\Controller\JunonaTestApplication\OperatorsGroupsExtController::deleteGroups
+    options:
+        expose: true
 
 # Print Routes
 app_operators_work_print_operations:
     path: /operators-work/{operatorId}/{startDate}__{endDate}/print
-    controller: App\Controller\SalaryJ\PrintController::printOperations
+    controller: App\Controller\JunonaTestApplication\PrintController::printOperations
 
 app_operators_work_print_operations_grouped:
     path: /operators-work/{operatorId}/{startDate}__{endDate}/print-grouped
-    controller: App\Controller\SalaryJ\PrintController::printOperationsGrouped
+    controller: App\Controller\JunonaTestApplication\PrintController::printOperationsGrouped
 
 app_operators_work_print_operators_totals:
     path: /operators-group-work/{groupId}/{startDate}__{endDate}/print
-    controller: App\Controller\SalaryJ\PrintController::printOperatorsTotals
+    controller: App\Controller\JunonaTestApplication\PrintController::printOperatorsTotals
+
+app_model_print_work_count:
+    path: /model-work/{modelId}/{startDate}__{endDate}/print
+    controller: App\Controller\JunonaTestApplication\PrintController::printModelWork
 

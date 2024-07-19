@@ -6,7 +6,6 @@ use Doctrine\Common\Collections\Collection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
-use Symfony\Component\Validator\Constraints as Assert;
 use Sylius\Component\Resource\Model\ResourceInterface;
 
 use Vankosoft\ApplicationBundle\Model\Interfaces\ApplicationRelationInterface;
@@ -14,13 +13,9 @@ use Vankosoft\ApplicationBundle\Model\Traits\ApplicationRelationEntity;
 use Vankosoft\ApplicationBundle\Model\Interfaces\UserAwareInterface;
 use Vankosoft\ApplicationBundle\Model\Traits\UserAwareEntity;
 
-/**
- * Operators
- *
- * @ORM\Table(name="JUN_Operators", indexes={@ORM\Index(name="group_id", columns={"group_id"})})
- * @ORM\Entity
- * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false, hardDelete=false)
- */
+#[ORM\Entity]
+#[ORM\Table(name: "JUN_Operators")]
+#[Gedmo\SoftDeleteable(fieldName: "deletedAt", timeAware: false, hardDelete: false)]
 class Operator implements ResourceInterface, ApplicationRelationInterface, UserAwareInterface
 {
     use ApplicationRelationEntity;
@@ -28,35 +23,20 @@ class Operator implements ResourceInterface, ApplicationRelationInterface, UserA
     use TimestampableEntity;
     use SoftDeleteableEntity;
     
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
+    /** @var int */
+    #[ORM\Id, ORM\Column(type: "integer"), ORM\GeneratedValue(strategy: "IDENTITY")]
     private $id;
     
-    /**
-     * @var int
-     *
-     * @ORM\ManyToOne(targetEntity="OperatorsGroup")
-     */
+    /** @var OperatorsGroup */
+    #[ORM\ManyToOne(targetEntity: "OperatorsGroup", inversedBy: "operators", cascade: ["persist"], fetch: "EAGER")]
     private $group;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=255, nullable=false)
-     * @Assert\NotBlank
-     */
+    /** @var string */
+    #[ORM\Column(type: "string", length: 255, nullable: false)]
     private $name;
     
-    /**
-     * @var Collection|OperatorsWork[]
-     * 
-     * @ORM\OneToMany(targetEntity="App\Entity\OperatorsWork", mappedBy="operator", orphanRemoval=true)
-     */
+    /** @var Collection|OperatorsWork[] */
+    #[ORM\OneToMany(targetEntity: "OperatorsWork", mappedBy: "operator", cascade: ["persist", "remove"], orphanRemoval: true)]
     private $work;
     
     public function __construct()

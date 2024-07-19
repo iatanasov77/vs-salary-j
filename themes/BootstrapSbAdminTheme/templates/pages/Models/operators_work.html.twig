@@ -1,0 +1,158 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+	<h1 class="text-center mt-4">{{ 'salary-j.pages.worked_by_model' | trans( {},'SalaryJ' ) }}</h1>
+	<h4 class="text-center mt-4">{{ model.number }} - {{ model.name }}</h4>
+	
+	<div class="date-range-picker-container text-center mt-4"">
+		<div class="date-range-picker-subcontainer singleDatePickerSubcontainer text-center row">
+    		<div class="col-5"></div>
+    		{#
+    		<div class="date-range-picker-label text-center col-1 float-end">{{ 'salary-j.pages.date' | trans( {},'SalaryJ' ) }}: </div>
+    		#}
+    		<div id="work_date"
+    			class="col-2 date-range-picker-widget singleDatePicker lang_{{ app.request.locale|slice(0, 2) }}"
+    			data-workDate="{{ date | date( 'Y-m-d' ) }}"
+    			data-pageUrl="{{ path( 'app_model_work_count_new', {'modelId': model.id} ) }}"
+    		>
+                <i class="fa fa-calendar"></i>
+                <span></span> <i class="fa fa-caret-down"></i>
+            </div>
+            <div class="col-5"></div>
+        </div>
+	</div>
+
+	<table cellspacing="20" cellpadding="2">
+		<tr>
+			<td colspan="3"><b>{{ 'salary-j.form.add_new_operator' | trans( {},'SalaryJ' ) }}</b></td>
+		</tr>
+		<tr>
+			<td>{{ 'salary-j.pages.operators' | trans( {},'SalaryJ' ) }}</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>
+				<select id="selOperator" name="selOperator" class="form-select">
+					<option value="0">{{ 'salary-j.form.select' | trans( {},'SalaryJ' ) }}</option>
+    				{% for op in operators %}
+    					<option id="selOp{{ op.id }}" value="{{ op.id }}">{{ op.name }}</option>
+    				{% endfor %}
+				</select>
+			</td>
+			<td><input id="btnAddOperator" class="btn btn-secondary" type="button" name="sub_model" value="{{ 'salary-j.form.add' | trans( {},'SalaryJ' ) }}" /></td>
+		</tr>
+	</table>
+
+	<div class="card mb-4 mt-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            {{ 'salary-j.pages.worked' | trans( {},'SalaryJ' ) }}
+        </div>
+        <div class="card-body">
+			{% if ( model.operations is empty ) %}
+				{{ 'message_no_operations_for_model' | trans( {},'SalaryJ' ) }}
+			{% else %}
+				<form id="formWorkCount" name="formWorkCount" action="{{ path( 'app_operators_work_submit' ) }}" method="post">
+					<input type="hidden" name="modelId" value="{{ model.id }}" />
+					<input type="hidden" name="workDate" value="{{ date | date( 'Y-m-d' ) }}" />
+					
+					<div id="boxTblWorkCount">
+    					<table style="clear: both; margin: 0 auto; width: 100%;" id="tblWorkCount" cellpadding="2" cellspacing="0" 
+    						class="table"
+    						width="100%" 
+    						border="1"
+    					>
+    						<thead class="table-dark">
+    							<tr>
+    								<th class="headcol">&nbsp;</th>
+    						    {% for operation in model.operations %}
+    								<th title="{{ operation.operationName }}">{{ operation.operationId }}</th>
+    						    {% endfor %}
+    							</tr>
+    						</thead>
+    
+    						<tbody>
+        						{% for operator in operators %}
+        							{% set showRow = 0 %}
+        							<tr id="rowOp{{ operator.id }}">
+        								<td class="headcol">{{ operator.name }}</td>
+            							{% for operation in model.operations %}
+            								{% set operationId = operation.id %}
+            								{% if workCount is not empty and workCount[operator.id] is defined and workCount[operator.id][operation.id] is defined %}
+            								    {% set work = workCount[operator.id][operation.id] %}
+            								{% else %}
+            									{% set work = null %}
+            								{% endif %}
+            								{% set price = operation.minutes * ( 1 + ( settings['minuteBonus']['value'] / 100 ) ) * settings['minuteRate']['value'] %}
+            								
+            								{% if work %}
+            									{% set showRow = 1 %}
+            								{% endif %}
+            								<td>
+            									<input {% if not price %}disabled="disabled"{% endif %} type="text" size="5" 
+            										name="workCount[{{ operator.id }}][{{ operation.id }}][workCount]" 
+            										value="{% if work %}{{ work['workCount'] }}{% endif %}"
+            										class="textWorkCount" 
+            										data-currentValue="{% if work %}{{ work['workCount'] }}{% endif %}" 
+            										data-operationId="{{ operation.id }}" 
+            									/>
+            									<input type="hidden"
+            										name="workCount[{{ operator.id }}][{{ operation.id }}][workId]" 
+            										value="{% if work %}{{ work['workId'] }}{% endif %}"
+            									/>
+            									<input type="hidden"
+            										name="workCount[{{ operator.id }}][{{ operation.id }}][workCountOld]"
+            										value="{% if work %}{{ work['workCount'] }}{% endif %}"
+            									/>
+            									<input type="hidden"
+            										name="workCount[{{ operator.id }}][{{ operation.id }}][price]"
+            										value="{{ price }}"
+            									/>
+            								</td>
+            							{% endfor %}
+                					</tr>
+                
+            						{%  if showRow %}
+            							<script type="text/javascript">$("#selOp{{ operator.id }}").hide()</script>
+            						{% else %}
+            							<script type="text/javascript">$("#rowOp{{ operator.id }}").hide()</script>
+            						{% endif %}
+            					{% endfor %}
+    						</tbody>
+    
+    						<tfoot class="mt-3 pt-3">
+    							<tr>
+    								<td class="headcol">{{ 'salary-j.pages.total' | trans( {},'SalaryJ' ) }}</td>
+        							{% for operation in model.operations %}
+        								<td id="total{{ operation.id }}">
+            								{% if operatorsWork['operationsTotalCount'] is not empty and operatorsWork['operationsTotalCount'][operation.id] is defined %}
+            								    {{ operatorsWork['operationsTotalCount'][operation.id] }}
+            								{% else %}
+            									0
+            								{% endif %}
+        								</td>
+        							{% endfor %}
+    							</tr>
+    						</tfoot>
+    								
+    					</table>
+					</div>
+					<input type="submit" name="saveForm"
+						class="btn btn-secondary mt-3 mb-3"
+						value="{{ 'salary-j.form.save' | trans( {},'SalaryJ' ) }}"
+					/>
+				</form>
+		    {% endif %}
+		</div>
+	</div>
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+    {{ encore_entry_link_tags( 'js/pages/operators_work_new', null, 'SalaryjSbadminThemeConfig' ) }}
+{% endblock %}
+        
+{% block body_javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags( 'js/pages/operators_work_new', null, 'SalaryjSbadminThemeConfig' ) }}
+{% endblock %}

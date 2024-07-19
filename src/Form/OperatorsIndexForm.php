@@ -17,6 +17,7 @@ class OperatorsIndexForm extends AbstractType
                 'allow_add'             => true,
                 'allow_extra_fields'    => true,
                 'entry_type'            => OperatorType::class,
+                //'data'                  => $options['operatorsResources'],
                 'entry_options'         => ['label' => false],
             ])
             ->add( 'change_names', SubmitType::class, [
@@ -28,6 +29,16 @@ class OperatorsIndexForm extends AbstractType
                 'translation_domain'    => 'SalaryJ',
             ])
         ;
+    }
+    
+    public function configureOptions( OptionsResolver $resolver ): void
+    {
+        parent::configureOptions( $resolver );
+        
+        $resolver->setDefaults([
+            'csrf_protection'       => false,
+            'operatorsResources'    => null,
+        ]);
     }
     
     public function getName()

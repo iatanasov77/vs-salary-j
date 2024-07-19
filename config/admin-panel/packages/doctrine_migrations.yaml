@@ -1,5 +1,13 @@
+doctrine:
+    dbal:
+        # Add which tables to be removed from migrations
+        schema_filter: '/^(?!wbnt_dfgb_|ext_log_entries|VSAPP_DoctrineDbalCache|JUN_OperatorsWorkTotals).*$/'
+
 doctrine_migrations:
     enable_profiler: '%kernel.debug%'
+    
+    all_or_nothing: true
+    transactional: true
     
     migrations_paths:
         'App\DoctrineMigrations': '%kernel.project_dir%/src/DoctrineMigrations'

@@ -1,0 +1,81 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            {{ 'vs_application.menu.users' | trans( {},'VSApplicationBundle' ) }}
+        </div>
+        <div class="card-body">
+        	
+        	<div style="line-height: 170%;" class="mb-2">
+                <a href="javascript:void(0);" id="checkAll">{{ 'salary-j.pages.all' | trans( {},'SalaryJ' ) }}</a> / 
+                <a href="javascript:void(0);" id="uncheckAll">{{ 'salary-j.pages.nothing' | trans( {},'SalaryJ' ) }}</a>
+            </div>
+            
+            {{ form_start( form, { 'action': path( 'salaryj_users_index' ), 'method': 'POST' } ) }}
+				<table cellpadding="2" cellspacing="1" width="100%" class="table">
+					<thead class="table-dark">
+    					<tr class="TableHead">
+    						<th>&nbsp;</th>
+    						<th>{{ 'salary-j.form.username' | trans( {},'SalaryJ' ) }}</th>
+    						<th>{{ 'salary-j.form.name' | trans( {},'SalaryJ' ) }} / {{ 'salary-j.form.email' | trans( {},'SalaryJ' ) }}</th>
+    						<th>{{ 'salary-j.form.user_roles' | trans( {},'SalaryJ' ) }}</th>
+    						<th>{{ 'salary-j.form.allowed_applications' | trans( {},'SalaryJ' ) }}</th>
+    						<th>{{ 'salary-j.form.last_logged_in' | trans( {},'SalaryJ' ) }}</th>
+    					</tr>
+    				</thead>
+    				
+    				<tbody>
+        				{% for user in users %}
+        					<tr {cycle values=",class='TableSubHead'"}>
+        						<td width="5">
+        							<input type="checkbox" name="user[{{ user.id }}]" {% if app.user.id == user.id %}disabled="disabled"{% endif %} />
+        						</td>
+        						<td>
+        							<a href="{{ path( 'salaryj_users_update', {'userId': user.id} ) }}" title="{{ 'salary-j.form.modify_profile' | trans( {},'SalaryJ' ) }}">
+        							   {{ user.username }}
+        							</a>
+        						</td>
+        						<td>
+        							<a href="{{ path( 'salaryj_users_update', {'userId': user.id} ) }}" title="{{ 'salary-j.form.modify_profile' | trans( {},'SalaryJ' ) }}">
+        							    <font class="ItemsList">{{ user.info.fullName }}</font> / {{ user.email }}
+        							</a>
+        						</td>
+        						<td>
+        					         {{ user.roles | join(' , ')  }}
+        						</td>
+        						<td>
+        						    {% for userApp in user.applications %}
+        						        {{ userApp.title  }}{% if not loop.last %}, {% endif %}
+        						    {% endfor %}
+                                </td>
+        						<td nowrap="nowrap">{{ user.lastLogin | date( 'd.m.Y H:i:s' ) }}</td>
+        					</tr>
+        				{% endfor %}
+    					<tr>
+    						<td colspan="5" class="SubmitBox">
+    							<input type="button"
+    								value="{{ 'salary-j.form.add_new_user' | trans( {},'SalaryJ' ) }}"
+    								class="btn btn-secondary"
+    							   	onclick="document.location='{{ path( 'salaryj_users_update', {'userId': 0} ) }}';"
+    							/>
+    							<input type="button"
+    								value="{{ 'salary-j.form.delete_selected' | trans( {},'SalaryJ' ) }}"
+    								class="btn btn-secondary"
+    							   	onclick="javascript: if (checkMarks(this.form, new RegExp('^user\\[.+\\]', 'gi'))) submitForm(this, 'delete');"
+    							/>
+    						</td>
+    					</tr>
+    				</tbody>
+				</table>
+			{{ form_end(form, {'render_rest': false}) }}
+            
+        </div>
+    </div>
+{% endblock %}
+
+{% block body_javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags( 'js/pages/users', null, 'SalaryjSbadminThemeConfig' ) }}
+{% endblock %}

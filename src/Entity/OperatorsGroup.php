@@ -3,68 +3,45 @@
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Sylius\Component\Resource\Model\ResourceInterface;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 
-use Vankosoft\ApplicationBundle\Model\Interfaces\TaxonInterface;
-use Vankosoft\ApplicationBundle\Model\Taxon;
+use Sylius\Component\Resource\Model\ResourceInterface;
+use Vankosoft\ApplicationBundle\Model\Interfaces\TaxonDescendentInterface;
+use Vankosoft\ApplicationBundle\Model\Traits\TaxonDescendentEntity;
 use Vankosoft\ApplicationBundle\Model\Interfaces\ApplicationRelationInterface;
 use Vankosoft\ApplicationBundle\Model\Traits\ApplicationRelationEntity;
+use Vankosoft\ApplicationBundle\Model\Interfaces\UserAwareInterface;
+use Vankosoft\ApplicationBundle\Model\Traits\UserAwareEntity;
 
-/**
- * OperatorsGroups
- *
- * @ORM\Table(name="JUN_OperatorsGroups")
- * @ORM\Entity
- */
-class OperatorsGroup implements ResourceInterface, ApplicationRelationInterface
+#[ORM\Entity]
+#[ORM\Table(name: "JUN_OperatorsGroups")]
+#[Gedmo\SoftDeleteable(fieldName: "deletedAt", timeAware: false, hardDelete: false)]
+class OperatorsGroup implements ResourceInterface, TaxonDescendentInterface, ApplicationRelationInterface, UserAwareInterface
 {
+    use TaxonDescendentEntity;
     use ApplicationRelationEntity;
+    use UserAwareEntity;
+    use TimestampableEntity;
+    use SoftDeleteableEntity;
     
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
+    /** @var int */
+    #[ORM\Id, ORM\Column(type: "integer"), ORM\GeneratedValue(strategy: "IDENTITY")]
     private $id;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=64, nullable=false)
-     */
-    private $name;
     
-    /**
-     * @var Collection|Operator[]
-     * 
-     * @ORM\OneToMany(targetEntity="App\Entity\Operator", mappedBy="group")
-     */
-    protected $operators;
+    /** @var Collection|Operator[] */
+    #[ORM\OneToMany(targetEntity: "Operator", mappedBy: "group", cascade: ["persist", "remove"], orphanRemoval: true)]
+    private $operators;
     
-    /**
-     * @var TaxonInterface
-     * 
-     * @ORM\ManyToOne(targetEntity="Vankosoft\ApplicationBundle\Model\Interfaces\TaxonInterface", inversedBy="children", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(name="taxon_id", referencedColumnName="id", nullable=false)
-     */
-    protected $taxon;
+    /** @var OperatorsGroup */
+    #[ORM\ManyToOne(targetEntity: "OperatorsGroup", inversedBy: "children", cascade: ["all"], fetch: "EAGER")]
+    #[ORM\JoinColumn(name: "parent_id", referencedColumnName: "id", onDelete: "CASCADE", nullable: true)]
+    private $parent;
     
-    /**
-     * @var OperatorsGroup
-     * 
-     * @ORM\ManyToOne(targetEntity="App\Entity\OperatorsGroup", inversedBy="children", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(name="taxon_id", referencedColumnName="id", nullable=true)
-     */
-    protected $parent;
-    
-    /**
-     * @var Collection|OperatorsGroup[]
-     * 
-     * @ORM\OneToMany(targetEntity="App\Entity\OperatorsGroup", mappedBy="parent")
-     */
-    protected $children;
+    /** @var Collection|OperatorsGroup[] */
+    #[ORM\OneToMany(targetEntity: "OperatorsGroup", mappedBy: "parent")]
+    private $children;
     
     public function __construct()
     {
@@ -75,18 +52,6 @@ class OperatorsGroup implements ResourceInterface, ApplicationRelationInterface
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
     }
 
     /**
@@ -115,22 +80,6 @@ class OperatorsGroup implements ResourceInterface, ApplicationRelationInterface
         }
         
         return $this;
-    }
-    
-    /**
-     * {@inheritdoc}
-     */
-    public function getTaxon(): ?TaxonInterface
-    {
-        return $this->taxon;
-    }
-    
-    /**
-     * {@inheritdoc}
-     */
-    public function setTaxon(?TaxonInterface $taxon): void
-    {
-        $this->taxon = $taxon;
     }
     
     /**

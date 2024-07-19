@@ -4,6 +4,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Sylius\Component\Resource\Repository\RepositoryInterface;
 
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
@@ -19,21 +20,24 @@ class UserForm extends UserFormType
 {
     use UserInfoFormTrait;
     
-    private Orm $ormComponent;
+    /** @var Orm */
+    private $ormComponent;
     
     public function __construct(
-        RequestStack $requestStack,
         string $dataClass,
+        RepositoryInterface $localesRepository,
+        RequestStack $requestStack,
         string $applicationClass,
         AuthorizationCheckerInterface $auth,
+        array $requiredFields,
         Orm $ormComponent
     ) {
-        parent::__construct( $requestStack, $dataClass, $applicationClass, $auth );
+        parent::__construct( $dataClass, $localesRepository, $requestStack, $applicationClass, $auth, $requiredFields );
         
         $this->ormComponent = $ormComponent;
     }
     
-    public function buildForm( FormBuilderInterface $builder, array $options )
+    public function buildForm( FormBuilderInterface $builder, array $options ): void
     {
         parent::buildForm( $builder, $options );
         
@@ -47,14 +51,6 @@ class UserForm extends UserFormType
          * Custom Fields
          */
         $builder
-            // UserInfo: Title
-            ->add( 'title', ChoiceType::class, [
-                'mapped'                => false,
-                'label'                 => 'salary-j.form.users.user_title',
-                'translation_domain'    => 'SalaryJ',
-                'choices'               => \array_flip( $this->ormComponent->userTitleChoices() ),
-            ])
-            
             ->add( 'mobile', TelType::class, [
                 'mapped'                => false,
                 'label'                 => 'salary-j.form.users.phone',
@@ -63,7 +59,7 @@ class UserForm extends UserFormType
         ;
     }
     
-    public function configureOptions( OptionsResolver $resolver ) : void
+    public function configureOptions( OptionsResolver $resolver ): void
     {
         parent::configureOptions( $resolver );
         
@@ -77,8 +73,10 @@ class UserForm extends UserFormType
                 'csrf_protection'       => false,
                 
                 'profilePictureMapped'  => false,
+                'titleMapped'           => false,
                 'firstNameMapped'       => false,
                 'lastNameMapped'        => false,
+                'designationMapped'     => false,
             ])
         ;
     }

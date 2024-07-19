@@ -4,19 +4,22 @@ imports:
     - { resource: services/forms.yaml }
     - { resource: services/doctrine_extensions.yaml }
     - { resource: services/menu.yaml }
+    - { resource: services/widgets.yaml }
+    - { resource: services/commands.yaml }
     - { resource: services/salary_j.yaml }
     
 parameters:
-    lang: 'en'
-    locale: 'en_US'
-    languages:
-        en: English
-        bg: Български
+    lang: 'bg'
+    locale: 'bg_BG'
 
-    vankosoft_host: '%env(HOST)%'    
-    applicationTitle: 'Salary J'
+    vankosoft_host: '%env(HOST)%'
+    applicationCompany: VankoSoft
+    applicationTitle: salary-j.applications.junona_test_application
+    hasTopSearch: false
+    applicationCode: 'salary-j'
     
-    vs_application.version: !php/const App\SalaryJKernel::VERSION
+    vs_agent.enabled: false
+    vs_application.version: !php/const App\JunonaTestApplicationKernel::VERSION
     vs_application.public_dir: "%kernel.project_dir%/public/salary-j"
     
     vs_users.login_route: 'app_login'
@@ -30,8 +33,6 @@ parameters:
     vs_users.gc_maxlifetime: 1800   # 30 minutes
     vs_users.cookie.domain: '%env(COOKIE_DOMAIN)%'
     vs_users.cookie.lifetime: 86400 # 24 hours
-    vs_users.api_token.domain: '%env(API_TOKEN_DOMAIN)%'
-    vs_users.api_token.lifetime: 3600
     
     # Gaufrette File Systems
     vs_cms.gaufrette.profile.filesystem: vs_application_profile
@@ -55,5 +56,12 @@ services:
             - '../../../src/Form/'
             - '../../../src/Tests/'
             - '../../../src/Controller/'
-            - '../../../src/SalaryJKernel.php'
+            - '../../../src/Widgets/'
+            - '../../../src/Command/'
+            - '../../../src/JunonaTestApplicationKernel.php'
         autowire: true
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
+    
+    

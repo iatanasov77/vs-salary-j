@@ -23,13 +23,25 @@ class DefaultController extends AbstractController
             $this->templatingEngine     = $templatingEngine;
     }
     
-//     public function index( Request $request ): Response
-//     {
-//         return new Response( $this->templatingEngine->render( $this->getTemplate(), [] ) );
-//     }
     public function index( Request $request ): Response
     {
         return $this->redirect( $this->generateUrl( 'salaryj_operators_index', ['groupId' => 1] ) );
+    }
+    
+    public function setLanguage( Request $request ): Response
+    {
+        $lang   = $request->attributes->get( 'lang' );
+        $request->getSession()->set( '_locale', $lang );
+        
+        return $this->redirect( $request->headers->get( 'referer' ) );
+    }
+    
+    public function setLocale( Request $request ): Response
+    {
+        $locale   = $request->attributes->get( 'locale' );
+        $request->getSession()->set( '_locale', $locale );
+        
+        return $this->redirect( $request->headers->get( 'referer' ) );
     }
     
     protected function getTemplate(): string

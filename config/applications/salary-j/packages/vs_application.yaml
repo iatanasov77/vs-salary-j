@@ -32,50 +32,124 @@ vs_application:
         locale:
             classes:
                 model: App\Entity\Application\Locale
+        cookie_consent_translation:
+            classes:
+                model: App\Entity\Application\CookieConsentTranslation
+        tags_whitelist_context:
+            classes:
+                model: App\Entity\Application\TagsWhitelistContext
+        tags_whitelist_tag:
+            classes:
+                model: App\Entity\Application\TagsWhitelistTag
+        widget_group:
+            classes:
+                model: App\Entity\Application\WidgetGroup
+        widget:
+            classes:
+                model: App\Entity\Application\Widget
+        widgets_registry:
+            classes:
+                model: App\Entity\Application\WidgetsRegistry
 
     menu:
         mainApplicationMenu:
             operators_groups:
-                name: salary-j.menu.operators_groups
-                route: salaryj_operatorsgroups_index
+                name: vs_application.menu.operators_groups
+                route: app_operatorsgroups_index
+                attributes:
+                    iconClass: layers
             operators:
-                name: salary-j.menu.operators
-                route: salaryj_operators_index
+                name: vs_application.menu.operators
+                route: app_operators_index
                 routeParameters:
-                  groupId: int
+                    groupId: int
+                attributes:
+                    iconClass: users
             models:
-                name: salary-j.menu.models
-                route: salaryj_models_index
-            salaryjDivider:
-                isDivider: true
-            users:
-                name: salary-j.menu.users
-                route: salaryj_users_index
-            settings:
-                name: salary-j.menu.settings
-                route: salaryj_settings_index
-            appDivider:
-                isDivider: true
-            logout:
-                name: salary-j.menu.logout
-                route: app_logout
+                name: vs_application.menu.models
+                route: app_models_index
+                attributes:
+                    iconClass: grid
+            operations:
+                name: vs_application.menu.operations
+                route: app_operations_index
+                routeParameters:
+                    modelId: int
+                display: false
+            work_count:
+                name: vs_application.menu.work_count
+                route: app_model_work_count
+                routeParameters:
+                    modelId: int
+                display: false
+            work_count_new:
+                name: vs_application.menu.work_count_new
+                route: app_model_work_count_new
+                routeParameters:
+                    modelId: int
+                display: false
+            work_add_operations:
+                name: vs_application.menu.work_add_operations
+                route: app_operators_work_add_operations
+                routeParameters:
+                    operatorId: int
+                display: false
+            work_add_model_operations:
+                name: vs_application.menu.work_add_model_operations
+                route: app_operators_work_add_model_operations
+                routeParameters:
+                    operatorId: int
+                    modelId: int
+                display: false
+            work_browse_operations:
+                name: vs_application.menu.work_browse_operations
+                route: app_operators_work_browse_operations
+                routeParameters:
+                    operatorId: int
+                display: false
+            work_browse_operations_grouped:
+                name: vs_application.menu.work_browse_operations_grouped
+                route: app_operators_work_browse_operations_grouped
+                routeParameters:
+                    operatorId: int
+                display: false
+            work_browse_totals:
+                name: vs_application.menu.work_browse_totals
+                route: app_operators_work_browse_totals
+                routeParameters:
+                    groupId: int
+                display: false
+            users_update:
+                name: vs_application.menu.users_update
+                route: salaryj_users_update
+                routeParameters:
+                    userId: int
+                display: false
 
         profileMenu:
             profile:
-                name: "My Profile"
+                name: vs_application.menu.my_profile
                 route: vs_users_profile_show
                 attributes:
-                    iconClass: "fas fa-user mr-2"
+                    iconClass: "fas fa-user me-2"
+            users:
+                name: vs_application.menu.users
+                route: salaryj_users_index
+                attributes:
+                    iconClass: "fas fa-restroom me-2"
+            settings:
+                name: vs_application.menu.settings
+                route: salaryj_settings_index
+                attributes:
+                    iconClass: "fas fa-cog me-2"
+            appDivider:
+                isDivider: true
             logout:
-                name: "Log Out"
+                name: vs_application.menu.logout
                 route: app_logout
                 attributes:
-                    iconClass: "fas fa-power-off mr-2"
-            documentation:
-                name: "Documentation"
-                uri: "javascript:;"
-                attributes:
-                    iconClass: "fas fa-cog mr-2"
+                    iconClass: "fas fa-power-off me-2"
+            
                     
 
      

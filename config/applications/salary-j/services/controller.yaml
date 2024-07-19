@@ -3,27 +3,28 @@ services:
         autowire: true
         autoconfigure: true
 
-    App\Controller\SalaryJ\:
-        resource: '../../../../src/Controller/SalaryJ'
+    App\Controller\JunonaTestApplication\:
+        resource: '../../../../src/Controller/JunonaTestApplication'
         tags: ['controller.service_arguments']
         autowire: true
     
-    App\Controller\SalaryJ\AuthController:
+    App\Controller\JunonaTestApplication\AuthController:
         tags: ['controller.service_arguments']
         autowire: true
         arguments:
             - '@vs_application.context.application'
             - '@twig'
     
-    App\Controller\SalaryJ\DefaultController:
+    App\Controller\JunonaTestApplication\DefaultController:
         tags: ['controller.service_arguments']
         autowire: true
         arguments:
             - '@vs_application.context.application'
             - '@twig'
-        
-    App\Controller\SalaryJ\UsersController:
+
+    App\Controller\JunonaTestApplication\UsersController:
         arguments:
+            - '@doctrine'
             - '@vs_application.context.application'
             - '@vs_application.repository.application'
             - '@vs_users.manager.user'
@@ -33,21 +34,24 @@ services:
             - '@vs_users.repository.user_roles'
         tags: ['controller.service_arguments']
     
-    App\Controller\JunonaDimitrovgrad\OperatorsGroupsExtController:
+    App\Controller\JunonaTestApplication\OperatorsGroupsExtController:
         arguments:
+            - '@doctrine'
             - "@vs_application.context.application"
             - '@salaryj.repository.operatorsgroups'
             - '@vs_application.slug_generator'
         tags: ['controller.service_arguments']
-    
-    App\Controller\SalaryJ\OperatorsExtController:
+        
+    App\Controller\JunonaTestApplication\OperatorsExtController:
         arguments:
+            - '@doctrine'
             - "@vs_application.context.application"
             - '@salaryj.repository.operators'
         tags: ['controller.service_arguments']
         
-    App\Controller\SalaryJ\ModelsExtController:
+    App\Controller\JunonaTestApplication\ModelsExtController:
         arguments:
+            - '@doctrine'
             - '@twig'
             - '@translator'
             - "@vs_application.context.application"
@@ -58,34 +62,40 @@ services:
             - '@salaryj.repository.operators_work'
         tags: ['controller.service_arguments']
         
-    App\Controller\SalaryJ\SettingsController:
+    App\Controller\JunonaTestApplication\SettingsController:
         arguments:
+            - '@doctrine'
             - '@vs_application.context.application'
             - '@salaryj.repository.settings'
             - '@salaryj.factory.settings'
         tags: ['controller.service_arguments']
         
-    App\Controller\SalaryJ\OperationsExtController:
+    App\Controller\JunonaTestApplication\OperationsExtController:
         arguments:
+            - '@doctrine'
             - '@vs_application.context.application'
             - '@salaryj.repository.models'
+            - "@salaryj.repository.settings"
             - '@salaryj.repository.operations'
             - '@salaryj.factory.operations'
         tags: ['controller.service_arguments']
         
-    App\Controller\SalaryJ\OperatorsWorkController:
+    App\Controller\JunonaTestApplication\OperatorsWorkController:
         arguments:
+            - '@doctrine'
             - '@twig'
             - '@translator'
+            - '@knp_paginator'
             - '@vs_application.context.application'
             - '@salaryj.repository.operators'
             - '@salaryj.repository.operators_work'
             - '@salaryj.repository.models'
             - '@salaryj.repository.operations'
             - '@salaryj.repository.operatorsgroups'
+            - '@salaryj.repository.settings'
         tags: ['controller.service_arguments']
 
-    App\Controller\SalaryJ\PrintController:
+    App\Controller\JunonaTestApplication\PrintController:
         arguments:
             - '@translator'
             - '@vs_application.context.application'
@@ -94,3 +104,5 @@ services:
             - '@salaryj.repository.operatorsgroups'
             - '@salaryj.repository.models'
         tags: ['controller.service_arguments']
+    
+    

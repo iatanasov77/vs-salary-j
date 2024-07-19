@@ -2,7 +2,7 @@
 
 use Symfony\Component\HttpFoundation\Request;
 use Vankosoft\ApplicationBundle\Controller\AbstractCrudController;
-use Vankosoft\ApplicationBundle\Controller\TaxonomyHelperTrait;
+use Vankosoft\ApplicationBundle\Controller\Traits\TaxonomyHelperTrait;
 
 use App\Form\OperatorsGroupsIndexForm;
 
@@ -12,18 +12,22 @@ class OperatorsGroupsController extends AbstractCrudController
     
     protected function customData( Request $request, $entity = NULL ): array
     {        
-        $configuration  = $this->requestConfigurationFactory->create( $this->metadata, $this->currentRequest );
+        $configuration  = $this->requestConfigurationFactory->create( $this->metadata, $request );
         $form           = $this->resourceFormFactory->create( $configuration, $this->getFactory()->createNew() );
         
         $groupsIndexed = [];
         foreach ( $this->resources as $gr ) {
             $groupsIndexed[$gr->getId()] = $gr;
         }
+        $indexForm  = $this->createForm( OperatorsGroupsIndexForm::class, ['operators_groups' => $groupsIndexed], [
+            'action'    => $this->generateUrl( 'app_groups_ext_update' ),
+            'method'    => 'POST',
+        ]);
         
         return [
             'application'   => $this->get( 'vs_application.context.application' )->getApplication(),
             'form'          => $form->createView(),
-            'index_form'    => $this->createForm( OperatorsGroupsIndexForm::class, ['operators_groups' => $groupsIndexed] )->createView(),
+            'index_form'    => $indexForm->createView(),
         ];
     }
     

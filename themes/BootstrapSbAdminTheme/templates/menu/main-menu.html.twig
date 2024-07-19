@@ -1,0 +1,29 @@
+{% extends 'knp_menu.html.twig' %}
+
+{% block root %}
+    <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+        <div class="sb-sidenav-menu">
+            <div class="nav">
+                <div class="sb-sidenav-menu-heading">{{ 'vs_application.menu.main_menu_title' | trans( {},'VSApplicationBundle' ) }}</div>
+                {% for parentItem in item.children %}
+                	{% if( parentItem.displayed ) %}
+                        <a class="nav-link" href="{{ parentItem.uri }}">
+                            <div class="sb-nav-link-icon">
+                            	{% if parentItem.attributes.iconClass is defined %}
+                            		<i data-feather="{{ parentItem.attributes.iconClass }}"></i> 
+                            	{% else %}
+                            		<i class="fas fa-tachometer-alt"></i>
+                            	{% endif %}
+                            </div>
+                            {{ parentItem.name }}
+                        </a>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="sb-sidenav-footer">
+            <div class="small">{{ 'salary-j.layout.logedin_as' | trans( {},'SalaryJ' ) }}:</div>
+            {{ app.user.username }}
+        </div>
+    </nav>
+{% endblock %}

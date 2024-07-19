@@ -2,10 +2,11 @@ twig:
     default_path: '%kernel.project_dir%/templates'
 
     globals:
-        applicationIcon: 'build/images/sf-positive.svg'
+        app_environment: '%env(APP_ENV)%'
+        applicationIcon: '%applicationIcon%'
+        applicationCompany: '%applicationCompany%'
         applicationTitle: '%applicationTitle%'
-        lang: '%lang%'
-        locale: '%locale%'
+        hasTopSearch: '%hasTopSearch%'
         formCreateAccount: '%vs_users.form_create_account%'
         webSiteUrl: "http://website.url"
         installedBundles: '%kernel.bundles%'

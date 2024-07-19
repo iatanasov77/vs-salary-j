@@ -1,0 +1,22 @@
+vs_application:
+    template:
+        vankosoft_application: Юнона
+    
+    menu:
+        main_menu_title: Основно Меню
+        operators_groups: Групи Оператори
+        operators: Оператори
+        models: Модели
+        operations: Операции
+        work_count: Изработени
+        work_count_new: Заработка (НОВО)
+        work_add_operations: Добавяне Операции за Оператор
+        work_add_model_operations: Добавяне Операции за Модел
+        work_browse_operations: Изработени Операции от Оператор
+        work_browse_operations_grouped: Изработени Операции от Оператор ( Групирано )
+        work_browse_totals: Изработени Операции от Група
+        users: Потребители
+        users_update: Потребителски Данни
+        settings: Настройки
+        logout: Изход
+

@@ -1,0 +1,25 @@
+.sb-topnav .navbar-brand {
+    width: auto !important;
+    margin-right: 5px !important;
+}
+
+td.align-middle .form-control,
+td.align-middle .form-select {
+	display: inline !important;
+}
+
+.daterangepicker {
+	text-align: center !important;
+}
+
+.date-range-picker-widget .fa-calendar {
+	margin-right: 5px;
+}
+
+.date-range-picker-widget .fa-caret-down {
+	margin-left: 5px;
+}
+
+.user-edit-form .card-header.sub-header {
+	background-color: unset !important;
+}

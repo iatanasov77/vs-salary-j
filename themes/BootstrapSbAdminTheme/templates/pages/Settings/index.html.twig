@@ -1,0 +1,31 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            {{ 'vs_application.menu.settings' | trans( {},'VSApplicationBundle' ) }}
+        </div>
+        <div class="card-body">
+	
+            {{ form_start(form, { 'action': path('salaryj_settings_update'), 'method': 'POST' }) }}
+            	{% for key, set in settings %}
+                	<div class="form-group">
+                		{{ form_label( form[key], null, {
+                            'label_attr': {'class': 'col-form-label'}
+                            }) 
+                        }}
+                        
+                        {{ form_widget( form[key], {'attr': {'class': 'form-control'}, 'value': set.value} ) }}
+                	</div>
+            	{% endfor %}
+            	
+            	<input type="submit" name="sub_settings"
+            		value="{{ 'salary-j.form.save' | trans( {},'SalaryJ' ) }}"
+            		class="btn btn-secondary mt-4"
+            	/>
+        	{{ form_end(form, {'render_rest': false}) }}
+	
+        </div>
+    </div>
+{% endblock %}

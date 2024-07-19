@@ -2,6 +2,8 @@
 
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\AbstractQuery;
+use App\Entity\Operator;
+use App\Entity\Operation;
 
 /**
  * MANUALS USING VIEWS:
@@ -11,7 +13,14 @@ use Doctrine\ORM\AbstractQuery;
  */
 class OperatorsWorkRepository extends EntityRepository
 {
-    public function getOperatorWorkMaxId( $operator, $operation, $date ): ?int
+    /**
+     * 
+     * @param int $operator
+     * @param int $operation
+     * @param string $date
+     * @return int|NULL
+     */
+    public function getOperatorWorkMaxId( int $operator, int $operation, string $date ): ?int
     {
         $entityManager  = $this->getEntityManager();
         $qb             = $entityManager->createQueryBuilder( 'ow' )
@@ -26,7 +35,15 @@ class OperatorsWorkRepository extends EntityRepository
         return intval ( $result[0]['maxId'] );
     }
     
-    public function getWorkForOperator( $operator, $startDate, $endDate, $groupOperations = false ): array
+    /**
+     * 
+     * @param Operator $operator
+     * @param \DateTime $startDate
+     * @param \DateTime $endDate
+     * @param bool $groupOperations
+     * @return array
+     */
+    public function getWorkForOperator( Operator $operator, \DateTime $startDate, \DateTime $endDate, bool $groupOperations = false ): array
     {
         $entityManager  = $this->getEntityManager();
         $qb             = $entityManager->createQueryBuilder( 'owt' )
@@ -80,11 +97,11 @@ class OperatorsWorkRepository extends EntityRepository
     /**
      * Got from JunObjectsFactory::operatorsWork
      *
-     * @param unknown $groupId
-     * @param unknown $minDate
-     * @param unknown $maxDate
+     * @param int $groupId
+     * @param \DateTime $minDate
+     * @param \DateTime $maxDate
      */
-    public function getOperatorsWork( $groupId, $minDate, $maxDate )
+    public function getOperatorsWork( int $groupId, \DateTime $minDate, \DateTime $maxDate )
     {
         // SELECT operators_id, operator_name, SUM(total) AS sub_total FROM JUN_OperatorsWorkTotals WHERE group_id IS NULL AND date = '2021-10-29' GROUP BY operators_id ORDER BY operator_name
         $entityManager  = $this->getEntityManager();
@@ -93,7 +110,7 @@ class OperatorsWorkRepository extends EntityRepository
                                         ->select([
                                             'owt.operatorId AS operatorId',
                                             'owt.operatorName AS operatorName',
-                                            'MAX(owt.total) AS subTotal',
+                                            'SUM(owt.total) AS subTotal',
                                         ])
                                         ->from( 'App\Entity\OperatorsWorkTotals', 'owt' )
                                         ->groupBy( 'owt.operatorId' )
@@ -142,14 +159,14 @@ class OperatorsWorkRepository extends EntityRepository
      * ORDER BY CAST(operation_id AS UNSIGNED)
      * 
      * 
-     * @param unknown $modelId
-     * @param unknown $minDate
-     * @param unknown $maxDate
+     * @param int $modelId
+     * @param \DateTime | string  $minDate
+     * @param \DateTime | string  $maxDate
      * @param boolean $groupOperations
      * 
      * @return unknown[]|number[][]|NULL[][]
      */
-    public function getOperationsWorkCount( $modelId, $minDate, $maxDate, $groupOperations = false )
+    public function getOperationsWorkCount( int $modelId, mixed $minDate, mixed $maxDate, bool $groupOperations = false )
     {
         $entityManager  = $this->getEntityManager();
         $qb             = $entityManager->createQueryBuilder( 'owt' )
@@ -199,12 +216,32 @@ class OperatorsWorkRepository extends EntityRepository
         ];
     }
     
+    public function getOperatorsWorkForFix( \DateTime $startDate, \DateTime $endDate ): array
+    {
+        $entityManager  = $this->getEntityManager();
+        $qb             = $entityManager->createQueryBuilder( 'ow' )
+                                        ->select( 'ow' )
+                                        ->from( 'App\Entity\OperatorsWork', 'ow' )
+                                        ->andWhere( 'ow.unitPrice = 0' )
+                                        ->andWhere( 'ow.date >= :minDate' )
+                                        ->andWhere( 'ow.date <= :maxDate' )
+                                        ->setParameter( 'minDate', $startDate )
+                                        ->setParameter( 'maxDate', $endDate );
+        
+        return $qb->getQuery()->getResult( AbstractQuery::HYDRATE_OBJECT );
+    }
+    
+    /**
+     * 
+     * @return array
+     */
     private function groupOperationsSelect(): array
     {
         return [
             'owt.modelNumber AS modelNumber',
             'owt.modelName AS modelName',
             'owt.operationId AS operationId',
+            'owt.operationNumber AS operationNumber',
             'owt.operationName AS operationName',
             'MAX(owt.price) AS max_price',
             'SUM(owt.count) AS sum_count',

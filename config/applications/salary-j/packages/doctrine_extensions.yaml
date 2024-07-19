@@ -8,6 +8,10 @@ stof_doctrine_extensions:
             sluggable:      true
             tree:           true
             translatable:   true
+            softdeleteable: true
+            loggable:       true
+            sortable:       true
+            
             #blameable:      false
             #uploadable:     false
  

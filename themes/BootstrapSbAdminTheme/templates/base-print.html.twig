@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="{{ app.request.locale|slice(0, 2) }}">
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}{{ applicationTitle }}{% endblock %}</title>
+        <link rel="icon" type="image/png" href="{{ asset( 'build/salaryj-sbadmin-theme/images/vankosoft-thumb.png' ) }}" />
+        
+        {% block stylesheets %}
+            {{ encore_entry_link_tags( 'css/app', null, 'SalaryjSbadminThemeConfig' ) }}
+        {% endblock %}
+    </head>
+    <body>
+    	<div class="row">
+    		<div class="col-12">
+	            {% block content %}{% endblock %}
+	        </div>
+	    </div>
+	    <div class="row mb-4">
+    		<div class="col-12 text-center">
+				<input type="button"
+					class="btn btn-secondary"
+					value="{{ 'salary-j.pages.print' | trans( {},'SalaryJ' ) }}"
+					onclick="javascript:print();"
+				/>		
+    		</div>
+    	</div>
+    </body>
+</html>

@@ -1,6 +1,6 @@
 app_home:
     path: /
-    controller: App\Controller\SalaryJ\DefaultController::index
+    controller: App\Controller\JunonaTestApplication\DefaultController::index
 
 admin_panel:
     path: /admin
@@ -8,7 +8,8 @@ admin_panel:
 
 app_set_lang:
     path: /set_lang/{lang}
-    controller: App\Controller\Aplication\DefaultController::setLanguage
-    
-fos_js_routing:
-    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing-sf4.xml"
+    controller: App\Controller\JunonaTestApplication\DefaultController::setLanguage
+
+app_set_locale:
+    path: /set_locale/{locale}
+    controller: App\Controller\JunonaTestApplication\DefaultController::setLocale

@@ -1,0 +1,18 @@
+{% extends 'knp_menu.html.twig' %}
+
+{% block root %}
+    {% set breadcrumbs = knp_menu_get_breadcrumbs_array(item) %}
+    
+    <ol class="breadcrumb mb-4">
+        {% for link in breadcrumbs %}
+            {%- if loop.index == 1 %}
+                <li class="breadcrumb-item"><a href="/">{{ 'vs_application.menu.home' | trans( {},'VSApplicationBundle' ) }}</a></li>
+            {%- elseif not loop.last %}
+                <li class="breadcrumb-item"><a href="{{ link.uri }}">{{ link.label }}</a></li>
+            {%- else %}
+                <li class="breadcrumb-item active" id="CurrentBreadcrumb">{{ link.label }}</li>
+            {%- endif %}
+            
+        {%- endfor %}
+    </ol>
+{% endblock %}
